@@ -18,17 +18,22 @@ export default function ProductFilters() {
     "Women's Fashion",
     "Men's Fashion", 
     "Accessories",
-    "Shoes",
-    "Bags",
-    "Jewelry"
+    "Elektronik",
+    "Spor",
+    "Kitap & Hobi"
   ];
 
   const brands = [
-    "EliteWear",
-    "LuxeFashion", 
-    "UrbanStyle",
-    "ClassicMode",
-    "TrendyLook"
+    "EliteDesign",
+    "LuxuryBrand", 
+    "SportStyle",
+    "TechSound",
+    "SmartTech",
+    "RunMax",
+    "YogaLife",
+    "YayınEvi",
+    "PuzzleMaster",
+    "SwissMade"
   ];
 
   const ratings = [5, 4, 3, 2, 1];

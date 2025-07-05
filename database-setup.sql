@@ -128,7 +128,10 @@ CREATE TABLE [dbo].[OrderItems] (
 INSERT INTO [dbo].[Categories] ([Name], [Slug], [Image], [Description]) VALUES
 ('Women''s Fashion', 'womens-fashion', 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=300&fit=crop', 'Trendy clothing and accessories for women'),
 ('Men''s Fashion', 'mens-fashion', 'https://images.unsplash.com/photo-1617137984095-74e4e2e3d6e2?w=400&h=300&fit=crop', 'Stylish clothing and accessories for men'),
-('Accessories', 'accessories', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop', 'Bags, jewelry, watches and more');
+('Accessories', 'accessories', 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop', 'Bags, jewelry, watches and more'),
+('Elektronik', 'elektronik', 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400&h=300&fit=crop', 'En son teknoloji ürünleri'),
+('Spor', 'spor', 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop', 'Spor ve fitness ürünleri'),
+('Kitap & Hobi', 'kitap-hobi', 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=300&fit=crop', 'Kitaplar ve hobi ürünleri');
 
 -- Insert sample products
 INSERT INTO [dbo].[Products] ([Name], [Description], [Price], [OriginalPrice], [Image], [CategoryId], [Brand], [Color], [Size], [Material], [StockQuantity], [InStock], [Featured], [Sale], [Rating], [ReviewCount]) VALUES
@@ -137,6 +140,12 @@ INSERT INTO [dbo].[Products] ([Name], [Description], [Price], [OriginalPrice], [
 ('Casual Sport Jacket', 'Comfortable and stylish for everyday wear', 149.00, NULL, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=500&fit=crop', 2, 'SportStyle', 'Navy Blue', 'L', 'Cotton Blend', 30, 1, 1, 0, 4.6, 156),
 ('Designer Sneakers', 'Premium comfort meets street style', 179.00, NULL, 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop', 3, 'StreetStyle', 'White', '42', 'Canvas & Rubber', 20, 1, 1, 0, 4.7, 203),
 ('Classic White Shirt', 'Timeless elegance for professional settings', 89.00, 120.00, 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&h=500&fit=crop', 1, 'Classic', 'White', 'M', 'Cotton', 50, 1, 0, 1, 4.5, 78),
-('Premium Watch', 'Luxury timepiece with Swiss movement', 599.00, NULL, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop', 3, 'SwissMade', 'Silver', NULL, 'Stainless Steel', 10, 1, 0, 0, 4.8, 45);
+('Premium Watch', 'Luxury timepiece with Swiss movement', 599.00, NULL, 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop', 3, 'SwissMade', 'Silver', NULL, 'Stainless Steel', 10, 1, 0, 0, 4.8, 45),
+('Kablosuz Bluetooth Kulaklık', 'Yüksek ses kalitesi ve noise cancellation teknolojisi', 299.00, 399.00, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=500&fit=crop', 4, 'TechSound', 'Siyah', NULL, 'Plastik & Metal', 45, 1, 1, 1, 4.6, 234),
+('Akıllı Telefon', '128GB depolama alanı ve yüksek çözünürlüklü kamera', 899.00, NULL, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&h=500&fit=crop', 4, 'SmartTech', 'Mavi', '6.1 inch', 'Alüminyum & Cam', 25, 1, 1, 0, 4.8, 456),
+('Koşu Ayakkabısı', 'Hafif ve nefes alabilir yapı ile maksimum konfor', 199.00, 249.00, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=500&fit=crop', 5, 'RunMax', 'Beyaz', '42', 'Sentetik Kumaş', 60, 1, 1, 1, 4.7, 189),
+('Yoga Matı', 'Kaymaz taban ve ekstra kalın yapı', 89.00, NULL, 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=500&fit=crop', 5, 'YogaLife', 'Mor', '180x60 cm', 'TPE', 35, 1, 0, 0, 4.5, 98),
+('Kişisel Gelişim Kitabı', 'Hayatınızı değiştirecek pratik öneriler', 45.00, 60.00, 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=500&fit=crop', 6, 'YayınEvi', NULL, '14x21 cm', 'Kağıt', 120, 1, 1, 1, 4.9, 167),
+('Puzzle 1000 Parça', 'Doğa manzaralı eğlenceli puzzle', 35.00, NULL, 'https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=500&fit=crop', 6, 'PuzzleMaster', 'Renkli', '70x50 cm', 'Karton', 75, 1, 0, 0, 4.4, 89);
 
 PRINT 'Azure SQL Database setup completed successfully!';
