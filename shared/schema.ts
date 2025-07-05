@@ -1,4 +1,5 @@
 import { pgTable, text, serial, integer, boolean, decimal, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -93,3 +94,36 @@ export type CartItem = typeof cartItems.$inferSelect;
 export type CartItemWithProduct = CartItem & {
   product: Product;
 };
+
+// Relations
+export const usersRelations = relations(users, ({ many }) => ({
+  products: many(products),
+  cartItems: many(cartItems),
+}));
+
+export const categoriesRelations = relations(categories, ({ many }) => ({
+  products: many(products),
+}));
+
+export const productsRelations = relations(products, ({ one, many }) => ({
+  category: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
+  seller: one(users, {
+    fields: [products.sellerId],
+    references: [users.id],
+  }),
+  cartItems: many(cartItems),
+}));
+
+export const cartItemsRelations = relations(cartItems, ({ one }) => ({
+  product: one(products, {
+    fields: [cartItems.productId],
+    references: [products.id],
+  }),
+  user: one(users, {
+    fields: [cartItems.userId],
+    references: [users.id],
+  }),
+}));

@@ -1,4 +1,6 @@
 import { users, categories, products, cartItems, type User, type InsertUser, type Category, type InsertCategory, type Product, type InsertProduct, type CartItem, type InsertCartItem, type CartItemWithProduct } from "@shared/schema";
+import { db } from "./db";
+import { eq, and, or, ilike, desc } from "drizzle-orm";
 
 export interface IStorage {
   // Users
@@ -669,4 +671,201 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async getCategories(): Promise<Category[]> {
+    return await db.select().from(categories);
+  }
+
+  async getCategory(id: number): Promise<Category | undefined> {
+    const [category] = await db.select().from(categories).where(eq(categories.id, id));
+    return category || undefined;
+  }
+
+  async getCategoryBySlug(slug: string): Promise<Category | undefined> {
+    const [category] = await db.select().from(categories).where(eq(categories.slug, slug));
+    return category || undefined;
+  }
+
+  async createCategory(insertCategory: InsertCategory): Promise<Category> {
+    const [category] = await db
+      .insert(categories)
+      .values(insertCategory)
+      .returning();
+    return category;
+  }
+
+  async getProducts(filters?: { category?: string; featured?: boolean; isNew?: boolean; isOnSale?: boolean; search?: string }): Promise<Product[]> {
+    if (filters) {
+      const conditions = [];
+      
+      if (filters.category) {
+        conditions.push(eq(products.category, filters.category));
+      }
+      if (filters.featured) {
+        conditions.push(eq(products.featured, filters.featured));
+      }
+      if (filters.isNew) {
+        conditions.push(eq(products.isNew, filters.isNew));
+      }
+      if (filters.isOnSale) {
+        conditions.push(eq(products.isOnSale, filters.isOnSale));
+      }
+      if (filters.search) {
+        conditions.push(
+          or(
+            ilike(products.name, `%${filters.search}%`),
+            ilike(products.description, `%${filters.search}%`)
+          )
+        );
+      }
+      
+      if (conditions.length > 0) {
+        return await db.select().from(products).where(and(...conditions)).orderBy(desc(products.createdAt));
+      }
+    }
+    
+    return await db.select().from(products).orderBy(desc(products.createdAt));
+  }
+
+  async getProduct(id: number): Promise<Product | undefined> {
+    const [product] = await db.select().from(products).where(eq(products.id, id));
+    return product || undefined;
+  }
+
+  async getFeaturedProducts(limit: number = 4): Promise<Product[]> {
+    return await db.select().from(products)
+      .where(eq(products.featured, true))
+      .limit(limit)
+      .orderBy(desc(products.createdAt));
+  }
+
+  async getProductsByCategory(categoryId: number): Promise<Product[]> {
+    return await db.select().from(products)
+      .where(eq(products.categoryId, categoryId))
+      .orderBy(desc(products.createdAt));
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const [product] = await db
+      .insert(products)
+      .values(insertProduct)
+      .returning();
+    return product;
+  }
+
+  async getCartItems(sessionId?: string, userId?: number): Promise<CartItemWithProduct[]> {
+    if (userId) {
+      const results = await db.select({
+        id: cartItems.id,
+        productId: cartItems.productId,
+        quantity: cartItems.quantity,
+        userId: cartItems.userId,
+        sessionId: cartItems.sessionId,
+        size: cartItems.size,
+        color: cartItems.color,
+        createdAt: cartItems.createdAt,
+        updatedAt: cartItems.updatedAt,
+        product: products
+      }).from(cartItems)
+      .innerJoin(products, eq(cartItems.productId, products.id))
+      .where(eq(cartItems.userId, userId));
+      
+      return results.map(row => ({
+        id: row.id,
+        productId: row.productId,
+        quantity: row.quantity,
+        userId: row.userId,
+        sessionId: row.sessionId,
+        size: row.size,
+        color: row.color,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+        product: row.product
+      }));
+    } else if (sessionId) {
+      const results = await db.select({
+        id: cartItems.id,
+        productId: cartItems.productId,
+        quantity: cartItems.quantity,
+        userId: cartItems.userId,
+        sessionId: cartItems.sessionId,
+        size: cartItems.size,
+        color: cartItems.color,
+        createdAt: cartItems.createdAt,
+        updatedAt: cartItems.updatedAt,
+        product: products
+      }).from(cartItems)
+      .innerJoin(products, eq(cartItems.productId, products.id))
+      .where(eq(cartItems.sessionId, sessionId));
+      
+      return results.map(row => ({
+        id: row.id,
+        productId: row.productId,
+        quantity: row.quantity,
+        userId: row.userId,
+        sessionId: row.sessionId,
+        size: row.size,
+        color: row.color,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt,
+        product: row.product
+      }));
+    }
+    
+    return [];
+  }
+
+  async addToCart(insertCartItem: InsertCartItem): Promise<CartItem> {
+    const [cartItem] = await db
+      .insert(cartItems)
+      .values(insertCartItem)
+      .returning();
+    return cartItem;
+  }
+
+  async updateCartItemQuantity(id: number, quantity: number): Promise<CartItem | undefined> {
+    const [cartItem] = await db
+      .update(cartItems)
+      .set({ quantity, updatedAt: new Date() })
+      .where(eq(cartItems.id, id))
+      .returning();
+    return cartItem || undefined;
+  }
+
+  async removeFromCart(id: number): Promise<boolean> {
+    const result = await db.delete(cartItems).where(eq(cartItems.id, id)) as any;
+    return (result.rowCount || 0) > 0;
+  }
+
+  async clearCart(sessionId?: string, userId?: number): Promise<boolean> {
+    if (userId) {
+      await (db.delete(cartItems).where(eq(cartItems.userId, userId)) as any);
+      return true;
+    } else if (sessionId) {
+      await (db.delete(cartItems).where(eq(cartItems.sessionId, sessionId)) as any);
+      return true;
+    }
+    
+    return false;
+  }
+}
+
+export const storage = new DatabaseStorage();
