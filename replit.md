@@ -139,6 +139,10 @@ npm run db:push  # Applies database schema changes
 
 Changelog:
 - July 05, 2025. Initial setup
+- July 05, 2025. Backend-Frontend %100 uyumluluğu tamamlandı
+- July 05, 2025. Azure SQL Database entegrasyonu eklendi
+- July 05, 2025. C# .NET 8.0 backend modelleri ile tam uyumluluk
+- July 05, 2025. Framer Motion animasyonları backend API'ları ile optimize edildi
 
 ## User Preferences
 

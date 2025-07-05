@@ -1,0 +1,26 @@
+{
+  "azureDatabase": {
+    "server": "trendify-server.database.windows.net",
+    "database": "TrendifyDB",
+    "authentication": "SqlPassword",
+    "username": "trendify-admin",
+    "connectionTimeout": 30,
+    "encrypt": true,
+    "trustServerCertificate": false,
+    "multipleActiveResultSets": false
+  },
+  "sqlScripts": {
+    "setupDatabase": "database-setup.sql",
+    "migrateData": "migrate-data.sql"
+  },
+  "backendIntegration": {
+    "apiBaseUrl": "https://trendify-api.azurewebsites.net",
+    "endpoints": {
+      "products": "/api/products",
+      "categories": "/api/categories",
+      "cart": "/api/cart",
+      "auth": "/api/auth",
+      "orders": "/api/orders"
+    }
+  }
+}
