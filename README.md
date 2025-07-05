@@ -11,9 +11,11 @@ ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-e
 ## 🌐 Live Demo & Access Links
 
 ### 🚀 Production Sites
-- **Main Application**: [https://elegantcommerce.replit.app](https://elegantcommerce.replit.app)
-- **API Documentation**: [https://trendify-api.azurewebsites.net/swagger](https://trendify-api.azurewebsites.net/swagger)
-- **Admin Dashboard**: [https://elegantcommerce.replit.app/admin](https://elegantcommerce.replit.app/admin)
+- **Main Application**: [http://localhost:3000](http://localhost:3000) *(Currently running locally)*
+- **API Documentation**: [http://localhost:3000/api](http://localhost:3000/api)
+- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
+
+> **Note**: The application is currently configured for local deployment. For cloud deployment (Replit, Vercel, etc.), update the environment variables accordingly.
 
 ### 🔧 Development Environment
 - **Development Server**: `http://localhost:5000` (Frontend)

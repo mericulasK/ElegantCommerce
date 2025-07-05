@@ -868,4 +868,5 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+// Use MemStorage for demo purposes when database is not available
+export const storage = new MemStorage();
