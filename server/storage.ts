@@ -80,7 +80,7 @@ export class MemStorage implements IStorage {
     };
     this.categories.set(accessoriesCategory.id, accessoriesCategory);
 
-    // Products
+    // Products with complete backend compatibility
     const products: Omit<Product, 'id'>[] = [
       {
         name: "Designer Evening Dress",
@@ -91,14 +91,25 @@ export class MemStorage implements IStorage {
         images: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Women's Fashion",
         categoryId: womenCategory.id,
+        sellerId: null,
+        brand: "EliteDesign",
+        color: "Black",
+        size: "M",
+        material: "Silk",
+        weight: null,
+        dimensions: null,
+        stockQuantity: 25,
         inStock: true,
         featured: true,
         isNew: false,
         isOnSale: true,
+        sale: true,
+        discount: 30,
         rating: "4.8",
         reviewCount: 127,
         tags: ["dress", "evening", "silk", "elegant"],
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         name: "Luxury Leather Handbag",
@@ -109,14 +120,25 @@ export class MemStorage implements IStorage {
         images: ["https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Accessories",
         categoryId: accessoriesCategory.id,
+        sellerId: null,
+        brand: "LuxuryBrand",
+        color: "Brown",
+        size: "Medium",
+        material: "Genuine Leather",
+        weight: "0.8",
+        dimensions: "30x20x15 cm",
+        stockQuantity: 15,
         inStock: true,
         featured: true,
         isNew: false,
         isOnSale: false,
+        sale: false,
+        discount: null,
         rating: "4.9",
         reviewCount: 89,
         tags: ["handbag", "leather", "luxury", "accessories"],
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         name: "Casual Sport Jacket",
@@ -127,14 +149,25 @@ export class MemStorage implements IStorage {
         images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Men's Fashion",
         categoryId: menCategory.id,
+        sellerId: null,
+        brand: "SportStyle",
+        color: "Navy Blue",
+        size: "L",
+        material: "Cotton Blend",
+        weight: null,
+        dimensions: null,
+        stockQuantity: 30,
         inStock: true,
         featured: true,
         isNew: true,
         isOnSale: false,
+        sale: false,
+        discount: null,
         rating: "4.6",
         reviewCount: 156,
         tags: ["jacket", "sport", "casual", "men"],
-        createdAt: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         name: "Designer Sneakers",
@@ -306,7 +339,18 @@ export class MemStorage implements IStorage {
       inStock: insertProduct.inStock || null,
       rating: insertProduct.rating || null,
       reviewCount: insertProduct.reviewCount || null,
-      tags: insertProduct.tags || null
+      tags: insertProduct.tags || null,
+      brand: insertProduct.brand || null,
+      color: insertProduct.color || null,
+      size: insertProduct.size || null,
+      material: insertProduct.material || null,
+      weight: insertProduct.weight || null,
+      dimensions: insertProduct.dimensions || null,
+      sellerId: insertProduct.sellerId || null,
+      stockQuantity: insertProduct.stockQuantity || 0,
+      sale: insertProduct.sale || false,
+      discount: insertProduct.discount || null,
+      updatedAt: new Date()
     };
     this.products.set(id, product);
     return product;
@@ -349,7 +393,10 @@ export class MemStorage implements IStorage {
       quantity: insertCartItem.quantity ?? 1,
       userId: insertCartItem.userId ?? null,
       sessionId: insertCartItem.sessionId ?? null,
-      createdAt: new Date()
+      size: null,
+      color: null,
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
     this.cartItems.set(id, cartItem);
     return cartItem;
