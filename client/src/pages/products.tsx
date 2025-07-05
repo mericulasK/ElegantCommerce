@@ -18,7 +18,7 @@ export default function Products() {
   const [showFilters, setShowFilters] = useState(false);
 
   const { data: products = [], isLoading } = useQuery<Product[]>({
-    queryKey: ["/api/products", { category, search: searchQuery }],
+    queryKey: ["/api/products", { category: category === "all" ? "" : category, search: searchQuery }],
   });
 
   const sortedProducts = [...products].sort((a, b) => {
@@ -75,10 +75,13 @@ export default function Products() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="Women's Fashion">Women's Fashion</SelectItem>
                 <SelectItem value="Men's Fashion">Men's Fashion</SelectItem>
                 <SelectItem value="Accessories">Accessories</SelectItem>
+                <SelectItem value="Electronics">Electronics</SelectItem>
+                <SelectItem value="Sports & Outdoors">Sports & Outdoors</SelectItem>
+                <SelectItem value="Books & Hobby">Books & Hobby</SelectItem>
               </SelectContent>
             </Select>
 

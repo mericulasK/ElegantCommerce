@@ -142,9 +142,11 @@ Changelog:
 - July 05, 2025. Backend-Frontend %100 uyumluluğu tamamlandı
 - July 05, 2025. PostgreSQL Database entegrasyonu tamamlandı
 - July 05, 2025. DatabaseStorage sınıfı ile MemStorage değiştirildi
-- July 05, 2025. 6 kategori ve 14 ürün ile veritabanı dolduruldu
-- July 05, 2025. Tüm ürünlere profesyonel resimler ve detaylar eklendi
+- July 05, 2025. 6 kategori ve 26 ürün ile veritabanı dolduruldu
+- July 05, 2025. Tüm kategorilere profesyonel ürünler ve resimler eklendi
 - July 05, 2025. Drizzle ORM ile relations tanımlandı
+- July 05, 2025. SelectItem value hatası düzeltildi
+- July 05, 2025. Her kategoride 4-5 ürün olacak şekilde içerik genişletildi
 
 ## User Preferences
 

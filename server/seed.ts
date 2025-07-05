@@ -331,6 +331,228 @@ export async function seedDatabase() {
       tags: ["backpack", "camping", "hiking", "outdoor"]
     },
 
+    // More Women's Fashion
+    {
+      name: "Luxury Wool Coat",
+      description: "Premium wool coat for cold weather",
+      price: "459.99",
+      originalPrice: "599.99",
+      image: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=600&fit=crop"
+      ],
+      category: "Women's Fashion",
+      categoryId: 1,
+      brand: "LuxeStyle",
+      color: "Beige",
+      size: "M",
+      material: "Wool",
+      stockQuantity: 18,
+      featured: false,
+      isOnSale: true,
+      sale: true,
+      discount: 23,
+      rating: "4.7",
+      reviewCount: 41,
+      tags: ["coat", "wool", "luxury", "winter"]
+    },
+    {
+      name: "Floral Print Midi Dress",
+      description: "Beautiful floral print dress for spring",
+      price: "189.99",
+      image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&h=600&fit=crop"
+      ],
+      category: "Women's Fashion",
+      categoryId: 1,
+      brand: "FloralChic",
+      color: "Multi",
+      size: "S",
+      material: "Cotton",
+      stockQuantity: 32,
+      featured: false,
+      isNew: true,
+      rating: "4.4",
+      reviewCount: 27,
+      tags: ["dress", "floral", "midi", "spring"]
+    },
+
+    // More Men's Fashion
+    {
+      name: "Casual Denim Jacket",
+      description: "Classic denim jacket for casual wear",
+      price: "149.99",
+      image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=500&h=600&fit=crop"
+      ],
+      category: "Men's Fashion",
+      categoryId: 2,
+      brand: "DenimWorks",
+      color: "Blue",
+      size: "L",
+      material: "Denim",
+      stockQuantity: 38,
+      featured: false,
+      rating: "4.2",
+      reviewCount: 31,
+      tags: ["jacket", "denim", "casual", "classic"]
+    },
+    {
+      name: "Premium Wool Sweater",
+      description: "Soft merino wool sweater for comfort",
+      price: "179.99",
+      image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?w=500&h=600&fit=crop"
+      ],
+      category: "Men's Fashion",
+      categoryId: 2,
+      brand: "WoolCraft",
+      color: "Gray",
+      size: "M",
+      material: "Merino Wool",
+      stockQuantity: 26,
+      featured: false,
+      isNew: true,
+      rating: "4.6",
+      reviewCount: 19,
+      tags: ["sweater", "wool", "merino", "comfort"]
+    },
+
+    // More Accessories
+    {
+      name: "Leather Wallet",
+      description: "Handcrafted leather wallet with multiple compartments",
+      price: "89.99",
+      image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1627123424574-724758594e93?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=600&fit=crop"
+      ],
+      category: "Accessories",
+      categoryId: 3,
+      brand: "LeatherCraft",
+      color: "Brown",
+      material: "Leather",
+      stockQuantity: 45,
+      featured: false,
+      rating: "4.5",
+      reviewCount: 63,
+      tags: ["wallet", "leather", "handcrafted", "accessories"]
+    },
+    {
+      name: "Designer Sunglasses",
+      description: "UV protection sunglasses with style",
+      price: "229.99",
+      originalPrice: "299.99",
+      image: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1577803645773-f96470509666?w=500&h=600&fit=crop"
+      ],
+      category: "Accessories",
+      categoryId: 3,
+      brand: "SunStyle",
+      color: "Black",
+      stockQuantity: 34,
+      featured: true,
+      isOnSale: true,
+      sale: true,
+      discount: 23,
+      rating: "4.7",
+      reviewCount: 52,
+      tags: ["sunglasses", "UV", "designer", "style"]
+    },
+
+    // More Electronics
+    {
+      name: "4K Action Camera",
+      description: "Waterproof action camera for adventures",
+      price: "399.99",
+      image: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=500&h=600&fit=crop"
+      ],
+      category: "Electronics",
+      categoryId: 4,
+      brand: "ActionPro",
+      color: "Black",
+      stockQuantity: 22,
+      featured: false,
+      isNew: true,
+      rating: "4.6",
+      reviewCount: 87,
+      tags: ["camera", "4K", "waterproof", "action"]
+    },
+    {
+      name: "Wireless Charging Pad",
+      description: "Fast wireless charging for smartphones",
+      price: "49.99",
+      image: "https://images.unsplash.com/photo-1585337517129-de6d23b4c1a1?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1585337517129-de6d23b4c1a1?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1609592918461-11f51d4b0f86?w=500&h=600&fit=crop"
+      ],
+      category: "Electronics",
+      categoryId: 4,
+      brand: "ChargeTech",
+      color: "White",
+      stockQuantity: 67,
+      featured: false,
+      rating: "4.3",
+      reviewCount: 234,
+      tags: ["wireless", "charging", "fast", "smartphone"]
+    },
+
+    // More Sports & Outdoors
+    {
+      name: "Yoga Mat Pro",
+      description: "Non-slip yoga mat for all practices",
+      price: "79.99",
+      image: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1588286840104-8957b019727f?w=500&h=600&fit=crop"
+      ],
+      category: "Sports & Outdoors",
+      categoryId: 5,
+      brand: "YogaFlow",
+      color: "Purple",
+      material: "TPE",
+      stockQuantity: 48,
+      featured: false,
+      rating: "4.7",
+      reviewCount: 156,
+      tags: ["yoga", "mat", "non-slip", "exercise"]
+    },
+    {
+      name: "Water Bottle Steel",
+      description: "Insulated steel water bottle 24oz",
+      price: "34.99",
+      image: "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&h=600&fit=crop"
+      ],
+      category: "Sports & Outdoors",
+      categoryId: 5,
+      brand: "HydroSteel",
+      color: "Silver",
+      material: "Stainless Steel",
+      stockQuantity: 89,
+      featured: false,
+      rating: "4.8",
+      reviewCount: 267,
+      tags: ["water", "bottle", "insulated", "steel"]
+    },
+
     // Books & Hobby
     {
       name: "Premium Art Set", 
@@ -369,10 +591,54 @@ export async function seedDatabase() {
       rating: "4.8",
       reviewCount: 56,
       tags: ["books", "classics", "literature", "hardcover"]
+    },
+    {
+      name: "Digital Drawing Tablet",
+      description: "Professional drawing tablet for digital artists",
+      price: "299.99",
+      image: "https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1541462608143-67571c6738dd?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=500&h=600&fit=crop"
+      ],
+      category: "Books & Hobby",
+      categoryId: 6,
+      brand: "DrawTech",
+      color: "Black",
+      stockQuantity: 15,
+      featured: true,
+      isNew: true,
+      rating: "4.9",
+      reviewCount: 78,
+      tags: ["tablet", "drawing", "digital", "art"]
+    },
+    {
+      name: "Cookbook Collection",
+      description: "International cuisine cookbook set",
+      price: "59.99",
+      image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&h=600&fit=crop",
+      images: [
+        "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500&h=600&fit=crop",
+        "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=500&h=600&fit=crop"
+      ],
+      category: "Books & Hobby",
+      categoryId: 6,
+      brand: "ChefBooks",
+      stockQuantity: 56,
+      featured: false,
+      rating: "4.5",
+      reviewCount: 92,
+      tags: ["cookbook", "recipes", "cooking", "international"]
     }
   ];
 
-  const insertedProducts = await db.insert(products).values(productsData).returning();
+  // Update categoryId references to match the inserted categories
+  const updatedProductsData = productsData.map(product => ({
+    ...product,
+    categoryId: insertedCategories.find(cat => cat.name === product.category)?.id || 1
+  }));
+
+  const insertedProducts = await db.insert(products).values(updatedProductsData).returning();
   console.log(`Created ${insertedProducts.length} products`);
 
   console.log("Database seeding completed!");
