@@ -1,15 +1,10 @@
-# ElegantCommerc### 🌐 Application URLs
-- **Main Application**: [http://localhost:3000](http://localhost:3000)
-- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
-- **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
-- **About Us**: [http://localhost:3000/about](http://localhost:3000/about)
-- **Contact Us**: [http://localhost:3000/contact](http://localhost:3000/contact)
-- **API Endpoints**: `http://localhost:3000/api/*`odern E-commerce Platform
+# ElegantCommerce - Modern E-commerce Platform
 
 ![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
+![.NET](https://img.shields.io/badge/.NET-8.0-purple)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-July%202025-blue)
@@ -24,6 +19,8 @@ ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-e
 - **Main Application**: [http://localhost:3000](http://localhost:3000)
 - **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
 - **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
+- **About Us**: [http://localhost:3000/about](http://localhost:3000/about)
+- **Contact Us**: [http://localhost:3000/contact](http://localhost:3000/contact)
 - **API Endpoints**: `http://localhost:3000/api/*`
 
 ### 🔐 Demo Access
@@ -34,7 +31,7 @@ The application includes comprehensive demo data and functionality:
 - **About Us Page**: Company information with mission, vision, values, and team profiles
 - **Contact Us Page**: Professional contact form with team directory and department routing
 
-## � Key Features
+## 🌟 Key Features
 
 ### 🎯 Complete Admin Dashboard
 - **User Management**: Create, update, delete users with role-based access
@@ -44,7 +41,7 @@ The application includes comprehensive demo data and functionality:
 - **Analytics Dashboard**: Revenue tracking, user analytics, and business insights
 - **System Monitoring**: Activity logs and system health monitoring
 
-### �‍💼 Comprehensive Seller Dashboard
+### 👨‍💼 Comprehensive Seller Dashboard
 - **Product Management**: Add, edit, and manage product inventory
 - **Order Processing**: Track and fulfill customer orders
 - **Inventory Management**: Stock level monitoring and automated alerts
@@ -64,18 +61,18 @@ The application includes comprehensive demo data and functionality:
 
 ### 🔧 Technical Architecture
 - **Frontend**: React 18 + TypeScript with Vite build system
-- **Backend**: Node.js + Express with comprehensive REST API
-- **Database**: Memory-based storage with full CRUD operations
+- **Backend**: Dual architecture - Node.js Express + .NET 8 Web API
+- **Database**: PostgreSQL with Drizzle ORM / SQL Server with Entity Framework
 - **UI Components**: shadcn/ui component library with Radix UI
 - **Styling**: Tailwind CSS with custom theme configuration
 - **State Management**: TanStack Query for server state
-- **Routing**: React Router for client-side navigation
+- **Routing**: Wouter for lightweight client-side navigation
 - **Build System**: Vite with hot reload and optimized production builds
 
 ### ⚙️ Backend Features
 - **Dual Backend Architecture**:
   - Node.js/Express.js with PostgreSQL (Drizzle ORM)
-  - .NET 8 Web API with Entity Framework Core
+  - .NET 8 Web API with Entity Framework Core + SQL Server
 - **Authentication & Authorization**: JWT-based authentication with role-based access
 - **Image Management**: File upload and management system with Azure CDN
 - **RESTful API**: Comprehensive API endpoints for all operations
@@ -111,20 +108,6 @@ The application includes comprehensive demo data and functionality:
 - **Icons**: Lucide React for modern iconography
 - **Charts**: Recharts for data visualization
 - **Forms**: React Hook Form with Zod validation
-
-### ⚙️ Backend Technologies  
-- **Runtime**: Node.js with Express.js framework
-- **Language**: TypeScript for type-safe development
-- **Database**: In-memory storage for development (easily extensible to PostgreSQL/MongoDB)
-- **Authentication**: Session-based with role management
-- **API**: RESTful API design with JSON responses
-- **File Upload**: Multer for image processing
-- **CORS**: Cross-origin resource sharing enabled
-- **Icons**: Lucide React 0.453.0 for consistent iconography
-- **Forms**: React Hook Form with Zod validation
-- **UI Components**: Radix UI primitives with custom styling
-- **Charts**: Recharts for data visualization
-- **Date Handling**: date-fns for date manipulation
 
 ### ⚙️ Backend Technologies (Node.js)
 - **Runtime**: Node.js 20+ with Express.js 4.21.2
@@ -165,22 +148,6 @@ ElegantCommerce/
 ├── client/                 # Frontend React application
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Route components
-│   │   ├── hooks/         # Custom React hooks
-│   │   └── lib/           # Utilities and configurations
-├── server/                # Node.js backend
-│   ├── index.ts          # Server entry point
-│   ├── routes.ts         # API routes
-│   └── storage.ts        # Database operations
-├── backend/              # .NET Web API
-│   └── EliteShopAPI/
-## 📁 Project Structure
-
-```
-ElegantCommerce/
-├── client/                 # Frontend React application
-│   ├── src/
-│   │   ├── components/     # Reusable UI components
 │   │   │   ├── admin/     # Admin dashboard components
 │   │   │   ├── seller/    # Seller dashboard components
 │   │   │   ├── cart/      # Shopping cart components
@@ -188,6 +155,9 @@ ElegantCommerce/
 │   │   │   ├── layout/    # Layout components
 │   │   │   └── ui/        # UI primitives (shadcn/ui)
 │   │   ├── pages/         # Route components
+│   │   │   ├── about.tsx  # About Us page
+│   │   │   ├── contact.tsx # Contact Us page
+│   │   │   └── ...        # Other pages
 │   │   ├── hooks/         # Custom React hooks
 │   │   ├── lib/           # Utilities and configurations
 │   │   └── contexts/      # React contexts
@@ -196,6 +166,13 @@ ElegantCommerce/
 │   ├── routes.ts         # API routes
 │   ├── storage.ts        # Memory storage implementation
 │   └── seed.ts           # Database seeding
+├── backend/              # .NET Web API
+│   └── EliteShopAPI/     # Renamed from TrendifyAPI
+│       ├── Controllers/  # API Controllers
+│       ├── Services/     # Business logic
+│       ├── Models/       # Data models
+│       ├── Data/         # Database context
+│       └── DTOs/         # Data transfer objects
 ├── shared/               # Shared types and schemas
 │   └── schema.ts         # Type definitions
 └── dist/                 # Production build output
@@ -205,6 +182,8 @@ ElegantCommerce/
 
 ### Prerequisites
 - Node.js 18+ and npm
+- .NET 8.0 SDK (optional for full-stack development)
+- PostgreSQL (for production) or use memory storage (development)
 - Git
 
 ### Quick Start
@@ -222,18 +201,25 @@ ElegantCommerce/
 
 3. **Start the development server**
    ```bash
+   # Node.js backend + React frontend
    npm run dev
+   
+   # Optional: Start .NET backend in parallel
+   cd backend/EliteShopAPI && dotnet run
    ```
 
 4. **Access the application**
    - Main Application: http://localhost:3000
+   - About Us: http://localhost:3000/about
+   - Contact Us: http://localhost:3000/contact
    - Admin Dashboard: http://localhost:3000/admin  
    - Seller Dashboard: http://localhost:3000/seller
+   - .NET API: http://localhost:5236 (if running)
 
 ### Available Scripts
 
 ```bash
-npm run dev          # Start development server
+npm run dev          # Start development server (Node.js + React)
 npm run build        # Build for production
 npm run preview      # Preview production build
 npm run check        # TypeScript type checking
@@ -247,51 +233,7 @@ npm run db:push      # Push database schema changes
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **Modern Components**: shadcn/ui component library integration
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/mericulasK/ElegantCommerce.git
-   cd ElegantCommerce
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Start production server**
-   ```bash
-   npm run build
-   npm start
-   ```
-
-### Development Commands
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server (frontend + backend)
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Type checking
-npm run type-check
-
-# Lint code
-npm run lint
-```
-
-## � API Endpoints
+## 🔄 API Endpoints
 
 The application provides comprehensive REST API endpoints:
 
@@ -304,7 +246,7 @@ The application provides comprehensive REST API endpoints:
 - `GET /api/admin/sellers` - Seller management
 - `PUT /api/admin/sellers/:id/approve` - Approve seller
 
-### �‍💼 Seller Endpoints
+### 👨‍💼 Seller Endpoints
 - `GET /api/seller/stats` - Seller statistics
 - `GET /api/seller/products` - Product management
 - `POST /api/seller/products` - Add new product
@@ -326,28 +268,25 @@ The application provides comprehensive REST API endpoints:
 - `PUT /api/categories/:id` - Update category
 
 ### 🛒 Cart & Order Endpoints
-- `GET /api/cart` - Get cart items
-- `POST /api/cart` - Add item to cart
-- `PUT /api/cart/:id` - Update cart item
-- `DELETE /api/cart/:id` - Remove cart item
-- `POST /api/orders` - Create new order
-- `GET /api/orders` - Get user orders
-- `GET /api/orders/:id` - Get order details
-- `PUT /api/orders/:id/status` - Update order status
 - `GET /api/cart` - Get user's shopping cart
 - `POST /api/cart/items` - Add item to cart
 - `PUT /api/cart/items/:id` - Update cart item quantity
 - `DELETE /api/cart/items/:id` - Remove item from cart
 - `DELETE /api/cart` - Clear entire cart
-- `GET /api/wishlist` - Get user's wishlist
-- `POST /api/wishlist` - Add item to wishlist
-- `DELETE /api/wishlist/:id` - Remove item from wishlist
-
-### 📦 Orders & Shipping
 - `GET /api/orders` - Get user's order history
 - `POST /api/orders` - Create new order
 - `GET /api/orders/:id` - Get detailed order information
 - `PUT /api/orders/:id/status` - Update order status (Admin/Seller)
+
+### 📦 Authentication & User Management
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `GET /api/auth/me` - Get current user
+- `PUT /api/users/profile` - Update user profile
+- `GET /api/users/addresses` - Get user addresses
+- `POST /api/users/addresses` - Add new address
+
 ## 📋 Features Completed
 
 ### ✅ **Admin Dashboard** (100% Complete)
@@ -373,6 +312,8 @@ The application provides comprehensive REST API endpoints:
 - ✅ Order history and tracking
 - ✅ Review and rating system
 - ✅ Address management
+- ✅ **NEW**: Professional Contact Us page with team directory
+- ✅ **NEW**: Comprehensive About Us page with company information
 
 ### ✅ **Technical Implementation** (100% Complete)
 - ✅ TypeScript implementation with full type safety
@@ -380,103 +321,16 @@ The application provides comprehensive REST API endpoints:
 - ✅ TanStack Query for efficient data fetching
 - ✅ Responsive design with Tailwind CSS
 - ✅ Production-ready build system
-- ✅ In-memory storage with scalable architecture
+- ✅ Dual backend architecture (Node.js + .NET)
 
 ## 🧪 Testing & Quality
 
-- **Build Status**: ✅ All builds passing (3190 modules transformed)
+- **Build Status**: ✅ All builds passing
 - **TypeScript**: ✅ Zero compilation errors
 - **Code Quality**: ✅ Consistent coding standards
-- **Performance**: ✅ Optimized production builds (297KB gzipped)
+- **Performance**: ✅ Optimized production builds
 - **Responsiveness**: ✅ Mobile-first responsive design
 - **Accessibility**: ✅ Modern UI patterns with proper semantics
-
-✅ **Seller Dashboard**
-- Product inventory management
-- Order processing and fulfillment
-- Customer review management
-- Sales analytics and reporting
-- Promotion and discount management
-- Business profile management
-
-✅ **Customer Interface**
-- Responsive product catalog
-- Shopping cart functionality
-- User authentication and profiles
-- Order history and tracking
-- Product search and filtering
-
-✅ **Technical Implementation**
-- React 18 + TypeScript frontend
-- Node.js + Express backend
-- Memory-based storage system
-- REST API with comprehensive endpoints
-- Responsive UI with Tailwind CSS
-- Component library with shadcn/ui
-
-## 🚀 Live Application
-
-The ElegantCommerce platform is fully functional and ready for use:
-
-- **Homepage**: Modern product catalog with filtering
-- **Admin Panel** (`/admin`): Complete administrative interface
-- **Seller Dashboard** (`/seller`): Comprehensive seller management
-- **API Endpoints**: Full REST API with all CRUD operations
-
-## �️ Development & Deployment
-
-### Local Development
-```bash
-# Clone and install
-git clone https://github.com/mericulasK/ElegantCommerce.git
-cd ElegantCommerce
-npm install
-
-# Start development server
-npm run dev
-
-# Build and start production
-npm run build
-npm start
-```
-
-### Technology Stack
-- **Frontend**: React 18, TypeScript, Tailwind CSS, shadcn/ui
-- **Backend**: Node.js, Express, Memory Storage
-- **Build System**: Vite with optimized production builds
-- **State Management**: TanStack Query for server state
-- **Routing**: React Router for client-side navigation
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👥 Authors
-
-- **mericulasK** - *Project Creator* - [GitHub](https://github.com/mericulasK)
-
-## 🙏 Acknowledgments
-
-- React ecosystem and community
-- shadcn/ui for beautiful components
-- Tailwind CSS for utility-first styling
-- All open source contributors
-
-### Performance Metrics
-- **Load Time**: < 2 seconds
-- **Uptime**: 99.9%
-- **Mobile Score**: 95/100
-- **SEO Score**: 90/100
-
-## 📞 Support
 
 ## 🤝 Contributing
 
@@ -499,7 +353,7 @@ We welcome contributions to ElegantCommerce! Here's how you can help:
 - Comprehensive error handling
 - Mobile-first responsive design
 
-## � Team
+## 🏆 Team
 
 ElegantCommerce is developed and maintained by a team of experienced professionals:
 
@@ -539,13 +393,21 @@ ElegantCommerce is developed and maintained by a team of experienced professiona
 - **Sales Inquiries**: Contact Sales Directors Meriç Ulaş Kıray or Kadir Görkem Uzun
 - **Marketing**: Contact Marketing Director Ali Bulut
 
-## �📞 Support & Links
+## 📞 Support & Links
 
 ### Quick Links
 - 🌐 **Local Development**: http://localhost:3000
 - 📚 **GitHub Repository**: https://github.com/mericulasK/ElegantCommerce
 - 🐛 **Report Issues**: https://github.com/mericulasK/ElegantCommerce/issues
 - 💬 **Discussions**: https://github.com/mericulasK/ElegantCommerce/discussions
+
+### Recent Updates (July 2025)
+- ✨ **NEW**: Professional Contact Us page with team directory and contact form
+- ✨ **NEW**: Comprehensive About Us page with company mission, vision, and values
+- 🔄 **UPDATED**: Navigation system with About Us and Contact Us links
+- 🔄 **UPDATED**: Footer with accurate contact information
+- 🏗️ **RENAMED**: Backend API from TrendifyAPI to EliteShopAPI
+- 📚 **UPDATED**: Complete documentation with team information
 
 ## 📄 License
 
@@ -555,6 +417,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **ElegantCommerce** - Building the future of e-commerce, one component at a time. 🛍️
 
-**🚀 Status: Production Ready** | **� Current Version: 1.0.0** | **🗓️ Last Updated: July 2025**
+**🚀 Status: Production Ready** | **📦 Current Version: 1.0.0** | **🗓️ Last Updated: July 23, 2025**
 
 ⭐ **[Star on GitHub](https://github.com/mericulasK/ElegantCommerce)** if you find this project useful!

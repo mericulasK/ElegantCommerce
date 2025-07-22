@@ -2,6 +2,12 @@
 
 Thank you for your interest in contributing to ElegantCommerce! We welcome contributions from the community and are pleased to have you join us.
 
+**Team Contact**: For major contributions or questions, please contact our co-founders:
+- **Technical**: Ömer Sadık Uysal (CTO) - omersadikuysal09@gmail.com
+- **Business**: Meriç Ulaş Kıray (Sales & Marketing) - mericulask@gmail.com
+- **Marketing**: Ali Bulut (Marketing Director) - abulut48@hotmail.com
+- **Sales**: Kadir Görkem Uzun (Sales Director) - kuzun5675@gmail.com
+
 ## 📋 Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
