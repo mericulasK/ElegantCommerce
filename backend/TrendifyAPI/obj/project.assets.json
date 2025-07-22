@@ -4177,11 +4177,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\TrendifyAPI.csproj",
+      "projectUniqueName": "d:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\TrendifyAPI.csproj",
       "projectName": "TrendifyAPI",
-      "projectPath": "D:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\TrendifyAPI.csproj",
+      "projectPath": "d:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\TrendifyAPI.csproj",
       "packagesPath": "C:\\Users\\meric\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\obj\\",
+      "outputPath": "d:\\Visual Studio_Projects\\ElegantCommerce\\backend\\TrendifyAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4263,7 +4263,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.302/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

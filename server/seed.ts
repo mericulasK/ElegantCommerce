@@ -635,7 +635,7 @@ export async function seedDatabase() {
   // Update categoryId references to match the inserted categories
   const updatedProductsData = productsData.map(product => ({
     ...product,
-    categoryId: insertedCategories.find(cat => cat.name === product.category)?.id || 1
+    categoryId: insertedCategories.find((cat: any) => cat.name === product.category)?.id || 1
   }));
 
   const insertedProducts = await db.insert(products).values(updatedProductsData).returning();

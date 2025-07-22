@@ -79,7 +79,7 @@ export default function ProductDetail() {
             className="aspect-square relative overflow-hidden rounded-2xl bg-gray-100"
           >
             <img
-              src={images[selectedImage]}
+              src={images[selectedImage] || ''}
               alt={product.name}
               className="w-full h-full object-cover"
             />
@@ -112,7 +112,7 @@ export default function ProductDetail() {
                   }`}
                 >
                   <img
-                    src={image}
+                    src={image || ''}
                     alt={`${product.name} ${index + 1}`}
                     className="w-full h-full object-cover"
                   />

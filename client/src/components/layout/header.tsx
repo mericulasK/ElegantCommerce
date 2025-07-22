@@ -1,17 +1,21 @@
-import { useState } from "react";
+import * as React from "react";
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { Search, Heart, ShoppingCart, User, Menu, X, ChevronDown } from "lucide-react";
+import { Search, Heart, ShoppingCart, User, Menu, X, ChevronDown, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useCart } from "@/hooks/use-cart";
+import { useAuth } from "@/contexts/auth-context";
+
+const { useState } = React;
 
 export default function Header() {
   const [location] = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { getCartCount } = useCart();
+  const { user, isAuthenticated, logout } = useAuth();
   
   const cartCount = getCartCount();
 
@@ -113,11 +117,84 @@ export default function Header() {
                 </motion.div>
               </Link>
               
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-                <Button variant="ghost" size="sm" className="p-2 hover:bg-gray-100 rounded-full">
-                  <User className="w-5 h-5 text-gray-600" />
-                </Button>
-              </motion.div>
+              {/* User Account */}
+              {isAuthenticated ? (
+                <div className="relative group">
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Button variant="ghost" size="sm" className="p-2 hover:bg-gray-100 rounded-full flex items-center space-x-1">
+                      <User className="w-5 h-5 text-gray-600" />
+                      <span className="hidden md:inline-block text-sm text-gray-700">
+                        {user?.firstName}
+                      </span>
+                      <ChevronDown className="w-3 h-3 text-gray-500" />
+                    </Button>
+                  </motion.div>
+                  
+                  {/* User Dropdown */}
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="p-3 border-b border-gray-100">
+                      <p className="font-medium text-gray-900">{user?.firstName} {user?.lastName}</p>
+                      <p className="text-sm text-gray-500">{user?.email}</p>
+                      {user?.role && (
+                        <p className="text-xs text-primary-600 font-medium mt-1">
+                          {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        </p>
+                      )}
+                    </div>
+                    <div className="p-2">
+                      <Link href="/profile">
+                        <Button variant="ghost" size="sm" className="w-full justify-start">
+                          <User className="w-4 h-4 mr-2" />
+                          Profile
+                        </Button>
+                      </Link>
+                      <Link href="/orders">
+                        <Button variant="ghost" size="sm" className="w-full justify-start">
+                          <ShoppingCart className="w-4 h-4 mr-2" />
+                          My Orders
+                        </Button>
+                      </Link>
+                      {user?.role === 'Admin' && (
+                        <Link href="/admin">
+                          <Button variant="ghost" size="sm" className="w-full justify-start">
+                            <User className="w-4 h-4 mr-2" />
+                            Admin Panel
+                          </Button>
+                        </Link>
+                      )}
+                      {user?.role === 'Seller' && (
+                        <Link href="/seller">
+                          <Button variant="ghost" size="sm" className="w-full justify-start">
+                            <ShoppingCart className="w-4 h-4 mr-2" />
+                            Seller Dashboard
+                          </Button>
+                        </Link>
+                      )}
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                        onClick={logout}
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Logout
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link href="/auth">
+                  <motion.div whileHover={{ scale: 1.05 }}>
+                    <Button variant="outline" size="sm" className="hidden md:flex">
+                      <User className="w-4 h-4 mr-2" />
+                      Sign In
+                    </Button>
+                    <Button variant="ghost" size="sm" className="md:hidden p-2 hover:bg-gray-100 rounded-full">
+                      <User className="w-5 h-5 text-gray-600" />
+                    </Button>
+                  </motion.div>
+                </Link>
+              )}
             </div>
             
             {/* Mobile Menu */}

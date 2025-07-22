@@ -9,17 +9,16 @@ import {
 import { db } from "./db";
 import { eq, and, or, ilike, desc, count, sum, sql } from "drizzle-orm";
 
-export interface IStorage {
-  // Authentication
-  getUserByEmail(email: string): Promise<User | undefined>;
-  authenticateUser(email: string, password: string): Promise<User | undefined>;
-  
+export interface StorageInterface {
   // Users
+  createUser(user: InsertUser): Promise<User>;
   getUser(id: number): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
   updateUser(id: number, updates: Partial<User>): Promise<User | undefined>;
   deleteUser(id: number): Promise<boolean>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  getAllUsers(): Promise<User[]>;
+  getUsersByRole(role: string): Promise<User[]>;
   getUsersWithStats(role?: string): Promise<UserWithStats[]>;
   approveUser(id: number): Promise<User | undefined>;
 
@@ -32,7 +31,7 @@ export interface IStorage {
   deleteCategory(id: number): Promise<boolean>;
 
   // Products
-  getProducts(filters?: { category?: string; featured?: boolean; isNew?: boolean; isOnSale?: boolean; search?: string; sellerId?: number }): Promise<Product[]>;
+  getProducts(filters?: { category?: string; featured?: boolean; isNew?: boolean; isOnSale?: boolean; search?: string }): Promise<Product[]>;
   getProduct(id: number): Promise<Product | undefined>;
   getFeaturedProducts(limit?: number): Promise<Product[]>;
   getProductsByCategory(categoryId: number): Promise<Product[]>;
@@ -54,33 +53,31 @@ export interface IStorage {
   getOrdersBySeller(sellerId: number): Promise<OrderWithItems[]>;
   createOrder(order: InsertOrder, items: InsertOrderItem[]): Promise<Order>;
   updateOrderStatus(id: number, status: string): Promise<Order | undefined>;
-  updateOrderItemStatus(id: number, status: string): Promise<OrderItem | undefined>;
 
   // Reviews
   getReviews(productId?: number, sellerId?: number): Promise<Review[]>;
-  createReview(review: InsertReview): Promise<Review>;
-  updateReview(id: number, updates: Partial<Review>): Promise<Review | undefined>;
-  deleteReview(id: number): Promise<boolean>;
+  getReviewsByUser(userId: number): Promise<Review[]>;
+  createReview(review: any): Promise<Review>;
 
   // Promotions
   getPromotions(sellerId?: number): Promise<Promotion[]>;
-  createPromotion(promotion: InsertPromotion): Promise<Promotion>;
-  updatePromotion(id: number, updates: Partial<Promotion>): Promise<Promotion | undefined>;
-  deletePromotion(id: number): Promise<boolean>;
-
-  // Activity Logs
-  logActivity(log: InsertActivityLog): Promise<ActivityLog>;
-  getActivityLogs(userId?: number, limit?: number): Promise<ActivityLog[]>;
+  createPromotion(promotion: any): Promise<Promotion>;
 
   // CMS Pages
   getCmsPages(): Promise<CmsPage[]>;
-  getCmsPage(slug: string): Promise<CmsPage | undefined>;
-  createCmsPage(page: InsertCmsPage): Promise<CmsPage>;
-  updateCmsPage(id: number, updates: Partial<CmsPage>): Promise<CmsPage | undefined>;
+  createCmsPage(page: any): Promise<CmsPage>;
+  updateCmsPage(id: number, updates: any): Promise<CmsPage | undefined>;
   deleteCmsPage(id: number): Promise<boolean>;
+
+  // Activity Logs
+  getActivityLogs(userId?: number, limit?: number): Promise<ActivityLog[]>;
+  logActivity(activity: any): Promise<ActivityLog>;
+
+  // Auth
+  authenticateUser(email: string, password: string): Promise<User | undefined>;
 }
 
-export class MemStorage implements IStorage {
+export class MemStorage implements StorageInterface {
   private users: Map<number, User>;
   private categories: Map<number, Category>;
   private products: Map<number, Product>;
@@ -108,10 +105,23 @@ export class MemStorage implements IStorage {
     this.categories = new Map();
     this.products = new Map();
     this.cartItems = new Map();
+    this.orders = new Map();
+    this.orderItems = new Map();
+    this.reviews = new Map();
+    this.promotions = new Map();
+    this.activityLogs = new Map();
+    this.cmsPages = new Map();
+    
     this.currentUserId = 1;
     this.currentCategoryId = 1;
     this.currentProductId = 1;
     this.currentCartItemId = 1;
+    this.currentOrderId = 1;
+    this.currentOrderItemId = 1;
+    this.currentReviewId = 1;
+    this.currentPromotionId = 1;
+    this.currentActivityLogId = 1;
+    this.currentCmsPageId = 1;
 
     // Initialize with sample data
     this.initializeSampleData();
@@ -547,9 +557,75 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
+    const user: User = { 
+      ...insertUser, 
+      id,
+      role: insertUser.role || "customer",
+      profileImage: insertUser.profileImage || null,
+      phone: insertUser.phone || null,
+      address: insertUser.address || null,
+      isApproved: insertUser.isApproved || false,
+      companyName: insertUser.companyName || null,
+      companyLogo: insertUser.companyLogo || null,
+      createdAt: insertUser.createdAt || new Date(),
+      updatedAt: insertUser.updatedAt || new Date()
+    };
     this.users.set(id, user);
     return user;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    return Array.from(this.users.values()).find(user => user.email === email);
+  }
+
+  async authenticateUser(email: string, password: string): Promise<User | undefined> {
+    const user = await this.getUserByEmail(email);
+    if (user && user.password === password) {
+      return user;
+    }
+    return undefined;
+  }
+
+  async updateUser(id: number, updates: Partial<User>): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    
+    const updatedUser = { ...user, ...updates, updatedAt: new Date() };
+    this.users.set(id, updatedUser);
+    return updatedUser;
+  }
+
+  async deleteUser(id: number): Promise<boolean> {
+    return this.users.delete(id);
+  }
+
+  async getAllUsers(): Promise<User[]> {
+    return Array.from(this.users.values());
+  }
+
+  async getUsersByRole(role: string): Promise<User[]> {
+    return Array.from(this.users.values()).filter(user => user.role === role);
+  }
+
+  async getUsersWithStats(role?: string): Promise<UserWithStats[]> {
+    const users = Array.from(this.users.values());
+    const filteredUsers = role ? users.filter(user => user.role === role) : users;
+    
+    return filteredUsers.map(user => ({
+      ...user,
+      totalOrders: 0,
+      totalSpent: "0.00",
+      averageRating: "0.0"
+    }));
+  }
+
+  async approveUser(id: number): Promise<User | undefined> {
+    const user = this.users.get(id);
+    if (!user) return undefined;
+    
+    const updatedUser = { ...user, isApproved: true, updatedAt: new Date() };
+    this.users.set(id, updatedUser);
+    return updatedUser;
   }
 
   // Categories
@@ -659,6 +735,36 @@ export class MemStorage implements IStorage {
     return product;
   }
 
+  async updateCategory(id: number, updates: Partial<Category>): Promise<Category | undefined> {
+    const category = this.categories.get(id);
+    if (!category) return undefined;
+    
+    const updatedCategory = { ...category, ...updates };
+    this.categories.set(id, updatedCategory);
+    return updatedCategory;
+  }
+
+  async deleteCategory(id: number): Promise<boolean> {
+    return this.categories.delete(id);
+  }
+
+  async getProductsBySeller(sellerId: number): Promise<Product[]> {
+    return Array.from(this.products.values()).filter(p => p.sellerId === sellerId);
+  }
+
+  async updateProduct(id: number, updates: Partial<Product>): Promise<Product | undefined> {
+    const product = this.products.get(id);
+    if (!product) return undefined;
+    
+    const updatedProduct = { ...product, ...updates, updatedAt: new Date() };
+    this.products.set(id, updatedProduct);
+    return updatedProduct;
+  }
+
+  async deleteProduct(id: number): Promise<boolean> {
+    return this.products.delete(id);
+  }
+
   // Cart
   async getCartItems(sessionId?: string, userId?: number): Promise<CartItemWithProduct[]> {
     const items = Array.from(this.cartItems.values()).filter(item => {
@@ -733,204 +839,244 @@ export class MemStorage implements IStorage {
     itemsToRemove.forEach(([id]) => this.cartItems.delete(id));
     return true;
   }
-}
 
-export class DatabaseStorage implements IStorage {
-  async getUser(id: number): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.id, id));
-    return user || undefined;
+  // Orders
+  async getOrders(userId?: number): Promise<Order[]> {
+    const orders = Array.from(this.orders.values());
+    return userId ? orders.filter(order => order.userId === userId) : orders;
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    const [user] = await db.select().from(users).where(eq(users.username, username));
-    return user || undefined;
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const [user] = await db
-      .insert(users)
-      .values(insertUser)
-      .returning();
-    return user;
-  }
-
-  async getCategories(): Promise<Category[]> {
-    return await db.select().from(categories);
-  }
-
-  async getCategory(id: number): Promise<Category | undefined> {
-    const [category] = await db.select().from(categories).where(eq(categories.id, id));
-    return category || undefined;
-  }
-
-  async getCategoryBySlug(slug: string): Promise<Category | undefined> {
-    const [category] = await db.select().from(categories).where(eq(categories.slug, slug));
-    return category || undefined;
-  }
-
-  async createCategory(insertCategory: InsertCategory): Promise<Category> {
-    const [category] = await db
-      .insert(categories)
-      .values(insertCategory)
-      .returning();
-    return category;
-  }
-
-  async getProducts(filters?: { category?: string; featured?: boolean; isNew?: boolean; isOnSale?: boolean; search?: string }): Promise<Product[]> {
-    if (filters) {
-      const conditions = [];
-      
-      if (filters.category) {
-        conditions.push(eq(products.category, filters.category));
-      }
-      if (filters.featured) {
-        conditions.push(eq(products.featured, filters.featured));
-      }
-      if (filters.isNew) {
-        conditions.push(eq(products.isNew, filters.isNew));
-      }
-      if (filters.isOnSale) {
-        conditions.push(eq(products.isOnSale, filters.isOnSale));
-      }
-      if (filters.search) {
-        conditions.push(
-          or(
-            ilike(products.name, `%${filters.search}%`),
-            ilike(products.description, `%${filters.search}%`)
-          )
-        );
-      }
-      
-      if (conditions.length > 0) {
-        return await db.select().from(products).where(and(...conditions)).orderBy(desc(products.createdAt));
-      }
-    }
+  async getOrder(id: number): Promise<OrderWithItems | undefined> {
+    const order = this.orders.get(id);
+    if (!order) return undefined;
     
-    return await db.select().from(products).orderBy(desc(products.createdAt));
-  }
-
-  async getProduct(id: number): Promise<Product | undefined> {
-    const [product] = await db.select().from(products).where(eq(products.id, id));
-    return product || undefined;
-  }
-
-  async getFeaturedProducts(limit: number = 4): Promise<Product[]> {
-    return await db.select().from(products)
-      .where(eq(products.featured, true))
-      .limit(limit)
-      .orderBy(desc(products.createdAt));
-  }
-
-  async getProductsByCategory(categoryId: number): Promise<Product[]> {
-    return await db.select().from(products)
-      .where(eq(products.categoryId, categoryId))
-      .orderBy(desc(products.createdAt));
-  }
-
-  async createProduct(insertProduct: InsertProduct): Promise<Product> {
-    const [product] = await db
-      .insert(products)
-      .values(insertProduct)
-      .returning();
-    return product;
-  }
-
-  async getCartItems(sessionId?: string, userId?: number): Promise<CartItemWithProduct[]> {
-    if (userId) {
-      const results = await db.select({
-        id: cartItems.id,
-        productId: cartItems.productId,
-        quantity: cartItems.quantity,
-        userId: cartItems.userId,
-        sessionId: cartItems.sessionId,
-        size: cartItems.size,
-        color: cartItems.color,
-        createdAt: cartItems.createdAt,
-        updatedAt: cartItems.updatedAt,
-        product: products
-      }).from(cartItems)
-      .innerJoin(products, eq(cartItems.productId, products.id))
-      .where(eq(cartItems.userId, userId));
-      
-      return results.map(row => ({
-        id: row.id,
-        productId: row.productId,
-        quantity: row.quantity,
-        userId: row.userId,
-        sessionId: row.sessionId,
-        size: row.size,
-        color: row.color,
-        createdAt: row.createdAt,
-        updatedAt: row.updatedAt,
-        product: row.product
-      }));
-    } else if (sessionId) {
-      const results = await db.select({
-        id: cartItems.id,
-        productId: cartItems.productId,
-        quantity: cartItems.quantity,
-        userId: cartItems.userId,
-        sessionId: cartItems.sessionId,
-        size: cartItems.size,
-        color: cartItems.color,
-        createdAt: cartItems.createdAt,
-        updatedAt: cartItems.updatedAt,
-        product: products
-      }).from(cartItems)
-      .innerJoin(products, eq(cartItems.productId, products.id))
-      .where(eq(cartItems.sessionId, sessionId));
-      
-      return results.map(row => ({
-        id: row.id,
-        productId: row.productId,
-        quantity: row.quantity,
-        userId: row.userId,
-        sessionId: row.sessionId,
-        size: row.size,
-        color: row.color,
-        createdAt: row.createdAt,
-        updatedAt: row.updatedAt,
-        product: row.product
-      }));
-    }
+    const items = Array.from(this.orderItems.values())
+      .filter(item => item.orderId === id)
+      .map(item => {
+        const product = this.products.get(item.productId);
+        return { ...item, product };
+      })
+      .filter(item => item.product) as (OrderItem & { product: Product })[];
     
-    return [];
+    return { ...order, items };
   }
 
-  async addToCart(insertCartItem: InsertCartItem): Promise<CartItem> {
-    const [cartItem] = await db
-      .insert(cartItems)
-      .values(insertCartItem)
-      .returning();
-    return cartItem;
-  }
-
-  async updateCartItemQuantity(id: number, quantity: number): Promise<CartItem | undefined> {
-    const [cartItem] = await db
-      .update(cartItems)
-      .set({ quantity, updatedAt: new Date() })
-      .where(eq(cartItems.id, id))
-      .returning();
-    return cartItem || undefined;
-  }
-
-  async removeFromCart(id: number): Promise<boolean> {
-    const result = await db.delete(cartItems).where(eq(cartItems.id, id)) as any;
-    return (result.rowCount || 0) > 0;
-  }
-
-  async clearCart(sessionId?: string, userId?: number): Promise<boolean> {
-    if (userId) {
-      await (db.delete(cartItems).where(eq(cartItems.userId, userId)) as any);
-      return true;
-    } else if (sessionId) {
-      await (db.delete(cartItems).where(eq(cartItems.sessionId, sessionId)) as any);
-      return true;
-    }
+  async getOrdersBySeller(sellerId: number): Promise<OrderWithItems[]> {
+    const orderItemsBySeller = Array.from(this.orderItems.values()).filter(item => {
+      const product = this.products.get(item.productId);
+      return product?.sellerId === sellerId;
+    });
     
-    return false;
+    const orderIds = Array.from(new Set(orderItemsBySeller.map(item => item.orderId)));
+    const orders = await Promise.all(orderIds.map(id => this.getOrder(id)));
+    return orders.filter(Boolean) as OrderWithItems[];
+  }
+
+  async createOrder(order: InsertOrder, items: InsertOrderItem[]): Promise<Order> {
+    const orderId = this.currentOrderId++;
+    const newOrder: Order = {
+      ...order,
+      id: orderId,
+      status: order.status || "pending",
+      paymentMethod: order.paymentMethod || null,
+      paymentStatus: order.paymentStatus || "pending",
+      notes: order.notes || null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    this.orders.set(orderId, newOrder);
+
+    items.forEach(item => {
+      const orderItemId = this.currentOrderItemId++;
+      const orderItem: OrderItem = {
+        ...item,
+        id: orderItemId,
+        orderId,
+        status: item.status || "pending",
+        color: item.color || null,
+        size: item.size || null
+      };
+      this.orderItems.set(orderItemId, orderItem);
+    });
+
+    return newOrder;
+  }
+
+  async updateOrderStatus(id: number, status: string): Promise<Order | undefined> {
+    const order = this.orders.get(id);
+    if (!order) return undefined;
+    
+    const validStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
+    if (!validStatuses.includes(status)) return undefined;
+    
+    const updatedOrder = { 
+      ...order, 
+      status: status as "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled",
+      updatedAt: new Date() 
+    };
+    this.orders.set(id, updatedOrder);
+    return updatedOrder;
+  }
+
+  async updateOrderItemStatus(id: number, status: string): Promise<OrderItem | undefined> {
+    const orderItem = this.orderItems.get(id);
+    if (!orderItem) return undefined;
+    
+    const validStatuses = ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"];
+    if (!validStatuses.includes(status)) return undefined;
+    
+    const updatedOrderItem = { 
+      ...orderItem, 
+      status: status as "pending" | "confirmed" | "processing" | "shipped" | "delivered" | "cancelled"
+    };
+    this.orderItems.set(id, updatedOrderItem);
+    return updatedOrderItem;
+  }
+
+  // Reviews
+  async getReviews(productId?: number, sellerId?: number): Promise<Review[]> {
+    const reviews = Array.from(this.reviews.values());
+    if (productId) return reviews.filter(review => review.productId === productId);
+    if (sellerId) return reviews.filter(review => review.sellerId === sellerId);
+    return reviews;
+  }
+
+  async getReviewsByUser(userId: number): Promise<Review[]> {
+    return Array.from(this.reviews.values()).filter(review => review.userId === userId);
+  }
+
+  async createReview(review: InsertReview): Promise<Review> {
+    const id = this.currentReviewId++;
+    const newReview: Review = {
+      ...review,
+      id,
+      isApproved: review.isApproved || null,
+      comment: review.comment || null,
+      sellerReply: review.sellerReply || null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    this.reviews.set(id, newReview);
+    return newReview;
+  }
+
+  async updateReview(id: number, updates: Partial<Review>): Promise<Review | undefined> {
+    const review = this.reviews.get(id);
+    if (!review) return undefined;
+    
+    const updatedReview = { ...review, ...updates, updatedAt: new Date() };
+    this.reviews.set(id, updatedReview);
+    return updatedReview;
+  }
+
+  async deleteReview(id: number): Promise<boolean> {
+    return this.reviews.delete(id);
+  }
+
+  // Promotions
+  async getPromotions(sellerId?: number): Promise<Promotion[]> {
+    const promotions = Array.from(this.promotions.values());
+    return sellerId ? promotions.filter(promotion => promotion.sellerId === sellerId) : promotions;
+  }
+
+  async createPromotion(promotion: InsertPromotion): Promise<Promotion> {
+    const id = this.currentPromotionId++;
+    const newPromotion: Promotion = {
+      ...promotion,
+      id,
+      description: promotion.description || null,
+      isActive: promotion.isActive || null,
+      applicableProducts: promotion.applicableProducts || null,
+      minimumOrderAmount: promotion.minimumOrderAmount || null,
+      usageLimit: promotion.usageLimit || null,
+      usageCount: 0,
+      createdAt: new Date()
+    };
+    this.promotions.set(id, newPromotion);
+    return newPromotion;
+  }
+
+  async updatePromotion(id: number, updates: Partial<Promotion>): Promise<Promotion | undefined> {
+    const promotion = this.promotions.get(id);
+    if (!promotion) return undefined;
+    
+    const updatedPromotion = { ...promotion, ...updates, updatedAt: new Date() };
+    this.promotions.set(id, updatedPromotion);
+    return updatedPromotion;
+  }
+
+  async deletePromotion(id: number): Promise<boolean> {
+    return this.promotions.delete(id);
+  }
+
+  // Activity Logs
+  async logActivity(log: InsertActivityLog): Promise<ActivityLog> {
+    const id = this.currentActivityLogId++;
+    const activityLog: ActivityLog = {
+      ...log,
+      id,
+      userId: log.userId || null,
+      entityType: log.entityType || null,
+      entityId: log.entityId || null,
+      ipAddress: log.ipAddress || null,
+      userAgent: log.userAgent || null,
+      createdAt: new Date()
+    };
+    this.activityLogs.set(id, activityLog);
+    return activityLog;
+  }
+
+  async getActivityLogs(userId?: number, limit?: number): Promise<ActivityLog[]> {
+    let logs = Array.from(this.activityLogs.values());
+    if (userId) logs = logs.filter(log => log.userId === userId);
+    logs.sort((a, b) => {
+      const aTime = a.createdAt?.getTime() || 0;
+      const bTime = b.createdAt?.getTime() || 0;
+      return bTime - aTime;
+    });
+    return limit ? logs.slice(0, limit) : logs;
+  }
+
+  // CMS Pages
+  async getCmsPages(): Promise<CmsPage[]> {
+    return Array.from(this.cmsPages.values());
+  }
+
+  async getCmsPage(slug: string): Promise<CmsPage | undefined> {
+    return Array.from(this.cmsPages.values()).find(page => page.slug === slug);
+  }
+
+  async createCmsPage(page: InsertCmsPage): Promise<CmsPage> {
+    const id = this.currentCmsPageId++;
+    const cmsPage: CmsPage = {
+      ...page,
+      id,
+      metaDescription: page.metaDescription || null,
+      metaKeywords: page.metaKeywords || null,
+      isPublished: page.isPublished || null,
+      createdBy: page.createdBy || null,
+      updatedBy: page.updatedBy || null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    this.cmsPages.set(id, cmsPage);
+    return cmsPage;
+  }
+
+  async updateCmsPage(id: number, updates: Partial<CmsPage>): Promise<CmsPage | undefined> {
+    const page = this.cmsPages.get(id);
+    if (!page) return undefined;
+    
+    const updatedPage = { ...page, ...updates, updatedAt: new Date() };
+    this.cmsPages.set(id, updatedPage);
+    return updatedPage;
+  }
+
+  async deleteCmsPage(id: number): Promise<boolean> {
+    return this.cmsPages.delete(id);
   }
 }
 
 // Use MemStorage for demo purposes when database is not available
 export const storage = new MemStorage();
+

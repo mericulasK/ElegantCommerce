@@ -1,10 +1,222 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertProductSchema, insertCategorySchema, insertCartItemSchema } from "@shared/schema";
+import { insertProductSchema, insertCategorySchema, insertCartItemSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin Routes
+  app.get("/api/admin/stats", async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      const products = await storage.getProducts();
+      const orders = await storage.getOrders();
+      const activities = await storage.getActivityLogs(undefined, 10);
+      
+      res.json({
+        totalUsers: users.length,
+        totalProducts: products.length,
+        totalOrders: orders.length,
+        totalRevenue: orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0),
+        activities
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch admin stats" });
+    }
+  });
+
+  app.get("/api/admin/users", async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch users" });
+    }
+  });
+
+  app.post("/api/admin/users", async (req, res) => {
+    try {
+      const userData = insertUserSchema.parse(req.body);
+      const user = await storage.createUser(userData);
+      res.json(user);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid user data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create user" });
+      }
+    }
+  });
+
+  app.put("/api/admin/users/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const user = await storage.updateUser(id, updates);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update user" });
+    }
+  });
+
+  app.delete("/api/admin/users/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteUser(id);
+      if (!success) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json({ message: "User deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete user" });
+    }
+  });
+
+  app.get("/api/admin/orders", async (req, res) => {
+    try {
+      const orders = await storage.getOrders();
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  });
+
+  app.put("/api/admin/orders/:id/status", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      const order = await storage.updateOrderStatus(id, status);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update order status" });
+    }
+  });
+
+  app.get("/api/admin/seller-applications", async (req, res) => {
+    try {
+      const sellers = await storage.getUsersByRole("seller");
+      res.json(sellers);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller applications" });
+    }
+  });
+
+  app.post("/api/admin/seller-applications/:userId/approve", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const user = await storage.updateUser(userId, { isApproved: true });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      await storage.logActivity({
+        action: "Seller Approved",
+        description: `Seller application approved for user ${user.email}`,
+        userId: undefined,
+        entityType: "user",
+        entityId: userId
+      });
+      
+      res.json({ message: "Seller approved successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to approve seller" });
+    }
+  });
+
+  app.get("/api/admin/statistics", async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      const products = await storage.getProducts();
+      const orders = await storage.getOrders();
+      const activities = await storage.getActivityLogs(undefined, 20);
+      
+      const stats = {
+        totalUsers: users.length,
+        totalCustomers: users.filter((u: any) => u.role === "customer").length,
+        totalSellers: users.filter((u: any) => u.role === "seller").length,
+        totalAdmins: users.filter((u: any) => u.role === "admin").length,
+        totalProducts: products.length,
+        totalOrders: orders.length,
+        totalRevenue: orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0),
+        pendingOrders: orders.filter(o => o.status === "pending").length,
+        deliveredOrders: orders.filter(o => o.status === "delivered").length,
+        cancelledOrders: orders.filter(o => o.status === "cancelled").length,
+        topSellingProducts: [],
+        topSellers: [],
+        salesByMonth: [],
+        userActivities: activities
+      };
+      
+      res.json(stats);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch statistics" });
+    }
+  });
+
+  app.get("/api/admin/activities", async (req, res) => {
+    try {
+      const activities = await storage.getActivityLogs();
+      res.json(activities);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch activities" });
+    }
+  });
+
+  // Seller Routes
+  app.get("/api/seller/stats", async (req, res) => {
+    try {
+      const sellerId = 1; // In real app, get from auth token
+      const products = await storage.getProductsBySeller(sellerId);
+      const orders = await storage.getOrdersBySeller(sellerId);
+      const reviews = await storage.getReviews(undefined, sellerId);
+      
+      res.json({
+        totalProducts: products.length,
+        totalOrders: orders.length,
+        totalRevenue: orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0),
+        averageRating: reviews.length > 0 ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length : 0
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller stats" });
+    }
+  });
+
+  app.get("/api/seller/products", async (req, res) => {
+    try {
+      const sellerId = 1; // In real app, get from auth token
+      const products = await storage.getProductsBySeller(sellerId);
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller products" });
+    }
+  });
+
+  app.get("/api/seller/orders", async (req, res) => {
+    try {
+      const sellerId = 1; // In real app, get from auth token
+      const orders = await storage.getOrdersBySeller(sellerId);
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller orders" });
+    }
+  });
+
+  app.get("/api/seller/reviews", async (req, res) => {
+    try {
+      const sellerId = 1; // In real app, get from auth token
+      const reviews = await storage.getReviews(undefined, sellerId);
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller reviews" });
+    }
+  });
+
   // Categories
   app.get("/api/categories", async (req, res) => {
     try {
@@ -48,8 +260,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/products/featured", async (req, res) => {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 4;
-      const products = await storage.getFeaturedProducts(limit);
+      const products = await storage.getFeaturedProducts();
       res.json(products);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch featured products" });
@@ -59,10 +270,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/products/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ message: "Invalid product ID" });
-      }
-
       const product = await storage.getProduct(id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
@@ -73,17 +280,155 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const product = await storage.getProduct(id);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch product" });
+    }
+  });
+
+  app.put("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const product = await storage.updateProduct(id, updates);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update product" });
+    }
+  });
+
+  app.post("/api/products", async (req, res) => {
+    try {
+      const productData = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(productData);
+      res.json(product);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid product data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to create product" });
+      }
+    }
+  });
+
+  app.delete("/api/products/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const success = await storage.deleteProduct(id);
+      if (!success) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json({ message: "Product deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete product" });
+    }
+  });
+
+  app.put("/api/cart/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { quantity } = req.body;
+      const cartItem = await storage.updateCartItemQuantity(id, quantity);
+      if (!cartItem) {
+        return res.status(404).json({ message: "Cart item not found" });
+      }
+      res.json(cartItem);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update cart item" });
+    }
+  });
+
+  app.delete("/api/cart/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const success = await storage.removeFromCart(id);
+      if (!success) {
+        return res.status(404).json({ message: "Cart item not found" });
+      }
+      res.json({ message: "Item removed from cart" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to remove item from cart" });
+    }
+  });
+
+  app.post("/api/orders", async (req, res) => {
+    try {
+      const orderData = req.body;
+      const order = await storage.createOrder(orderData, []);
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create order" });
+    }
+  });
+
+  app.get("/api/orders", async (req, res) => {
+    try {
+      const { userId } = req.query;
+      const orders = await storage.getOrders(userId ? parseInt(userId as string) : undefined);
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch orders" });
+    }
+  });
+
+  app.get("/api/orders/:id/status", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      const order = await storage.updateOrderStatus(id, status);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update order status" });
+    }
+  });
+  app.post("/api/auth/register", async (req, res) => {
+    try {
+      const userData = insertUserSchema.parse(req.body);
+      const user = await storage.createUser(userData);
+      res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        res.status(400).json({ message: "Invalid user data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to register user" });
+      }
+    }
+  });
+
+  app.post("/api/auth/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const user = await storage.authenticateUser(email, password);
+      if (!user) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      res.json({ user: { id: user.id, username: user.username, email: user.email, role: user.role } });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to login" });
+    }
+  });
+
   // Cart
   app.get("/api/cart", async (req, res) => {
     try {
       const { sessionId, userId } = req.query;
-      const userIdNum = userId ? parseInt(userId as string) : undefined;
-      
-      if (!sessionId && !userIdNum) {
-        return res.status(400).json({ message: "Session ID or User ID required" });
-      }
-
-      const cartItems = await storage.getCartItems(sessionId as string, userIdNum);
+      const cartItems = await storage.getCartItems(
+        sessionId as string,
+        userId ? parseInt(userId as string) : undefined
+      );
       res.json(cartItems);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch cart items" });
@@ -94,66 +439,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const cartItemData = insertCartItemSchema.parse(req.body);
       const cartItem = await storage.addToCart(cartItemData);
-      res.status(201).json(cartItem);
+      res.json(cartItem);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return res.status(400).json({ message: "Invalid cart item data", errors: error.errors });
+        res.status(400).json({ message: "Invalid cart item data", errors: error.errors });
+      } else {
+        res.status(500).json({ message: "Failed to add item to cart" });
       }
-      res.status(500).json({ message: "Failed to add item to cart" });
-    }
-  });
-
-  app.put("/api/cart/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      const { quantity } = req.body;
-
-      if (isNaN(id) || !quantity || quantity < 0) {
-        return res.status(400).json({ message: "Invalid cart item ID or quantity" });
-      }
-
-      const updatedItem = await storage.updateCartItemQuantity(id, quantity);
-      if (!updatedItem) {
-        return res.status(404).json({ message: "Cart item not found" });
-      }
-
-      res.json(updatedItem);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to update cart item" });
-    }
-  });
-
-  app.delete("/api/cart/:id", async (req, res) => {
-    try {
-      const id = parseInt(req.params.id);
-      if (isNaN(id)) {
-        return res.status(400).json({ message: "Invalid cart item ID" });
-      }
-
-      const success = await storage.removeFromCart(id);
-      if (!success) {
-        return res.status(404).json({ message: "Cart item not found" });
-      }
-
-      res.json({ message: "Item removed from cart" });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to remove item from cart" });
-    }
-  });
-
-  app.delete("/api/cart", async (req, res) => {
-    try {
-      const { sessionId, userId } = req.query;
-      const userIdNum = userId ? parseInt(userId as string) : undefined;
-      
-      if (!sessionId && !userIdNum) {
-        return res.status(400).json({ message: "Session ID or User ID required" });
-      }
-
-      await storage.clearCart(sessionId as string, userIdNum);
-      res.json({ message: "Cart cleared" });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to clear cart" });
     }
   });
 

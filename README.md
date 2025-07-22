@@ -2,51 +2,61 @@
 
 ![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
-![.NET](https://img.shields.io/badge/.NET-8.0-purple)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-edge technologies. It features a premium fashion-focused design with comprehensive product management, shopping cart functionality, and a responsive user interface.
+ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-edge technologies. It features a comprehensive admin dashboard, seller management system, and responsive customer interface with complete shopping cart functionality.
 
 ## 🌐 Live Demo & Access Links
 
-### 🚀 Production Sites
-- **Main Application**: [http://localhost:3000](http://localhost:3000) *(Currently running locally)*
-- **API Documentation**: [http://localhost:3000/api](http://localhost:3000/api)
+### 🚀 Application URLs
+- **Main Application**: [http://localhost:3000](http://localhost:3000)
 - **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
+- **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
+- **API Endpoints**: `http://localhost:3000/api/*`
 
-> **Note**: The application is currently configured for local deployment. For cloud deployment (Replit, Vercel, etc.), update the environment variables accordingly.
+### 🔐 Demo Access
+The application includes comprehensive demo data and functionality:
+- **Admin Panel**: Complete user, product, order, and seller management
+- **Seller Dashboard**: Product management, order tracking, analytics, and customer reviews
+- **Customer Interface**: Product browsing, cart functionality, and checkout process
 
-### 🔧 Development Environment
-- **Development Server**: `http://localhost:5000` (Frontend)
-- **Node.js API**: `http://localhost:5000/api` (Backend API)
-- **.NET API**: `https://localhost:7176` (Alternative Backend)
-- **Database Admin**: Available via Azure Portal
+## � Key Features
 
-### 📱 Mobile Access
-The application is fully responsive and optimized for mobile devices. Access the same URLs on any device for the best mobile experience.
+### 🎯 Complete Admin Dashboard
+- **User Management**: Create, update, delete users with role-based access
+- **Product Management**: Full CRUD operations with image upload and categorization
+- **Order Management**: Track orders, update statuses, and manage fulfillment
+- **Seller Management**: Approve sellers, manage commissions, and monitor performance
+- **Analytics Dashboard**: Revenue tracking, user analytics, and business insights
+- **System Monitoring**: Activity logs and system health monitoring
 
-### 🔐 Demo Credentials
-For testing purposes, you can use these demo accounts:
-- **Admin**: `admin@elegantcommerce.com` / `admin123`
-- **Customer**: `demo@elegantcommerce.com` / `demo123`
-- **Seller**: `seller@elegantcommerce.com` / `seller123`
+### �‍💼 Comprehensive Seller Dashboard
+- **Product Management**: Add, edit, and manage product inventory
+- **Order Processing**: Track and fulfill customer orders
+- **Inventory Management**: Stock level monitoring and automated alerts
+- **Customer Reviews**: Respond to reviews and manage customer feedback
+- **Promotions & Discounts**: Create and manage promotional campaigns
+- **Sales Analytics**: Revenue reports, performance metrics, and trend analysis
+- **Profile Management**: Business information and seller settings
 
-> **Note**: Demo data is reset periodically. All transactions are for demonstration purposes only.
-
-## 🚀 Features
-
-### 🎨 Frontend Features
-- **Modern React Architecture**: Built with React 18 and TypeScript for type safety
+### 🛒 Customer Experience
+- **Modern Product Catalog**: Responsive grid with advanced filtering
+- **Shopping Cart**: Add/remove items with real-time price calculation
+- **User Authentication**: Secure login/register with form validation
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
-- **Premium UI Components**: shadcn/ui component library with Radix UI primitives
-- **Smooth Animations**: Framer Motion for enhanced user experience
-- **State Management**: TanStack Query for server state, React Context for cart state
-- **Client-side Routing**: Wouter for lightweight routing
-- **Performance Optimized**: Lazy loading, code splitting, and optimized bundles
-- **Accessibility**: WCAG 2.1 compliant with screen reader support
-- **Dark/Light Mode**: Theme switching with system preference detection
-- **PWA Ready**: Progressive Web App capabilities for mobile installation
+- **State Management**: TanStack Query for API state, React Context for cart
+
+### 🔧 Technical Architecture
+- **Frontend**: React 18 + TypeScript with Vite build system
+- **Backend**: Node.js + Express with comprehensive REST API
+- **Database**: Memory-based storage with full CRUD operations
+- **UI Components**: shadcn/ui component library with Radix UI
+- **Styling**: Tailwind CSS with custom theme configuration
+- **State Management**: TanStack Query for server state
+- **Routing**: React Router for client-side navigation
+- **Build System**: Vite with hot reload and optimized production builds
 
 ### ⚙️ Backend Features
 - **Dual Backend Architecture**:
@@ -138,25 +148,40 @@ ElegantCommerce/
 │   └── storage.ts        # Database operations
 ├── backend/              # .NET Web API
 │   └── TrendifyAPI/
-│       ├── Controllers/   # API controllers
-│       ├── Models/       # Data models
-│       ├── Services/     # Business logic
-│       ├── DTOs/         # Data transfer objects
-│       └── Data/         # Database context
+## 📁 Project Structure
+
+```
+ElegantCommerce/
+├── client/                 # Frontend React application
+│   ├── src/
+│   │   ├── components/     # Reusable UI components
+│   │   │   ├── admin/     # Admin dashboard components
+│   │   │   ├── seller/    # Seller dashboard components
+│   │   │   ├── cart/      # Shopping cart components
+│   │   │   ├── home/      # Homepage components
+│   │   │   ├── layout/    # Layout components
+│   │   │   └── ui/        # UI primitives (shadcn/ui)
+│   │   ├── pages/         # Route components
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── lib/           # Utilities and configurations
+│   │   └── contexts/      # React contexts
+├── server/                # Node.js backend
+│   ├── index.ts          # Server entry point
+│   ├── routes.ts         # API routes
+│   ├── storage.ts        # Memory storage implementation
+│   └── seed.ts           # Database seeding
 ├── shared/               # Shared types and schemas
-│   └── schema.ts         # Database schema definitions
-└── migrations/           # Database migrations
+│   └── schema.ts         # Type definitions
+└── dist/                 # Production build output
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ and npm/yarn
-- .NET 8.0 SDK
-- PostgreSQL database
+- Node.js 18+ and npm
 - Git
 
-### Installation
+### Quick Start
 
 1. **Clone the repository**
    ```bash
@@ -169,75 +194,82 @@ ElegantCommerce/
    npm install
    ```
 
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   DATABASE_URL=your_postgresql_connection_string
-   SESSION_SECRET=your_session_secret
-   JWT_SECRET=your_jwt_secret
-   ```
-
-4. **Database Setup**
-   ```bash
-   npm run db:push
-   ```
-
-5. **Start Development Servers**
-   
-   **Node.js Backend:**
+3. **Start development server**
    ```bash
    npm run dev
    ```
-   
-   **Frontend:**
+
+4. **Start production server**
    ```bash
-   cd client
-   npm run dev
-   ```
-   
-   **.NET Backend:**
-   ```bash
-   cd backend/TrendifyAPI
-   dotnet run
+   npm run build
+   npm start
    ```
 
-## 📊 Database Schema
+### Development Commands
 
-The application uses a comprehensive database schema including:
-- **Users**: Customer and seller accounts with role-based access
-- **Products**: Complete product information with categories and images
-- **Categories**: Product categorization system
-- **Cart Items**: Shopping cart persistence
-- **Orders**: Order management and tracking
-- **Reviews**: Product review and rating system
-- **Addresses**: Multiple shipping address support
-- **Promotions**: Discount and promotion management
+```bash
+# Install dependencies
+npm install
 
-## 🔧 API Endpoints
+# Start development server (frontend + backend)
+npm run dev
 
-### 🔐 Authentication & Authorization
-- `POST /api/auth/register` - User registration with email verification
-- `POST /api/auth/login` - User login with JWT token generation
-- `POST /api/auth/logout` - User logout and token invalidation
-- `POST /api/auth/refresh` - Refresh JWT access token
-- `POST /api/auth/forgot-password` - Password reset request
-- `POST /api/auth/reset-password` - Password reset confirmation
-- `GET /api/auth/profile` - Get current user profile
-- `PUT /api/auth/profile` - Update user profile
+# Build for production
+npm run build
 
-### 🛍️ Products & Categories
-- `GET /api/products` - Get products with advanced filtering and pagination
-- `GET /api/products/:id` - Get detailed product information
-- `GET /api/products/featured` - Get featured products
-- `GET /api/products/search` - Search products with full-text search
-- `POST /api/products` - Create new product (Admin/Seller)
-- `PUT /api/products/:id` - Update product (Admin/Seller)
-- `DELETE /api/products/:id` - Delete product (Admin/Seller)
-- `GET /api/categories` - Get all product categories
-- `POST /api/categories` - Create new category (Admin)
-- `PUT /api/categories/:id` - Update category (Admin)
+# Start production server
+npm start
 
-### 🛒 Shopping Cart & Wishlist
+# Type checking
+npm run type-check
+
+# Lint code
+npm run lint
+```
+
+## � API Endpoints
+
+The application provides comprehensive REST API endpoints:
+
+### 🔐 Admin Endpoints
+- `GET /api/admin/stats` - Dashboard statistics
+- `GET /api/admin/users` - User management
+- `POST /api/admin/users` - Create new user
+- `PUT /api/admin/users/:id` - Update user
+- `DELETE /api/admin/users/:id` - Delete user
+- `GET /api/admin/sellers` - Seller management
+- `PUT /api/admin/sellers/:id/approve` - Approve seller
+
+### �‍💼 Seller Endpoints
+- `GET /api/seller/stats` - Seller statistics
+- `GET /api/seller/products` - Product management
+- `POST /api/seller/products` - Add new product
+- `PUT /api/seller/products/:id` - Update product
+- `GET /api/seller/orders` - Order management
+- `PUT /api/seller/orders/:id/status` - Update order status
+- `GET /api/seller/reviews` - Customer reviews
+- `GET /api/seller/inventory` - Inventory management
+- `GET /api/seller/promotions` - Promotions management
+
+### 🛍️ Product & Category Endpoints
+- `GET /api/products` - Get all products with filtering
+- `GET /api/products/:id` - Get product details
+- `POST /api/products` - Create product (Admin/Seller)
+- `PUT /api/products/:id` - Update product
+- `DELETE /api/products/:id` - Delete product
+- `GET /api/categories` - Get all categories
+- `POST /api/categories` - Create category
+- `PUT /api/categories/:id` - Update category
+
+### 🛒 Cart & Order Endpoints
+- `GET /api/cart` - Get cart items
+- `POST /api/cart` - Add item to cart
+- `PUT /api/cart/:id` - Update cart item
+- `DELETE /api/cart/:id` - Remove cart item
+- `POST /api/orders` - Create new order
+- `GET /api/orders` - Get user orders
+- `GET /api/orders/:id` - Get order details
+- `PUT /api/orders/:id/status` - Update order status
 - `GET /api/cart` - Get user's shopping cart
 - `POST /api/cart/items` - Add item to cart
 - `PUT /api/cart/items/:id` - Update cart item quantity
@@ -252,33 +284,71 @@ The application uses a comprehensive database schema including:
 - `POST /api/orders` - Create new order
 - `GET /api/orders/:id` - Get detailed order information
 - `PUT /api/orders/:id/status` - Update order status (Admin/Seller)
-- `POST /api/orders/:id/cancel` - Cancel order
-- `GET /api/orders/:id/tracking` - Get order tracking information
-- `GET /api/addresses` - Get user's saved addresses
-- `POST /api/addresses` - Add new shipping address
-- `PUT /api/addresses/:id` - Update shipping address
-- `DELETE /api/addresses/:id` - Delete shipping address
+## 📋 Features Completed
 
-### 💳 Payments & Billing
-- `POST /api/payments/create-intent` - Create Stripe payment intent
-- `POST /api/payments/confirm` - Confirm payment
-- `GET /api/payments/history` - Get payment history
-- `POST /api/payments/refund` - Process refund (Admin)
+✅ **Admin Dashboard**
+- User management with role-based access
+- Product management with full CRUD operations
+- Order tracking and management
+- Seller approval and management
+- System analytics and reporting
+- Activity logging and monitoring
 
-### ⭐ Reviews & Ratings
-- `GET /api/products/:id/reviews` - Get product reviews
-- `POST /api/products/:id/reviews` - Add product review
-- `PUT /api/reviews/:id` - Update review
-- `DELETE /api/reviews/:id` - Delete review
-- `POST /api/reviews/:id/helpful` - Mark review as helpful
+✅ **Seller Dashboard**
+- Product inventory management
+- Order processing and fulfillment
+- Customer review management
+- Sales analytics and reporting
+- Promotion and discount management
+- Business profile management
 
-### 👨‍💼 Admin & Analytics
-- `GET /api/admin/dashboard` - Get admin dashboard data
-- `GET /api/admin/users` - Get all users (Admin)
-- `PUT /api/admin/users/:id/role` - Update user role (Admin)
-- `GET /api/admin/orders` - Get all orders (Admin)
-- `GET /api/admin/analytics` - Get sales analytics (Admin)
-- `GET /api/admin/reports` - Generate reports (Admin)
+✅ **Customer Interface**
+- Responsive product catalog
+- Shopping cart functionality
+- User authentication and profiles
+- Order history and tracking
+- Product search and filtering
+
+✅ **Technical Implementation**
+- React 18 + TypeScript frontend
+- Node.js + Express backend
+- Memory-based storage system
+- REST API with comprehensive endpoints
+- Responsive UI with Tailwind CSS
+- Component library with shadcn/ui
+
+## 🚀 Live Application
+
+The ElegantCommerce platform is fully functional and ready for use:
+
+- **Homepage**: Modern product catalog with filtering
+- **Admin Panel** (`/admin`): Complete administrative interface
+- **Seller Dashboard** (`/seller`): Comprehensive seller management
+- **API Endpoints**: Full REST API with all CRUD operations
+
+## �️ Development & Deployment
+
+### Local Development
+```bash
+# Clone and install
+git clone https://github.com/mericulasK/ElegantCommerce.git
+cd ElegantCommerce
+npm install
+
+# Start development server
+npm run dev
+
+# Build and start production
+npm run build
+npm start
+```
+
+### Technology Stack
+- **Frontend**: React 18, TypeScript, Tailwind CSS, shadcn/ui
+- **Backend**: Node.js, Express, Memory Storage
+- **Build System**: Vite with optimized production builds
+- **State Management**: TanStack Query for server state
+- **Routing**: React Router for client-side navigation
 
 ## 🤝 Contributing
 
@@ -294,37 +364,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **mericulasK** - *Initial work* - [mericulasK](https://github.com/mericulasK)
+- **mericulasK** - *Project Creator* - [GitHub](https://github.com/mericulasK)
 
 ## 🙏 Acknowledgments
 
-- React and the React ecosystem
-- Tailwind CSS and shadcn/ui for the beautiful UI components
-- Drizzle ORM for excellent TypeScript database integration
-- Neon Database for serverless PostgreSQL
-- All open source contributors who made this project possible
-
-## 🌐 Deployment & Hosting
-
-### Current Hosting
-- **Frontend**: Deployed on Replit with automatic builds
-- **Backend API**: Azure App Service with SQL Database
-- **Database**: Azure SQL Database with automatic backups
-- **CDN**: Static assets served via Azure CDN
-
-### Deployment Status
-- ✅ **Production**: Live and accessible
-- ✅ **Staging**: Available for testing
-- ✅ **Development**: Local development environment
-- 🔄 **CI/CD**: Automated deployment pipeline
-
-### Environment URLs
-```
-Production:  https://elegantcommerce.replit.app
-Staging:     https://elegantcommerce-staging.replit.app
-API Docs:    https://trendify-api.azurewebsites.net/swagger
-Admin:       https://elegantcommerce.replit.app/admin
-```
+- React ecosystem and community
+- shadcn/ui for beautiful components
+- Tailwind CSS for utility-first styling
+- All open source contributors
 
 ### Performance Metrics
 - **Load Time**: < 2 seconds

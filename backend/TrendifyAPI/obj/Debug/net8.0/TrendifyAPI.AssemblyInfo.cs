@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrendifyAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+486d12b7ec1e41fd25cf91844118ef31c403af2d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+018cbf13d568e8cd413ed33b0e087feb346bc24e")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrendifyAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrendifyAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
