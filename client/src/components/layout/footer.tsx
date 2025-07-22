@@ -80,7 +80,11 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Customer Service</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+              <li>
+                <Link href="/contact" className="text-gray-400 hover:text-white transition-colors cursor-pointer">
+                  Contact Us
+                </Link>
+              </li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Shipping Info</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Returns & Exchanges</a></li>
               <li><a href="#" className="text-gray-400 hover:text-white transition-colors">Size Guide</a></li>
@@ -94,19 +98,19 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">📍</div>
-                <span className="text-gray-400">123 Fashion Street, NY 10001</span>
+                <span className="text-gray-400">İstanbul, Türkiye</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">📞</div>
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">+90 537 478 36 66</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">✉️</div>
-                <span className="text-gray-400">info@eliteshop.com</span>
+                <span className="text-gray-400">info@elegantcommerce.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">🕒</div>
-                <span className="text-gray-400">Mon-Sat: 9AM-8PM</span>
+                <span className="text-gray-400">Pzt-Cum: 9:00-18:00</span>
               </div>
             </div>
           </div>

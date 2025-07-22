@@ -24,7 +24,8 @@ export default function Header() {
     { name: "Products", href: "/products" },
     { name: "New Arrivals", href: "/products?filter=new" },
     { name: "Best Sellers", href: "/products?filter=featured" },
-    { name: "Sale", href: "/products?filter=sale" },
+    { name: "About Us", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
