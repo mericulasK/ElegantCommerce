@@ -60,10 +60,10 @@ export default function SellerDashboard() {
     );
   }
 
-  const totalProducts = sellerProducts?.length || 0;
-  const totalOrders = sellerOrders?.length || 0;
-  const totalRevenue = sellerOrders?.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) || 0;
-  const averageRating = sellerReviews?.reduce((sum: number, review: any) => sum + review.rating, 0) / (sellerReviews?.length || 1) || 0;
+  const totalProducts = Array.isArray(sellerProducts) ? sellerProducts.length : 0;
+  const totalOrders = Array.isArray(sellerOrders) ? sellerOrders.length : 0;
+  const totalRevenue = Array.isArray(sellerOrders) ? sellerOrders.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) : 0;
+  const averageRating = Array.isArray(sellerReviews) && sellerReviews.length > 0 ? sellerReviews.reduce((sum: number, review: any) => sum + review.rating, 0) / sellerReviews.length : 0;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +148,7 @@ export default function SellerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {sellerOrders?.slice(0, 5).map((order: any) => (
+                  {Array.isArray(sellerOrders) ? sellerOrders.slice(0, 5).map((order: any) => (
                     <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <p className="font-medium">Order #{order.id}</p>
@@ -160,7 +160,7 @@ export default function SellerDashboard() {
                         {order.status}
                       </Badge>
                     </div>
-                  )) || (
+                  )) : (
                     <p className="text-gray-500 text-center py-8">No recent orders</p>
                   )}
                 </div>
@@ -178,7 +178,7 @@ export default function SellerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {sellerReviews?.slice(0, 5).map((review: any) => (
+                  {Array.isArray(sellerReviews) ? sellerReviews.slice(0, 5).map((review: any) => (
                     <div key={review.id} className="p-4 border rounded-lg">
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="flex">
@@ -199,7 +199,7 @@ export default function SellerDashboard() {
                       </div>
                       <p className="text-sm text-gray-700">{review.comment}</p>
                     </div>
-                  )) || (
+                  )) : (
                     <p className="text-gray-500 text-center py-8">No recent reviews</p>
                   )}
                 </div>

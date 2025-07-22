@@ -65,10 +65,10 @@ export default function AdminDashboard() {
     );
   }
 
-  const totalUsers = users?.length || 0;
-  const totalProducts = products?.length || 0;
-  const totalOrders = orders?.length || 0;
-  const totalRevenue = orders?.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) || 0;
+  const totalUsers = Array.isArray(users) ? users.length : 0;
+  const totalProducts = Array.isArray(products) ? products.length : 0;
+  const totalOrders = Array.isArray(orders) ? orders.length : 0;
+  const totalRevenue = Array.isArray(orders) ? orders.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) : 0;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +148,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {orders?.slice(0, 5).map((order: any) => (
+                  {Array.isArray(orders) ? orders.slice(0, 5).map((order: any) => (
                     <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <p className="font-medium">Order #{order.id}</p>
@@ -160,7 +160,7 @@ export default function AdminDashboard() {
                         {order.status}
                       </Badge>
                     </div>
-                  )) || (
+                  )) : (
                     <p className="text-gray-500 text-center py-8">No recent orders</p>
                   )}
                 </div>
@@ -173,7 +173,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {activities?.slice(0, 5).map((activity: any) => (
+                  {Array.isArray(activities) ? activities.slice(0, 5).map((activity: any) => (
                     <div key={activity.id} className="flex items-start space-x-3 p-4 border rounded-lg">
                       <div className="flex-1">
                         <p className="font-medium">{activity.action}</p>
@@ -183,7 +183,7 @@ export default function AdminDashboard() {
                         </p>
                       </div>
                     </div>
-                  )) || (
+                  )) : (
                     <p className="text-gray-500 text-center py-8">No recent activity</p>
                   )}
                 </div>

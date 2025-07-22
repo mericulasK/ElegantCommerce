@@ -94,7 +94,7 @@ export function InventoryManagement() {
   const inventoryData = inventory || mockInventory;
 
   // Filter inventory based on search and status
-  const filteredInventory = inventoryData.filter((item) => {
+  const filteredInventory = inventoryData.filter((item: InventoryItem) => {
     const matchesSearch = item.productName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          item.sku.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = filterStatus === "all" || item.status === filterStatus;
@@ -102,9 +102,9 @@ export function InventoryManagement() {
   });
 
   // Calculate inventory stats
-  const totalValue = inventoryData.reduce((sum, item) => sum + item.totalValue, 0);
-  const lowStockItems = inventoryData.filter(item => item.status === "low_stock").length;
-  const outOfStockItems = inventoryData.filter(item => item.status === "out_of_stock").length;
+  const totalValue = inventoryData.reduce((sum: number, item: InventoryItem) => sum + item.totalValue, 0);
+  const lowStockItems = inventoryData.filter((item: InventoryItem) => item.status === "low_stock").length;
+  const outOfStockItems = inventoryData.filter((item: InventoryItem) => item.status === "out_of_stock").length;
   const totalItems = inventoryData.length;
 
   const getStatusBadge = (status: string) => {
@@ -252,7 +252,7 @@ export function InventoryManagement() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredInventory.map((item) => (
+                {filteredInventory.map((item: InventoryItem) => (
                   <TableRow key={item.id}>
                     <TableCell className="font-medium">{item.productName}</TableCell>
                     <TableCell>{item.sku}</TableCell>
