@@ -25,19 +25,19 @@
 ### 1. Azure Portal'da Database Oluşturma
 ```bash
 # Azure CLI ile database oluşturma
-az sql server create --name trendify-server --resource-group trendify-rg --location "East US" --admin-user trendify-admin --admin-password "YourSecurePassword123!"
+az sql server create --name elite-shop-server --resource-group elite-shop-rg --location "East US" --admin-user elite-shop-admin --admin-password "YourSecurePassword123!"
 
-az sql db create --resource-group trendify-rg --server trendify-server --name TrendifyDB --service-objective Basic
+az sql db create --resource-group elite-shop-rg --server elite-shop-server --name EliteShopDB --service-objective Basic
 ```
 
 ### 2. Database Schema Kurulumu
 Dosya: `database-setup.sql` dosyasını Azure SQL Database'de çalıştırın.
 
 ### 3. Connection String Güncelleme
-`backend/TrendifyAPI/appsettings.json` dosyasında:
+`backend/EliteShopAPI/appsettings.json` dosyasında:
 ```json
 "ConnectionStrings": {
-    "DefaultConnection": "Server=tcp:trendify-server.database.windows.net,1433;Initial Catalog=TrendifyDB;Persist Security Info=False;User ID=trendify-admin;Password=YourSecurePassword123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    "DefaultConnection": "Server=tcp:elite-shop-server.database.windows.net,1433;Initial Catalog=EliteShopDB;Persist Security Info=False;User ID=elite-shop-admin;Password=YourSecurePassword123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 }
 ```
 
@@ -91,7 +91,7 @@ POST /api/auth/register - Kayıt
 dotnet publish -c Release -o ./publish
 
 # Azure'a deploy
-az webapp deployment source config-zip --resource-group trendify-rg --name trendify-api --src publish.zip
+az webapp deployment source config-zip --resource-group elite-shop-rg --name elite-shop-api --src publish.zip
 ```
 
 ### Frontend Deployment (Vercel/Netlify)
@@ -100,7 +100,7 @@ az webapp deployment source config-zip --resource-group trendify-rg --name trend
 npm run build
 
 # Environment variables
-VITE_API_BASE_URL=https://trendify-api.azurewebsites.net
+VITE_API_BASE_URL=https://elite-shop-api.azurewebsites.net
 VITE_ENABLE_ANIMATIONS=true
 ```
 
@@ -229,7 +229,7 @@ VITE_ENABLE_ANIMATIONS=true
 
 ### 🌐 Live Access
 - **Main Site**: https://elegantcommerce.replit.app
-- **API Documentation**: https://trendify-api.azurewebsites.net/swagger
+- **API Documentation**: https://elite-shop-api.azurewebsites.net/swagger
 - **Admin Panel**: https://elegantcommerce.replit.app/admin
 
 **Status**: ✅ **LIVE AND OPERATIONAL** 🚀

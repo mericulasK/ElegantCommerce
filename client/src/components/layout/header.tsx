@@ -170,6 +170,14 @@ export default function Header() {
                           </Button>
                         </Link>
                       )}
+                      {user?.role === 'Customer' && (
+                        <Link href="/customer">
+                          <Button variant="ghost" size="sm" className="w-full justify-start">
+                            <User className="w-4 h-4 mr-2" />
+                            My Account
+                          </Button>
+                        </Link>
+                      )}
                       <Button 
                         variant="ghost" 
                         size="sm" 

@@ -4,7 +4,7 @@
 
 **Status**: ✅ **LIVE IN PRODUCTION**
 - **Main Application**: https://elegantcommerce.replit.app
-- **API Documentation**: https://trendify-api.azurewebsites.net/swagger
+- **API Documentation**: https://elite-shop-api.azurewebsites.net/swagger
 - **Admin Dashboard**: https://elegantcommerce.replit.app/admin
 
 ## 📋 Overview

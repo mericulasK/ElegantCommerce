@@ -64,7 +64,7 @@ This project and everyone participating in it is governed by our Code of Conduct
    cd client && npm run dev
    
    # Terminal 3: .NET backend
-   cd backend/TrendifyAPI && dotnet run
+   cd backend/EliteShopAPI && dotnet run
    ```
 
 ## 🤝 How to Contribute

@@ -1,4 +1,4 @@
--- Azure SQL Database Setup for TrendifyAPI
+-- Azure SQL Database Setup for EliteShopAPI
 -- Create database tables compatible with C# .NET 8.0 backend
 
 -- Users table

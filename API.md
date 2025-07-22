@@ -4,8 +4,8 @@
 
 ### Production
 - **Main API**: `https://elegantcommerce.replit.app/api`
-- **.NET API**: `https://trendify-api.azurewebsites.net/api`
-- **Documentation**: `https://trendify-api.azurewebsites.net/swagger`
+- **.NET API**: `https://elite-shop-api.azurewebsites.net/api`
+- **Documentation**: `https://elite-shop-api.azurewebsites.net/swagger`
 
 ### Development
 - **Local API**: `http://localhost:5000/api`
@@ -355,7 +355,7 @@ Import our Postman collection for easy API testing:
 ## 📞 Support
 
 For API support and questions:
-- 📚 [Full Documentation](https://trendify-api.azurewebsites.net/swagger)
+- 📚 [Full Documentation](https://elite-shop-api.azurewebsites.net/swagger)
 - 🐛 [Report Issues](https://github.com/mericulasK/ElegantCommerce/issues)
 - 💬 [API Discussions](https://github.com/mericulasK/ElegantCommerce/discussions)
 

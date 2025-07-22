@@ -1,9 +1,9 @@
 {
   "azureDatabase": {
-    "server": "trendify-server.database.windows.net",
-    "database": "TrendifyDB",
+    "server": "elite-shop-server.database.windows.net",
+    "database": "EliteShopDB",
     "authentication": "SqlPassword",
-    "username": "trendify-admin",
+    "username": "elite-shop-admin",
     "connectionTimeout": 30,
     "encrypt": true,
     "trustServerCertificate": false,
@@ -14,7 +14,7 @@
     "migrateData": "migrate-data.sql"
   },
   "backendIntegration": {
-    "apiBaseUrl": "https://trendify-api.azurewebsites.net",
+    "apiBaseUrl": "https://elite-shop-api.azurewebsites.net",
     "endpoints": {
       "products": "/api/products",
       "categories": "/api/categories",

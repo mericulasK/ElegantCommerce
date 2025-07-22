@@ -322,7 +322,7 @@
 - **Node.js Backend**: Deployed on Replit
 - **.NET Web API**: Deployed on Azure App Service
 - **Database**: Azure SQL Database with automatic backups
-- **Documentation**: https://trendify-api.azurewebsites.net/swagger
+- **Documentation**: https://elite-shop-api.azurewebsites.net/swagger
 
 ### Monitoring & Analytics
 - **Error Tracking**: Implemented
@@ -353,5 +353,5 @@
 
 ### 🚀 Quick Access
 - **Live Site**: [https://elegantcommerce.replit.app](https://elegantcommerce.replit.app)
-- **API Docs**: [https://trendify-api.azurewebsites.net/swagger](https://trendify-api.azurewebsites.net/swagger)
+- **API Docs**: [https://elite-shop-api.azurewebsites.net/swagger](https://elite-shop-api.azurewebsites.net/swagger)
 - **GitHub**: [https://github.com/mericulasK/ElegantCommerce](https://github.com/mericulasK/ElegantCommerce)

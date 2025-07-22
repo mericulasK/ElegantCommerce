@@ -14,6 +14,10 @@ import Cart from "@/pages/cart";
 import AuthPage from "@/pages/auth";
 import AdminDashboard from "@/pages/admin/dashboard";
 import SellerDashboard from "@/pages/seller/dashboard";
+import CustomerDashboard from "@/pages/customer/dashboard";
+import CustomerProfile from "@/pages/customer/profile";
+import CustomerOrders from "@/pages/customer/orders";
+import CheckoutPage from "@/pages/checkout";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,9 +27,13 @@ function Router() {
       <Route path="/products" component={Products} />
       <Route path="/products/:id" component={ProductDetail} />
       <Route path="/cart" component={Cart} />
+      <Route path="/checkout" component={CheckoutPage} />
       <Route path="/auth" component={AuthPage} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/seller" component={SellerDashboard} />
+      <Route path="/customer" component={CustomerDashboard} />
+      <Route path="/customer/profile" component={CustomerProfile} />
+      <Route path="/customer/orders" component={CustomerOrders} />
       <Route component={NotFound} />
     </Switch>
   );

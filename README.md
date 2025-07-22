@@ -163,7 +163,7 @@ ElegantCommerce/
 │   ├── routes.ts         # API routes
 │   └── storage.ts        # Database operations
 ├── backend/              # .NET Web API
-│   └── TrendifyAPI/
+│   └── EliteShopAPI/
 ## 📁 Project Structure
 
 ```

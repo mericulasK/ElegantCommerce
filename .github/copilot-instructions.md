@@ -18,7 +18,7 @@ ElegantCommerce/
 │   ├── hooks/               # Custom React hooks (use-cart.tsx pattern)
 │   └── contexts/            # React contexts (auth-context.tsx pattern)
 ├── server/                  # Node.js Express backend
-├── backend/TrendifyAPI/     # .NET Web API backend
+├── backend/EliteShopAPI/    # .NET Web API backend
 ├── shared/schema.ts         # Single source of truth for data models
 └── migrations/              # Drizzle database migrations
 ```
@@ -45,7 +45,7 @@ ElegantCommerce/
 ```bash
 # Start all services simultaneously
 npm run dev          # Node.js backend + frontend
-cd backend/TrendifyAPI && dotnet run  # .NET backend (parallel)
+cd backend/EliteShopAPI && dotnet run  # .NET backend (parallel)
 ```
 
 ### Database Operations

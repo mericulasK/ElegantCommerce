@@ -1,6 +1,6 @@
-@TrendifyAPI_HostAddress = http://localhost:5236
+@EliteShopAPI_HostAddress = http://localhost:5236
 
-GET {{TrendifyAPI_HostAddress}}/weatherforecast/
+GET {{EliteShopAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
