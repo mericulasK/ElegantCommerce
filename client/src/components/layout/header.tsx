@@ -55,16 +55,16 @@ export default function Header() {
           <nav className="hidden lg:flex space-x-8">
             {navigation.map((item) => (
               <Link key={item.href} href={item.href}>
-                <motion.a
+                <motion.span
                   whileHover={{ y: -2 }}
-                  className={`nav-link font-medium transition-colors ${
+                  className={`nav-link font-medium transition-colors cursor-pointer ${
                     location === item.href 
                       ? "text-primary-600" 
                       : "text-gray-700 hover:text-primary-600"
                   }`}
                 >
                   {item.name}
-                </motion.a>
+                </motion.span>
               </Link>
             ))}
           </nav>
@@ -162,8 +162,8 @@ export default function Header() {
             <nav className="space-y-2">
               {navigation.map((item) => (
                 <Link key={item.href} href={item.href}>
-                  <a 
-                    className={`block py-2 px-4 rounded-lg font-medium transition-colors ${
+                  <span 
+                    className={`block py-2 px-4 rounded-lg font-medium transition-colors cursor-pointer ${
                       location === item.href 
                         ? "text-primary-600 bg-primary-50" 
                         : "text-gray-700 hover:text-primary-600 hover:bg-gray-100"
@@ -171,7 +171,7 @@ export default function Header() {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </span>
                 </Link>
               ))}
             </nav>
