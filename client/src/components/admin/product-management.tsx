@@ -508,7 +508,6 @@ export default function ProductManagement() {
                         <span className="line-through">${product.originalPrice}</span>
                       )}
                       {product.brand && <span>Brand: {product.brand}</span>}
-                      {product.sku && <span>SKU: {product.sku}</span>}
                     </div>
                   </div>
                 </div>

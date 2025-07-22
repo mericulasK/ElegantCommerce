@@ -35,7 +35,6 @@ export const products = pgTable("products", {
   description: text("description"),
   price: decimal("price", { precision: 18, scale: 2 }).notNull(),
   originalPrice: decimal("original_price", { precision: 18, scale: 2 }),
-  sku: text("sku").unique(),
   image: text("image"),
   images: text("images").array(),
   category: text("category").notNull(),
