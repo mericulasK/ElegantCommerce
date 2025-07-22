@@ -1,4 +1,10 @@
-# ElegantCommerce - Modern E-commerce Platform
+# ElegantCommerc### 🌐 Application URLs
+- **Main Application**: [http://localhost:3000](http://localhost:3000)
+- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
+- **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
+- **About Us**: [http://localhost:3000/about](http://localhost:3000/about)
+- **Contact Us**: [http://localhost:3000/contact](http://localhost:3000/contact)
+- **API Endpoints**: `http://localhost:3000/api/*`odern E-commerce Platform
 
 ![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
@@ -25,6 +31,8 @@ The application includes comprehensive demo data and functionality:
 - **Admin Panel**: Complete user, product, order, and seller management
 - **Seller Dashboard**: Product management, order tracking, analytics, and customer reviews
 - **Customer Interface**: Product browsing, cart functionality, and checkout process
+- **About Us Page**: Company information with mission, vision, values, and team profiles
+- **Contact Us Page**: Professional contact form with team directory and department routing
 
 ## � Key Features
 
@@ -49,6 +57,8 @@ The application includes comprehensive demo data and functionality:
 - **Modern Product Catalog**: Responsive grid with advanced filtering
 - **Shopping Cart**: Add/remove items with real-time price calculation
 - **User Authentication**: Secure login/register with form validation
+- **Contact Us Page**: Professional contact form with team directory and department routing
+- **About Us Page**: Comprehensive company information with mission, vision, and team profiles
 - **Responsive Design**: Mobile-first approach with Tailwind CSS
 - **State Management**: TanStack Query for API state, React Context for cart
 
@@ -489,7 +499,47 @@ We welcome contributions to ElegantCommerce! Here's how you can help:
 - Comprehensive error handling
 - Mobile-first responsive design
 
-## 📞 Support & Links
+## � Team
+
+ElegantCommerce is developed and maintained by a team of experienced professionals:
+
+### 🚀 Co-Founders & Development Team
+
+#### **Meriç Ulaş Kıray**
+- **Position**: Co-Founder & Sales and Marketing Director & Developer
+- **Email**: mericulask@gmail.com
+- **Phone**: +90 537 478 36 66
+- **Expertise**: Sales Strategy, Marketing, Software Development, Business Development
+- **Role**: Leads sales and marketing strategies while contributing to software development processes.
+
+#### **Ömer Sadık Uysal**
+- **Position**: Co-Founder & CTO & Technology Director & Developer
+- **Email**: omersadikuysal09@gmail.com
+- **Phone**: +90 552 265 13 37
+- **Expertise**: Technology Management, Software Architecture, DevOps, System Design
+- **Role**: Oversees technology infrastructure, software development, and technology strategies.
+
+#### **Ali Bulut**
+- **Position**: Co-Founder & Marketing Director & Developer
+- **Email**: abulut48@hotmail.com
+- **Phone**: +90 532 123 45 67
+- **Expertise**: Digital Marketing, Brand Strategy, Frontend Development, SEO/SEM
+- **Role**: Specializes in marketing strategies, brand management, and frontend development.
+
+#### **Kadir Görkem Uzun**
+- **Position**: Co-Founder & Sales Director & Developer
+- **Email**: kuzun5675@gmail.com
+- **Phone**: +90 555 987 65 43
+- **Expertise**: Sales Management, Customer Relations, Backend Development, B2B Sales
+- **Role**: Manages sales operations and customer relations while contributing to backend development.
+
+### 📧 Contact Information
+- **General Inquiries**: info@elegantcommerce.com
+- **Technical Support**: Contact CTO Ömer Sadık Uysal
+- **Sales Inquiries**: Contact Sales Directors Meriç Ulaş Kıray or Kadir Görkem Uzun
+- **Marketing**: Contact Marketing Director Ali Bulut
+
+## �📞 Support & Links
 
 ### Quick Links
 - 🌐 **Local Development**: http://localhost:3000
