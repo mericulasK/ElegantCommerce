@@ -1,0 +1,47 @@
+Admin Rolü –
+1. Kullanıcı Yönetimi
+Admin olarak, kullanıcıları sisteme ekleyebilmek, var olan kullanıcıları düzenleyebilmek ve gerektiğinde silebilmek istiyoruz.
+
+2. Ürün Yönetimi
+Admin, sisteme ürün ekleyebilmeli, mevcut ürünleri güncelleyebilmeli veya silebilmelidir.
+
+3. Sipariş Süreci ve Yönetimi
+Admin, tüm kullanıcıların sipariş süreçlerini görüntüleyebilmeli, sipariş durumlarını takip edebilmeli ve gerektiğinde müdahale edebilmelidir (örneğin: iptal, güncelleme).
+
+4. Satıcı Onayı
+Satıcı olarak sisteme üye olan kullanıcıların hesapları, admin tarafından manuel onay sürecinden geçmelidir. Bu onay olmadan satıcı işlemleri gerçekleştirilememelidir.
+
+5. İstatistik ve Aktivite İzleme
+Admin, kullanıcı ve satıcı aktivitelerini detaylı şekilde görüntüleyebilmeli; örneğin:
+
+Hangi kullanıcı ne işlem yaptı,
+
+Hangi satıcı ne kadar satış gerçekleştirdi,
+
+Sipariş ve satış hacimleri gibi verileri içeren yönetimsel raporlara erişebilmelidir.
+
+6. Sayfa Yönetimi (CMS)
+Admin, sistemdeki anasayfa, hakkımızda, iletişim gibi genel içerik sayfalarını admin paneli üzerinden düzenleyebilmelidir.
+
+7. Güvenli Giriş (Authentication & CSRF Protection)
+Admin, sisteme güvenli şekilde giriş yapabilmeli; kullanıcı kimlik doğrulama süreci Anti-Forgery Token mekanizması ile korunmalıdır.
+
+8. Admin Paneli (Area Yönetimi)
+Admin’in işlemlerini gerçekleştireceği izole bir yönetim paneli (Admin Area) bulunmalı; bu panel sadece admin rolüne sahip kullanıcılar tarafından erişilebilir olmalıdır.
+
+9. Admin Profil Bilgileri
+Admin kullanıcıları; ad, soyad, profil fotoğrafı, e-posta, kullanıcı adı ve adres bilgilerine sahip olmalıdır.
+
+10. Profil Görüntüleme ve Güncelleme
+Admin, kendi profilini görüntüleyebilmeli ve ihtiyaç duyduğunda bilgilerini güncelleyebilmelidir.           Satıcı Rolü : 					
+-Satıcı olarak, ürünlerimi sisteme ekleyebilmek, güncelleyebilmek ve stok durumunu yönetebilmek istiyorum			
+Satıcı olarak, müşterilerimden gelen siparişleri görüntüleyebilmek ve sipariş durumlarını güncelleyebilmek istiyorum		
+Satıcı olarak, satışlarıma ilişkin raporları görüntüleyebilmek ve analiz edebilmek istiyorum			
+-Satıcı olarak, ürünlerim için promosyonlar ve indirim kampanyaları oluşturabilmek istiyorum			
+-Satıcı olarak, ürünlerim hakkında yapılan kullanıcı yorumlarını görüntüleyebilmek ve bu yorumlara yanıt verebilmek istiyorum				
+-Satıcı olarak, platforma kayıt olabilmek istiyorum				
+-Satıcı olarak, sisteme giriş yapabilmek istiyorum				
+-Satıcı olarak bir anasayfa görebilmek istiyorum				
+-Logo, email, Kullanıcı adı, Adres, Firma Adı özellikleri var				
+-Satıcı olarak profil bilgilerimi görüntüleyebilmek istiyorum				
+-Satıcı olarak profil bilgilerimi düzenleyebilmek istiyorum                                                                                               ---  Müşteri:   - Müşteri olarak, sisteme kayıt olabilmek ve giriş yapabilmek istiyorum                           - Müşteri olarak, profil bilgilerini düzenleyebilmek ve adres bilgilerini güncelleyebilmek istiyorum. - Müşteri olarak, ürünleri görüntüleyebilmek, kategorilere göre filtreleyebilmek ve arama yapabilmek istiyorum. - Müşteri olarak, ürünleri sepetime ekleyebilmek, çıkarabilmek ve sepetimi güncelleyebilmek istiyorum. -Müşteri olarak, sepetimdeki ürünler için sipariş verebilmek ve ödeme işlemlerini gerçekleştirebilmek istiyorum.  - Müşteri olarak, sepetimdeki ürünler için sipariş verebilmek ve ödeme işlemlerini gerçekleştirebilmek istiyorum.      - Müşteri olarak, geçmiş siparişlerimi görüntüleyebilmek ve sipariş durumunu takip edebilmek istiyorum.                                                                                                                                 - Müşteri olarak, satın aldığım ürünler için yorum yapabilmek ve puan verebilmek istiyorum.                                                                                                                                                       - Müşteri olarak, satın aldığım ürünler için iade ve değişim talebi oluşturabilmek istiyorum.                                                                                                                                                                 - Müşteri olarak bir anasayfa görebilmek istiyorum. (Foto, İsim, Soyisim,  Kullanıcı adı, Adres özellikleri var)                                                                                                                                                                            - Müşteri olarak profil bilgilerimi görüntüleyebilmek istiyorum                                                            -  Müşteri olarak profil bilgilerimi düzenleyebilmek istiyorum                                                               - Müşteri olarak ödeme işlemi yapabilmek istiyorum                                                                                                     - Müşteri olarak, ürünleri görüntüleyebilmek, kategorilere göre filtreleyebilmek ve arama yapabilmek istiyorum.             Zİyaretçi: Ziyaretçi olarak, e-ticaret sitesine üye olabilmek istiyorum.  -  Ziyaretçi olarak, e-ticaret sitesindeki ürünleri görüntüleyebilmek ve ürün detaylarına erişebilmek istiyorum.          -Ziyaretçi olarak, arama ve filtreleme seçeneklerini kullanarak ürünler arasında kolayca gezinebilmek istiyorum.        
