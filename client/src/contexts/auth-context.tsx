@@ -75,114 +75,139 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const isAuthenticated = !!user && !!token;
-  const isAdmin = user?.role === 'Admin';
-  const isSeller = user?.role === 'Seller';
-  const isCustomer = user?.role === 'Customer';
+  const isAdmin = user?.role === 'admin';
+  const isSeller = user?.role === 'seller';
+  const isCustomer = user?.role === 'customer';
 
   useEffect(() => {
     if (token) {
-      getCurrentUser();
-    } else {
-      setLoading(false);
+      // Try to get user from localStorage
+      const storedUser = localStorage.getItem('auth_user');
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (error) {
+          console.error('Error parsing stored user:', error);
+          localStorage.removeItem('auth_token');
+          localStorage.removeItem('auth_user');
+          setToken(null);
+        }
+      }
     }
+    setLoading(false);
   }, [token]);
 
-  const getCurrentUser = async () => {
+  const login = async (email: string, password: string): Promise<AuthResponse> => {
     try {
-      const response = await fetch('/api/auth/me', {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ email, password }),
       });
 
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      } else {
-        localStorage.removeItem('auth_token');
-        setToken(null);
-        setUser(null);
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Login failed');
       }
+
+      const authData = await response.json();
+      const user = authData.user;
+      
+      // Create a mock token and auth response for compatibility
+      const mockAuthResponse: AuthResponse = {
+        token: `mock_token_${user.id}_${Date.now()}`,
+        user: user,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
+      };
+      
+      setToken(mockAuthResponse.token);
+      setUser(user);
+      localStorage.setItem('auth_token', mockAuthResponse.token);
+      localStorage.setItem('auth_user', JSON.stringify(user));
+      
+      return mockAuthResponse;
     } catch (error) {
-      console.error('Error fetching current user:', error);
-      localStorage.removeItem('auth_token');
-      setToken(null);
-      setUser(null);
-    } finally {
-      setLoading(false);
+      console.error('Login error:', error);
+      throw error;
     }
-  };
-
-  const login = async (email: string, password: string): Promise<AuthResponse> => {
-    const response = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Login failed');
-    }
-
-    const authData: AuthResponse = await response.json();
-    setToken(authData.token);
-    setUser(authData.user);
-    localStorage.setItem('auth_token', authData.token);
-    return authData;
   };
 
   const register = async (data: RegisterData): Promise<AuthResponse> => {
-    const response = await fetch('/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Registration failed');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Registration failed');
+      }
+
+      const authData = await response.json();
+      const user = authData.user;
+      
+      // Create a mock token and auth response for compatibility
+      const mockAuthResponse: AuthResponse = {
+        token: `mock_token_${user.id}_${Date.now()}`,
+        user: user,
+        expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours
+      };
+      
+      setToken(mockAuthResponse.token);
+      setUser(user);
+      localStorage.setItem('auth_token', mockAuthResponse.token);
+      localStorage.setItem('auth_user', JSON.stringify(user));
+      
+      return mockAuthResponse;
+    } catch (error) {
+      console.error('Registration error:', error);
+      throw error;
     }
-
-    const authData: AuthResponse = await response.json();
-    setToken(authData.token);
-    setUser(authData.user);
-    localStorage.setItem('auth_token', authData.token);
-    return authData;
   };
 
   const logout = () => {
-    setToken(null);
     setUser(null);
+    setToken(null);
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('auth_user');
   };
 
   const updateProfile = async (data: UpdateProfileData): Promise<User> => {
-    const response = await fetch('/api/auth/profile', {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Profile update failed');
+    if (!user) {
+      throw new Error('No user logged in');
     }
 
-    const updatedUser = await response.json();
-    setUser(updatedUser);
-    return updatedUser;
+    try {
+      const response = await fetch(`/api/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Profile update failed');
+      }
+
+      const updatedUser = await response.json();
+      setUser(updatedUser);
+      localStorage.setItem('auth_user', JSON.stringify(updatedUser));
+      return updatedUser;
+    } catch (error) {
+      console.error('Profile update error:', error);
+      throw error;
+    }
   };
 
-  const value = {
+  const value: AuthContextType = {
     user,
     token,
     isAuthenticated,

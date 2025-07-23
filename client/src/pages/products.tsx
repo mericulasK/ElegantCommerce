@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Search, Filter, Grid, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import ProductCard from "@/components/products/product-card";
 import ProductFilters from "@/components/products/product-filters";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useProducts } from "@/hooks/use-products";
 import type { Product } from "@shared/schema";
 
 export default function Products() {
@@ -17,8 +17,9 @@ export default function Products() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [showFilters, setShowFilters] = useState(false);
 
-  const { data: products = [], isLoading } = useQuery<Product[]>({
-    queryKey: ["/api/products", { category: category === "all" ? "" : category, search: searchQuery }],
+  const { data: products = [], isLoading } = useProducts({ 
+    category: category === "all" ? undefined : category, 
+    search: searchQuery || undefined 
   });
 
   const sortedProducts = [...products].sort((a, b) => {

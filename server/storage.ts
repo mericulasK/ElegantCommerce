@@ -128,6 +128,83 @@ export class MemStorage implements StorageInterface {
   }
 
   private initializeSampleData() {
+    // Demo Users
+    const demoUsers: Omit<User, 'id'>[] = [
+      {
+        username: "admin",
+        email: "admin@elegantcommerce.com",
+        password: "Admin123!",
+        role: "admin",
+        firstName: "System",
+        lastName: "Administrator",
+        phone: "+90 555 0123",
+        profileImage: null,
+        address: null,
+        isApproved: true,
+        companyName: null,
+        companyLogo: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        username: "seller1",
+        email: "seller1@elegantcommerce.com", 
+        password: "Seller123!",
+        role: "seller",
+        firstName: "Elite",
+        lastName: "Designer",
+        phone: "+90 555 0124",
+        profileImage: null,
+        address: null,
+        isApproved: true,
+        companyName: "EliteDesign Store",
+        companyLogo: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        username: "customer1",
+        email: "customer1@elegantcommerce.com",
+        password: "Customer123!",
+        role: "customer",
+        firstName: "Ali",
+        lastName: "Yılmaz",
+        phone: "+90 555 0125",
+        profileImage: null,
+        address: null,
+        isApproved: false,
+        companyName: null,
+        companyLogo: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        username: "testadmin",
+        email: "testadmin@test.com",
+        password: "Test123!",
+        role: "admin",
+        firstName: "Test",
+        lastName: "Admin",
+        phone: "+90 555 0126",
+        profileImage: null,
+        address: null,
+        isApproved: true,
+        companyName: null,
+        companyLogo: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ];
+
+    // Add demo users to storage
+    demoUsers.forEach(userData => {
+      const user: User = {
+        id: this.currentUserId++,
+        ...userData
+      };
+      this.users.set(user.id, user);
+    });
+
     // Categories
     const womenCategory: Category = {
       id: this.currentCategoryId++,

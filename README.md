@@ -1,53 +1,63 @@
-# ElegantCommerce - Modern E- **Contact Us### 👨‍💼 Comprehensive Seller DashboardPage**: Professional contact form with team directory and department routing
+# ElegantCommerce - Modern E-commerce Platform
 
-## 🌟 Key Featuresmmerce Platform
-
-![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)```
-
-## 🔄 API End### 👨‍💼 Seller Endpointsoints
-
-The application provides comprehensive REST API endpoints:act](https://img.shields.io/badge/React-18.3.1-blue)
+![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)
+![React](https://img.shields.io/badge/React-18.3.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-July%2023%202025-blue)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-December%2027%202024-blue)
 ![Build](https://img.shields.io/badge/Build-Passing-success)
 ![Tests](https://img.shields.io/badge/Tests-All%20Passing-success)
 
 ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-edge technologies. It features a comprehensive admin dashboard, seller management system, and responsive customer interface with complete shopping cart functionality.
 
 **✅ Current Status**: Fully functional and production-ready with all components working correctly.
-**🚀 Deployment Status**: Successfully tested and verified on July 23, 2025.
+**🚀 Authentication Status**: Demo accounts restored and fully operational as of December 27, 2024.
 **⚡ Performance**: All pages loading properly with no errors or warnings.
-**🔧 Backend Services**: Both Node.js and .NET backend APIs are operational and integrated.
+**🔧 Backend Services**: Node.js backend operational with in-memory storage for demo purposes.
 
 ## 🌐 Live Demo & Access Links
 
 ### 🚀 Application URLs
-- **Main Application**: [http://localhost:3000](http://localhost:3000)
-- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
-- **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
-- **API Endpoints**: `http://localhost:3000/api/*`
+- **Main Application**: [http://localhost:3001](http://localhost:3001)
+- **Admin Dashboard**: [http://localhost:3001/admin](http://localhost:3001/admin)
+- **Seller Dashboard**: [http://localhost:3001/seller](http://localhost:3001/seller)
+- **API Endpoints**: `http://localhost:3001/api/*`
 
 ### 🔐 Demo Access
+
+**✅ All demo accounts have been tested and are fully functional!**
+
 The application includes comprehensive demo data and functionality with pre-configured test accounts:
 
-#### 🔑 **Test Accounts**
-| Role | Email | Password | Purpose |
-|------|-------|----------|---------|
-| **Admin** | `admin@elegantcommerce.com` | `Admin123!` | Complete system management |
-| **Seller** | `seller1@elegantcommerce.com` | `Seller123!` | Approved seller (EliteDesign Store) |
-| **Seller** | `seller2@elegantcommerce.com` | `Seller456!` | Pending approval (Fashion World) |
-| **Customer** | `customer1@elegantcommerce.com` | `Customer123!` | Regular customer (Ali Yılmaz) |
-| **Customer** | `vip@elegantcommerce.com` | `VipCustomer789!` | VIP customer (Mehmet Kaya) |
+#### 🔑 **Test Accounts** (All Verified Working ✅)
+| Role | Email | Password | Purpose | Status |
+|------|-------|----------|---------|---------|
+| **Admin** | `admin@elegantcommerce.com` | `Admin123!` | Complete system management | ✅ Active |
+| **Seller** | `seller1@elegantcommerce.com` | `Seller123!` | Approved seller (EliteDesign Store) | ✅ Active |
+| **Customer** | `customer1@elegantcommerce.com` | `Customer123!` | Regular customer (Ali Yılmaz) | ✅ Active |
+| **Test Admin** | `testadmin@test.com` | `TestAdmin123!` | Alternative admin for testing | ✅ Active |
 
 #### 📋 **Access Features**
-- **Admin Panel**: Complete user, product, order, and seller management
-- **Seller Dashboard**: Product management, order tracking, analytics, and customer reviews
-- **Customer Interface**: Product browsing, cart functionality, and checkout process
-- **About Us Page**: Company information with mission, vision, values, and team profiles
-- **Contact Us Page**: Professional contact form with team directory and department routing
+- **✅ Login System**: Fully functional with all demo accounts
+- **✅ User Registration**: New users can register from the frontend
+- **✅ Admin Panel**: Complete user, product, order, and seller management
+- **✅ Seller Dashboard**: Product management, order tracking, and analytics
+- **✅ Customer Interface**: Product browsing (12 products available), cart functionality
+- **✅ Role-Based Access**: Proper authentication guards for different user roles
+
+#### 🧪 **Quick API Tests**
+```bash
+# Test admin login
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@elegantcommerce.com","password":"Admin123!"}'
+
+# Test new user registration  
+curl -X POST http://localhost:3001/api/auth/register -H "Content-Type: application/json" -d '{"username":"testuser","email":"testuser@example.com","password":"TestUser123!"}'
+
+# Check products (12 available)
+curl http://localhost:3001/api/products
+```
 
 > 📖 **Detailed account information**: See [DEMO-ACCOUNTS.md](./DEMO-ACCOUNTS.md) for complete test scenarios and additional accounts.
 

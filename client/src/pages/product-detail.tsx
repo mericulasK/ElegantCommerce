@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useParams } from "wouter";
-import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Heart, Star, ShoppingCart, Share2, Truck, Shield, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
+import { useProduct } from "@/hooks/use-products";
 import type { Product } from "@shared/schema";
 
 export default function ProductDetail() {
@@ -18,9 +18,7 @@ export default function ProductDetail() {
   const { addToCart } = useCart();
   const { toast } = useToast();
 
-  const { data: product, isLoading } = useQuery<Product>({
-    queryKey: [`/api/products/${id}`],
-  });
+  const { data: product, isLoading } = useProduct(id!);
 
   const handleAddToCart = () => {
     if (!product) return;

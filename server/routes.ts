@@ -1,10 +1,22 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { seedDatabase } from "./seed";
 import { insertProductSchema, insertCategorySchema, insertCartItemSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Seed Database
+  app.post("/api/seed", async (req, res) => {
+    try {
+      await seedDatabase();
+      res.json({ message: "Database seeded successfully" });
+    } catch (error) {
+      console.error("Seed error:", error);
+      res.status(500).json({ message: "Failed to seed database" });
+    }
+  });
+
   // Admin Routes
   app.get("/api/admin/stats", async (req, res) => {
     try {

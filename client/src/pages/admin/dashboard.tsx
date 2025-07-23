@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,8 @@ import {
   Plus,
   DollarSign
 } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+import { useProducts } from "@/hooks/use-products";
 import UserManagement from "@/components/admin/user-management";
 import ProductManagement from "@/components/admin/product-management";
 import OrderManagement from "@/components/admin/order-management";
@@ -24,29 +26,35 @@ import CmsManagement from "@/components/admin/cms-management";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [, setLocation] = useLocation();
+  const { user, isAdmin, loading } = useAuth();
 
-  // Fetch dashboard statistics
-  const { data: stats, isLoading: statsLoading } = useQuery({
-    queryKey: ["/api/admin/stats"],
-  });
+  // Redirect if not admin
+  useEffect(() => {
+    if (!loading && (!user || !isAdmin)) {
+      setLocation("/auth");
+    }
+  }, [user, isAdmin, loading, setLocation]);
 
-  const { data: users } = useQuery({
-    queryKey: ["/api/admin/users"],
-  });
+  const { data: products, isLoading: productsLoading } = useProducts();
 
-  const { data: products } = useQuery({
-    queryKey: ["/api/products"],
-  });
+  // Show loading while checking authentication
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        </div>
+      </div>
+    );
+  }
 
-  const { data: orders } = useQuery({
-    queryKey: ["/api/admin/orders"],
-  });
+  // Don't render if not admin (will redirect anyway)
+  if (!user || !isAdmin) {
+    return null;
+  }
 
-  const { data: activities } = useQuery({
-    queryKey: ["/api/admin/activities"],
-  });
-
-  if (statsLoading) {
+  if (productsLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -65,10 +73,41 @@ export default function AdminDashboard() {
     );
   }
 
-  const totalUsers = Array.isArray(users) ? users.length : 0;
+  // Mock data for demo purposes
+  const totalUsers = 127;
   const totalProducts = Array.isArray(products) ? products.length : 0;
-  const totalOrders = Array.isArray(orders) ? orders.length : 0;
-  const totalRevenue = Array.isArray(orders) ? orders.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) : 0;
+  const totalOrders = 89;
+  const totalRevenue = 24850.00;
+
+  // Mock recent orders and activities for demo
+  const mockOrders = [
+    { id: 1001, totalAmount: "199.99", status: "delivered" },
+    { id: 1002, totalAmount: "89.50", status: "processing" },
+    { id: 1003, totalAmount: "299.99", status: "shipped" },
+    { id: 1004, totalAmount: "49.99", status: "pending" },
+    { id: 1005, totalAmount: "159.99", status: "delivered" },
+  ];
+
+  const mockActivities = [
+    { 
+      id: 1, 
+      action: "Product Added", 
+      description: "New product 'Premium Headphones' added to catalog",
+      createdAt: new Date().toISOString()
+    },
+    { 
+      id: 2, 
+      action: "User Registered", 
+      description: "New customer account created",
+      createdAt: new Date(Date.now() - 3600000).toISOString()
+    },
+    { 
+      id: 3, 
+      action: "Order Completed", 
+      description: "Order #1001 has been delivered",
+      createdAt: new Date(Date.now() - 7200000).toISOString()
+    },
+  ];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +187,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {Array.isArray(orders) ? orders.slice(0, 5).map((order: any) => (
+                  {mockOrders.slice(0, 5).map((order: any) => (
                     <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <p className="font-medium">Order #{order.id}</p>
@@ -160,9 +199,7 @@ export default function AdminDashboard() {
                         {order.status}
                       </Badge>
                     </div>
-                  )) : (
-                    <p className="text-gray-500 text-center py-8">No recent orders</p>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -173,7 +210,7 @@ export default function AdminDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {Array.isArray(activities) ? activities.slice(0, 5).map((activity: any) => (
+                  {mockActivities.slice(0, 5).map((activity: any) => (
                     <div key={activity.id} className="flex items-start space-x-3 p-4 border rounded-lg">
                       <div className="flex-1">
                         <p className="font-medium">{activity.action}</p>
@@ -183,9 +220,7 @@ export default function AdminDashboard() {
                         </p>
                       </div>
                     </div>
-                  )) : (
-                    <p className="text-gray-500 text-center py-8">No recent activity</p>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>

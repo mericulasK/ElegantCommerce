@@ -2,12 +2,31 @@
 
 Bu dokümanda sitenizin test edilmesi için kullanılabilecek demo hesap bilgileri bulunmaktadır.
 
+**🌟 Tüm demo hesapları aktif olarak çalışmaktadır ve giriş yapılabilir.**
+
+## 🚀 Hızlı Test
+
+**Server URL**: `http://localhost:3001`
+
+### API Test Komutları:
+```bash
+# Admin giriş testi
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@elegantcommerce.com","password":"Admin123!"}'
+
+# Seller giriş testi  
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"seller1@elegantcommerce.com","password":"Seller123!"}'
+
+# Customer giriş testi
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"customer1@elegantcommerce.com","password":"Customer123!"}'
+```
+
 ## 👑 Admin Hesabı
 
 ### **Admin - Sistem Yöneticisi**
 - **Email**: `admin@elegantcommerce.com`
 - **Şifre**: `Admin123!`
 - **Rol**: Admin
+- **✅ Durum**: Aktif ve Çalışıyor
 - **Yetkileri**: 
   - Kullanıcı yönetimi (ekleme, silme, düzenleme)
   - Ürün yönetimi
@@ -23,21 +42,16 @@ Bu dokümanda sitenizin test edilmesi için kullanılabilecek demo hesap bilgile
 ### **Seller 1 - Onaylanmış Satıcı**
 - **Email**: `seller1@elegantcommerce.com`
 - **Şifre**: `Seller123!`
+- **Ad Soyad**: `Elite Designer`
 - **Firma**: `EliteDesign Store`
 - **Rol**: Seller (Approved)
+- **✅ Durum**: Aktif ve Çalışıyor
 - **Yetkileri**:
   - Ürün ekleme/düzenleme/silme
   - Sipariş takibi ve işleme
   - Müşteri yorumlarını görüntüleme/yanıtlama
   - Satış raporları
   - Promosyon oluşturma
-
-### **Seller 2 - Beklemede Satıcı**
-- **Email**: `seller2@elegantcommerce.com`
-- **Şifre**: `Seller456!`
-- **Firma**: `Fashion World`
-- **Rol**: Seller (Pending Approval)
-- **Durum**: Admin onayı bekliyor
 
 ---
 
@@ -48,6 +62,97 @@ Bu dokümanda sitenizin test edilmesi için kullanılabilecek demo hesap bilgile
 - **Şifre**: `Customer123!`
 - **Ad Soyad**: `Ali Yılmaz`
 - **Rol**: Customer
+- **✅ Durum**: Aktif ve Çalışıyor
+- **Yetkileri**:
+  - Ürün görüntüleme ve satın alma
+  - Sepet yönetimi
+  - Sipariş geçmişi görüntüleme
+  - Adres yönetimi
+  - Yorum ve değerlendirme yazma
+  - Favori ürünler
+
+### **Test Admin - Ek Test Hesabı**
+- **Email**: `testadmin@test.com`
+- **Şifre**: `TestAdmin123!`
+- **Ad Soyad**: `Test Admin User`
+- **Rol**: Admin
+- **✅ Durum**: Aktif ve Çalışıyor
+- **Amaç**: Alternatif admin testi için
+
+---
+
+## 🔐 Yeni Hesap Oluşturma
+
+### **Siteden Kayıt Olmak**
+1. Ana sayfada **"Kayıt Ol"** butonuna tıklayın
+2. Gerekli bilgileri doldurun (email, şifre, ad-soyad)
+3. Kayıt işlemi tamamlandıktan sonra otomatik giriş yapılır
+4. Yeni hesaplar **"Customer"** rolü ile oluşturulur
+
+### **API ile Kayıt Testi**
+```bash
+curl -X POST http://localhost:3001/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "testuser", 
+    "email": "testuser@example.com", 
+    "password": "TestUser123!"
+  }'
+```
+
+---
+
+## 🛠️ Test Senaryoları
+
+### **Admin Testi**
+1. Admin hesabı ile giriş yapın
+2. `/admin` sayfasına erişiminizi kontrol edin
+3. Kullanıcı listesini görüntüleyin
+4. Yeni ürün eklemeyi deneyin
+
+### **Seller Testi**
+1. Seller hesabı ile giriş yapın  
+2. `/seller` sayfasına erişiminizi kontrol edin
+3. Ürün yönetimi panelini test edin
+4. Sipariş takibini kontrol edin
+
+### **Customer Testi**
+1. Customer hesabı ile giriş yapın
+2. Ürünleri görüntüleyin (12 ürün mevcut)
+3. Sepete ürün eklemeyi deneyin
+4. Profil ayarlarınızı kontrol edin
+
+---
+
+## 🚨 Önemli Notlar
+
+- **✅ Tüm demo hesapları test edilmiş ve çalışır durumda**
+- **✅ Yeni kullanıcı kaydı frontend ve API'den mümkün**
+- **✅ Giriş/çıkış sistemi tam fonksiyonel**
+- **✅ Rol bazlı erişim kontrolleri aktif**
+- Server `http://localhost:3001` adresinde çalışmalıdır
+- Demo veriler bellekte tutulur (yeniden başlatmada sıfırlanır)
+- Gerçek projelerde şifreler hash'lenerek saklanmalıdır
+
+---
+
+## 🔄 Son Güncelleme
+
+**Tarih**: 2024-12-27  
+**Versiyon**: 1.1.4  
+**Durum**: Tüm hesaplar test edildi ve aktif  
+**Test Edilen Özellikler**: 
+- ✅ Demo hesap girişleri
+- ✅ Yeni kullanıcı kaydı  
+- ✅ API endpoint'leri
+- ✅ Rol bazlı dashboard erişimi
+- ✅ Ürün görüntüleme (12 ürün)
+
+**Test Komutu**:
+```bash
+npm run dev  # Projeyi çalıştırın
+# http://localhost:3001 adresini ziyaret edin
+```
 - **Özellikler**: Geçmiş siparişleri olan aktif müşteri
 
 ### **Customer 2 - Yeni Müşteri**

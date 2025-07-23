@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/products/product-card";
 import { containerVariants, itemVariants } from "@/lib/animations";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useFeaturedProducts } from "@/hooks/use-products";
 import type { Product } from "@shared/schema";
 
 export default function ProductShowcase() {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const { data: products = [], isLoading } = useQuery<Product[]>({
-    queryKey: ["/api/products/featured"],
-  });
+  const { data: products = [], isLoading } = useFeaturedProducts(8);
 
   const filteredProducts = products.filter(product => {
     switch (activeFilter) {

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,8 @@ import {
   MessageSquare,
   Plus
 } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
+import { useProducts } from "@/hooks/use-products";
 import SellerProductManagement from "@/components/seller/product-management";
 import SellerOrderManagement from "@/components/seller/order-management";
 import SellerReportsPanel from "@/components/seller/reports-panel";
@@ -22,26 +24,35 @@ import SellerProfile from "@/components/seller/profile";
 
 export default function SellerDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [, setLocation] = useLocation();
+  const { user, isSeller, loading } = useAuth();
 
-  // Fetch seller statistics
-  const { data: stats, isLoading: statsLoading } = useQuery({
-    queryKey: ["/api/seller/stats"],
-  });
+  // Redirect if not seller
+  useEffect(() => {
+    if (!loading && (!user || !isSeller)) {
+      setLocation("/auth");
+    }
+  }, [user, isSeller, loading, setLocation]);
 
-  // Fetch seller data
-  const { data: sellerProducts } = useQuery({
-    queryKey: ["/api/seller/products"],
-  });
+  const { data: products, isLoading: productsLoading } = useProducts();
 
-  const { data: sellerOrders } = useQuery({
-    queryKey: ["/api/seller/orders"],
-  });
+  // Show loading while checking authentication
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        </div>
+      </div>
+    );
+  }
 
-  const { data: sellerReviews } = useQuery({
-    queryKey: ["/api/seller/reviews"],
-  });
+  // Don't render if not seller (will redirect anyway)
+  if (!user || !isSeller) {
+    return null;
+  }
 
-  if (statsLoading) {
+  if (productsLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -60,10 +71,23 @@ export default function SellerDashboard() {
     );
   }
 
-  const totalProducts = Array.isArray(sellerProducts) ? sellerProducts.length : 0;
-  const totalOrders = Array.isArray(sellerOrders) ? sellerOrders.length : 0;
-  const totalRevenue = Array.isArray(sellerOrders) ? sellerOrders.reduce((sum: number, order: any) => sum + parseFloat(order.totalAmount || "0"), 0) : 0;
-  const averageRating = Array.isArray(sellerReviews) && sellerReviews.length > 0 ? sellerReviews.reduce((sum: number, review: any) => sum + review.rating, 0) / sellerReviews.length : 0;
+  // Mock seller data for demo
+  const totalProducts = Array.isArray(products) ? products.length : 0;
+  const totalOrders = 23;
+  const totalRevenue = 5420.00;
+  const averageRating = 4.7;
+  
+  const mockOrders = [
+    { id: 2001, totalAmount: "89.99", status: "delivered", customerName: "Alice Johnson" },
+    { id: 2002, totalAmount: "149.50", status: "processing", customerName: "Bob Smith" },
+    { id: 2003, totalAmount: "299.99", status: "shipped", customerName: "Carol Davis" },
+  ];
+
+  const mockReviews = [
+    { id: 1, customerName: "John Doe", rating: 5, comment: "Excellent product!", createdAt: new Date().toISOString() },
+    { id: 2, customerName: "Jane Smith", rating: 4, comment: "Good quality, fast shipping", createdAt: new Date().toISOString() },
+    { id: 3, customerName: "Mike Wilson", rating: 5, comment: "Highly recommended!", createdAt: new Date().toISOString() },
+  ];
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -148,7 +172,7 @@ export default function SellerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {Array.isArray(sellerOrders) ? sellerOrders.slice(0, 5).map((order: any) => (
+                  {mockOrders.slice(0, 5).map((order: any) => (
                     <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <p className="font-medium">Order #{order.id}</p>
@@ -160,9 +184,7 @@ export default function SellerDashboard() {
                         {order.status}
                       </Badge>
                     </div>
-                  )) : (
-                    <p className="text-gray-500 text-center py-8">No recent orders</p>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -178,7 +200,7 @@ export default function SellerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {Array.isArray(sellerReviews) ? sellerReviews.slice(0, 5).map((review: any) => (
+                  {mockReviews.slice(0, 5).map((review: any) => (
                     <div key={review.id} className="p-4 border rounded-lg">
                       <div className="flex items-center space-x-2 mb-2">
                         <div className="flex">
@@ -199,9 +221,7 @@ export default function SellerDashboard() {
                       </div>
                       <p className="text-sm text-gray-700">{review.comment}</p>
                     </div>
-                  )) : (
-                    <p className="text-gray-500 text-center py-8">No recent reviews</p>
-                  )}
+                  ))}
                 </div>
               </CardContent>
             </Card>
