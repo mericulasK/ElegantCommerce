@@ -149,13 +149,19 @@ export default function Header() {
                           Profile
                         </Button>
                       </Link>
-                      <Link href="/orders">
+                      <Link href="/customer/profile">
+                        <Button variant="ghost" size="sm" className="w-full justify-start">
+                          <User className="w-4 h-4 mr-2" />
+                          My Profile
+                        </Button>
+                      </Link>
+                      <Link href="/customer/orders">
                         <Button variant="ghost" size="sm" className="w-full justify-start">
                           <ShoppingCart className="w-4 h-4 mr-2" />
                           My Orders
                         </Button>
                       </Link>
-                      {user?.role === 'Admin' && (
+                      {user?.role === 'admin' && (
                         <Link href="/admin">
                           <Button variant="ghost" size="sm" className="w-full justify-start">
                             <User className="w-4 h-4 mr-2" />
@@ -163,7 +169,7 @@ export default function Header() {
                           </Button>
                         </Link>
                       )}
-                      {user?.role === 'Seller' && (
+                      {user?.role === 'seller' && (
                         <Link href="/seller">
                           <Button variant="ghost" size="sm" className="w-full justify-start">
                             <ShoppingCart className="w-4 h-4 mr-2" />
@@ -171,7 +177,7 @@ export default function Header() {
                           </Button>
                         </Link>
                       )}
-                      {user?.role === 'Customer' && (
+                      {user?.role === 'customer' && (
                         <Link href="/customer">
                           <Button variant="ghost" size="sm" className="w-full justify-start">
                             <User className="w-4 h-4 mr-2" />
