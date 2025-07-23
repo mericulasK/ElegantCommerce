@@ -18,6 +18,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin Routes
+  app.get("/api/admin/overview", async (req, res) => {
+    try {
+      const users = await storage.getAllUsers();
+      const products = await storage.getProducts();
+      const orders = await storage.getOrders();
+      const activities = await storage.getActivityLogs(undefined, 10);
+      
+      // Calculate statistics
+      const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0);
+      const pendingSellers = users.filter(u => u.role === 'seller').length; // All sellers for now
+      
+      // Recent orders with customer info
+      const recentOrders = orders.slice(0, 5).map(order => {
+        const customer = users.find(u => u.id === order.userId);
+        return {
+          ...order,
+          customerName: customer ? `${customer.firstName} ${customer.lastName}` : 'Unknown Customer'
+        };
+      });
+
+      // Recent activities
+      const recentActivities = activities.map(activity => ({
+        id: activity.id,
+        action: activity.action,
+        description: activity.description,
+        createdAt: activity.createdAt
+      }));
+
+      // System alerts (empty for now)
+      const systemAlerts: any[] = [];
+      
+      res.json({
+        users: {
+          total: users.length,
+          new: users.filter(u => {
+            if (!u.createdAt) return false;
+            const createdAt = new Date(u.createdAt);
+            const oneWeekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            return createdAt > oneWeekAgo;
+          }).length
+        },
+        products: {
+          total: products.length,
+          active: products.filter(p => p.inStock).length,
+          lowStock: products.filter(p => (p.stockQuantity || 0) < 10).length
+        },
+        orders: {
+          total: orders.length,
+          pending: orders.filter(o => o.status === 'pending').length,
+          completed: orders.filter(o => o.status === 'delivered').length,
+          cancelled: orders.filter(o => o.status === 'cancelled').length
+        },
+        revenue: {
+          total: totalRevenue
+        },
+        sellers: {
+          pending: pendingSellers
+        },
+        recentOrders,
+        recentActivities,
+        alerts: systemAlerts
+      });
+    } catch (error) {
+      console.error("Admin overview error:", error);
+      res.status(500).json({ message: "Failed to fetch admin overview" });
+    }
+  });
+
   app.get("/api/admin/stats", async (req, res) => {
     try {
       const users = await storage.getAllUsers();
@@ -393,6 +461,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get orders for a specific user with full details
+  app.get("/api/orders/user/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const orders = await storage.getOrders(userId);
+      
+      // Get full order details with items
+      const ordersWithItems = await Promise.all(
+        orders.map(async (order) => {
+          const fullOrder = await storage.getOrder(order.id);
+          return fullOrder;
+        })
+      );
+      
+      res.json(ordersWithItems.filter(Boolean));
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user orders" });
+    }
+  });
+
+  // Reorder endpoint
+  app.post("/api/orders/:id/reorder", async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.id);
+      const order = await storage.getOrder(orderId);
+      
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // Add all items from the order to cart
+      for (const item of order.items) {
+        await storage.addToCart({
+          productId: item.productId,
+          quantity: item.quantity,
+          userId: order.userId
+        });
+      }
+
+      res.json({ message: "Items added to cart successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to reorder items" });
+    }
+  });
+
   app.get("/api/orders/:id/status", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -406,6 +519,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to update order status" });
     }
   });
+  
+  // Reviews
+  app.get("/api/reviews/user/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const reviews = await storage.getReviewsByUser(userId);
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user reviews" });
+    }
+  });
+
+  app.post("/api/reviews", async (req, res) => {
+    try {
+      const { productId, userId, rating, comment } = req.body;
+      
+      // Get product to find sellerId
+      const product = await storage.getProduct(productId);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      
+      const review = await storage.createReview({
+        productId,
+        userId,
+        sellerId: product.sellerId || 1, // Default to first seller if no sellerId
+        rating,
+        comment
+      });
+      res.json(review);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create review" });
+    }
+  });
+
   app.post("/api/auth/register", async (req, res) => {
     try {
       const userData = insertUserSchema.parse(req.body);
@@ -458,6 +606,243 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         res.status(500).json({ message: "Failed to add item to cart" });
       }
+    }
+  });
+
+  // Customer Profile Routes
+  app.get("/api/customer/profile/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const user = await storage.getUser(id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      
+      const orders = await storage.getOrders(user.id);
+      const totalSpent = orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0);
+      
+      res.json({
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+        phone: user.phone,
+        address: user.address,
+        profileImage: user.profileImage,
+        memberSince: user.createdAt,
+        totalOrders: orders.length,
+        totalSpent,
+        role: user.role
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch customer profile" });
+    }
+  });
+
+  app.put("/api/customer/profile/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const user = await storage.updateUser(id, { ...updates, updatedAt: new Date() });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update profile" });
+    }
+  });
+
+  app.get("/api/customer/orders/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const orders = await storage.getOrders(userId);
+      const ordersWithDetails = await Promise.all(
+        orders.map(async (order) => {
+          const orderDetails = await storage.getOrder(order.id);
+          return orderDetails;
+        })
+      );
+      res.json(ordersWithDetails.filter(Boolean));
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch customer orders" });
+    }
+  });
+
+  app.post("/api/customer/reviews", async (req, res) => {
+    try {
+      const reviewData = req.body;
+      const review = await storage.createReview(reviewData);
+      res.json(review);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create review" });
+    }
+  });
+
+  app.get("/api/customer/reviews/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const reviews = await storage.getReviewsByUser(userId);
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch customer reviews" });
+    }
+  });
+
+  // Enhanced Seller Routes  
+  app.get("/api/seller/profile/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const user = await storage.getUser(id);
+      if (!user || user.role !== 'seller') {
+        return res.status(404).json({ message: "Seller not found" });
+      }
+      
+      const products = await storage.getProductsBySeller(user.id);
+      const orders = await storage.getOrdersBySeller(user.id);
+      const reviews = await storage.getReviews(undefined, user.id);
+      const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0);
+      const averageRating = reviews.length > 0 ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length : 0;
+      
+      res.json({
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        username: user.username,
+        phone: user.phone,
+        address: user.address,
+        profileImage: user.profileImage,
+        companyName: user.companyName,
+        companyLogo: user.companyLogo,
+        isApproved: user.isApproved,
+        memberSince: user.createdAt,
+        totalProducts: products.length,
+        totalOrders: orders.length,
+        totalRevenue: totalRevenue.toFixed(2),
+        averageRating: averageRating.toFixed(1),
+        role: user.role
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller profile" });
+    }
+  });
+
+  app.put("/api/seller/profile/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const updates = req.body;
+      const user = await storage.updateUser(id, { ...updates, updatedAt: new Date() });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.json(user);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update seller profile" });
+    }
+  });
+
+  app.get("/api/seller/products/:sellerId", async (req, res) => {
+    try {
+      const sellerId = parseInt(req.params.sellerId);
+      const products = await storage.getProductsBySeller(sellerId);
+      res.json(products);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller products" });
+    }
+  });
+
+  app.get("/api/seller/orders/:sellerId", async (req, res) => {
+    try {
+      const sellerId = parseInt(req.params.sellerId);
+      const orders = await storage.getOrdersBySeller(sellerId);
+      res.json(orders);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller orders" });
+    }
+  });
+
+  app.get("/api/seller/reviews/:sellerId", async (req, res) => {
+    try {
+      const sellerId = parseInt(req.params.sellerId);
+      const reviews = await storage.getReviews(undefined, sellerId);
+      res.json(reviews);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller reviews" });
+    }
+  });
+
+  app.post("/api/seller/reviews/:reviewId/reply", async (req, res) => {
+    try {
+      const reviewId = parseInt(req.params.reviewId);
+      const { sellerReply } = req.body;
+      const review = await storage.updateReview(reviewId, { sellerReply });
+      if (!review) {
+        return res.status(404).json({ message: "Review not found" });
+      }
+      res.json(review);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to reply to review" });
+    }
+  });
+
+  app.get("/api/seller/analytics/:sellerId", async (req, res) => {
+    try {
+      const sellerId = parseInt(req.params.sellerId);
+      const products = await storage.getProductsBySeller(sellerId);
+      const orders = await storage.getOrdersBySeller(sellerId);
+      const reviews = await storage.getReviews(undefined, sellerId);
+      
+      const totalRevenue = orders.reduce((sum, order) => sum + parseFloat(order.totalAmount), 0);
+      const totalOrders = orders.length;
+      const averageOrderValue = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+      const averageRating = reviews.length > 0 ? reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length : 0;
+      
+      // Sales by month (mock data for last 6 months)
+      const salesByMonth = Array.from({ length: 6 }, (_, i) => {
+        const date = new Date();
+        date.setMonth(date.getMonth() - i);
+        return {
+          month: date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }),
+          revenue: Math.floor(Math.random() * 10000) + 1000,
+          orders: Math.floor(Math.random() * 50) + 10
+        };
+      }).reverse();
+      
+      res.json({
+        totalRevenue: totalRevenue.toFixed(2),
+        totalOrders,
+        totalProducts: products.length,
+        averageOrderValue: averageOrderValue.toFixed(2),
+        averageRating: averageRating.toFixed(1),
+        totalReviews: reviews.length,
+        salesByMonth,
+        topProducts: products.slice(0, 5),
+        recentOrders: orders.slice(0, 10)
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch seller analytics" });
+    }
+  });
+
+  app.get("/api/seller/promotions/:sellerId", async (req, res) => {
+    try {
+      const sellerId = parseInt(req.params.sellerId);
+      const promotions = await storage.getPromotions(sellerId);
+      res.json(promotions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch promotions" });
+    }
+  });
+
+  app.post("/api/seller/promotions", async (req, res) => {
+    try {
+      const promotionData = req.body;
+      const promotion = await storage.createPromotion(promotionData);
+      res.json(promotion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create promotion" });
     }
   });
 

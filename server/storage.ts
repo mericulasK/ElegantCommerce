@@ -58,6 +58,7 @@ export interface StorageInterface {
   getReviews(productId?: number, sellerId?: number): Promise<Review[]>;
   getReviewsByUser(userId: number): Promise<Review[]>;
   createReview(review: any): Promise<Review>;
+  updateReview(id: number, updates: Partial<Review>): Promise<Review | undefined>;
 
   // Promotions
   getPromotions(sellerId?: number): Promise<Promotion[]>;

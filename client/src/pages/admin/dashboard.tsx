@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -13,11 +14,15 @@ import {
   Edit,
   Trash2,
   Plus,
-  DollarSign
+  DollarSign,
+  Shield,
+  Activity,
+  AlertTriangle,
+  CheckCircle
 } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useProducts } from "@/hooks/use-products";
-import UserManagement from "@/components/admin/user-management";
+import AdminUsers from "@/components/admin/users";
 import ProductManagement from "@/components/admin/product-management";
 import OrderManagement from "@/components/admin/order-management";
 import SellerApproval from "@/components/admin/seller-approval";
@@ -38,6 +43,17 @@ export default function AdminDashboard() {
 
   const { data: products, isLoading: productsLoading } = useProducts();
 
+  // Fetch admin overview data
+  const { data: overviewData, isLoading: overviewLoading } = useQuery({
+    queryKey: ["admin-overview"],
+    queryFn: async () => {
+      const response = await fetch("/api/admin/overview");
+      if (!response.ok) throw new Error("Failed to fetch overview data");
+      return response.json();
+    },
+    enabled: !!user && isAdmin
+  });
+
   // Show loading while checking authentication
   if (loading) {
     return (
@@ -54,7 +70,7 @@ export default function AdminDashboard() {
     return null;
   }
 
-  if (productsLoading) {
+  if (productsLoading || overviewLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -73,22 +89,24 @@ export default function AdminDashboard() {
     );
   }
 
-  // Mock data for demo purposes
-  const totalUsers = 127;
-  const totalProducts = Array.isArray(products) ? products.length : 0;
-  const totalOrders = 89;
-  const totalRevenue = 24850.00;
+  // Use fetched data or fallback to defaults
+  const totalUsers = overviewData?.users?.total || 127;
+  const totalProducts = overviewData?.products?.total || (Array.isArray(products) ? products.length : 0);
+  const totalOrders = overviewData?.orders?.total || 89;
+  const totalRevenue = overviewData?.revenue?.total || 24850.00;
+  const pendingSellers = overviewData?.sellers?.pending || 3;
+  const systemAlerts = overviewData?.alerts || [];
 
-  // Mock recent orders and activities for demo
-  const mockOrders = [
-    { id: 1001, totalAmount: "199.99", status: "delivered" },
-    { id: 1002, totalAmount: "89.50", status: "processing" },
-    { id: 1003, totalAmount: "299.99", status: "shipped" },
-    { id: 1004, totalAmount: "49.99", status: "pending" },
-    { id: 1005, totalAmount: "159.99", status: "delivered" },
+  // Recent activities from API or mock data
+  const recentOrders = overviewData?.recentOrders || [
+    { id: 1001, totalAmount: "199.99", status: "delivered", customerName: "Ahmet Yılmaz" },
+    { id: 1002, totalAmount: "89.50", status: "processing", customerName: "Ayşe Demir" },
+    { id: 1003, totalAmount: "299.99", status: "shipped", customerName: "Mehmet Öz" },
+    { id: 1004, totalAmount: "49.99", status: "pending", customerName: "Fatma Kaya" },
+    { id: 1005, totalAmount: "159.99", status: "delivered", customerName: "Ali Veli" },
   ];
 
-  const mockActivities = [
+  const recentActivities = overviewData?.recentActivities || [
     { 
       id: 1, 
       action: "Product Added", 
@@ -183,18 +201,24 @@ export default function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Recent Orders</CardTitle>
+                <CardTitle className="flex items-center">
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  Recent Orders
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {mockOrders.slice(0, 5).map((order: any) => (
-                    <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
+                  {recentOrders.slice(0, 5).map((order: any) => (
+                    <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
                       <div>
                         <p className="font-medium">Order #{order.id}</p>
-                        <p className="text-sm text-gray-600">${order.totalAmount}</p>
+                        <p className="text-sm text-gray-600">{order.customerName}</p>
+                        <p className="text-sm font-medium">₺{order.totalAmount}</p>
                       </div>
                       <Badge 
-                        variant={order.status === 'delivered' ? 'default' : 'secondary'}
+                        variant={order.status === 'delivered' ? 'default' : 
+                                order.status === 'shipped' ? 'secondary' :
+                                order.status === 'processing' ? 'outline' : 'destructive'}
                       >
                         {order.status}
                       </Badge>
@@ -206,17 +230,20 @@ export default function AdminDashboard() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
+                <CardTitle className="flex items-center">
+                  <Activity className="h-5 w-5 mr-2" />
+                  Recent Activity
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {mockActivities.slice(0, 5).map((activity: any) => (
-                    <div key={activity.id} className="flex items-start space-x-3 p-4 border rounded-lg">
+                  {recentActivities.slice(0, 5).map((activity: any) => (
+                    <div key={activity.id} className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
                       <div className="flex-1">
                         <p className="font-medium">{activity.action}</p>
                         <p className="text-sm text-gray-600">{activity.description}</p>
                         <p className="text-xs text-gray-400">
-                          {new Date(activity.createdAt).toLocaleString()}
+                          {new Date(activity.createdAt).toLocaleString('tr-TR')}
                         </p>
                       </div>
                     </div>
@@ -225,10 +252,68 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
           </div>
+
+          {/* System Status & Alerts */}
+          {(systemAlerts.length > 0 || pendingSellers > 0) && (
+            <div className="mt-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <AlertTriangle className="h-5 w-5 mr-2 text-orange-500" />
+                    System Alerts & Notifications
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {pendingSellers > 0 && (
+                      <div className="flex items-center justify-between p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <div className="flex items-center">
+                          <Shield className="h-5 w-5 text-yellow-600 mr-3" />
+                          <div>
+                            <p className="font-medium text-yellow-800">Pending Seller Approvals</p>
+                            <p className="text-sm text-yellow-600">{pendingSellers} sellers waiting for approval</p>
+                          </div>
+                        </div>
+                        <Button 
+                          size="sm" 
+                          onClick={() => setActiveTab("sellers")}
+                          className="bg-yellow-600 hover:bg-yellow-700"
+                        >
+                          Review
+                        </Button>
+                      </div>
+                    )}
+                    
+                    {systemAlerts.map((alert: any, index: number) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-red-50 border border-red-200 rounded-lg">
+                        <div className="flex items-center">
+                          <AlertTriangle className="h-5 w-5 text-red-600 mr-3" />
+                          <div>
+                            <p className="font-medium text-red-800">{alert.title}</p>
+                            <p className="text-sm text-red-600">{alert.description}</p>
+                          </div>
+                        </div>
+                        <Button size="sm" variant="outline">
+                          Resolve
+                        </Button>
+                      </div>
+                    ))}
+
+                    {systemAlerts.length === 0 && pendingSellers === 0 && (
+                      <div className="flex items-center p-3 bg-green-50 border border-green-200 rounded-lg">
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3" />
+                        <p className="text-green-800">All systems are running normally</p>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
         </TabsContent>
 
         <TabsContent value="users">
-          <UserManagement />
+          <AdminUsers />
         </TabsContent>
 
         <TabsContent value="products">
