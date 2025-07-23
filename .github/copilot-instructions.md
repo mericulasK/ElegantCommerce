@@ -2,10 +2,10 @@
 
 ## Architecture Overview
 
-**ElegantCommerce** is a full-stack e-commerce platform with **dual backend architecture**:
+**ElegantCommerce** is a full-stack e-commerce platform with **unified backend architecture**:
 - **Frontend**: React 18 + TypeScript with Vite, using Wouter routing and TanStack Query
 - **Node.js Backend**: Express + Drizzle ORM + PostgreSQL for rapid development
-- **C# Backend**: .NET 8 Web API + Entity Framework Core + SQL Server for enterprise features
+- **C# Backend**: .NET 8 Web API (EliteShopAPI) + Entity Framework Core + SQL Server for enterprise features
 
 ## Key Patterns & Conventions
 
@@ -25,7 +25,7 @@ ElegantCommerce/
 
 ### Database Architecture
 - **Single Schema Definition**: All models defined in `shared/schema.ts` using Drizzle ORM
-- **Dual Backend Support**: Same schema works with both PostgreSQL (Node.js) and SQL Server (.NET)
+- **Unified Backend Support**: Same schema works with both PostgreSQL (Node.js) and SQL Server (.NET)
 - **Migration Strategy**: Use `npm run db:push` for schema updates
 
 ### Authentication Patterns

@@ -1,6 +1,0 @@
-@EliteShopAPI_HostAddress = http://localhost:5236
-
-GET {{EliteShopAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

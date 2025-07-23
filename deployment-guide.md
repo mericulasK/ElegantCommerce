@@ -226,7 +226,7 @@ VITE_ENABLE_ANIMATIONS=true
 
 ### ✅ Completed Features
 - Full-stack e-commerce platform
-- Dual backend architecture (Node.js + .NET)
+- Unified backend architecture (Node.js + .NET)
 - Modern React frontend with TypeScript
 - Comprehensive admin panel
 - Payment processing ready
