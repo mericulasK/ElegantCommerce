@@ -104,7 +104,7 @@ export default function SellerDashboard() {
           <TabsTrigger value="reports">Reports</TabsTrigger>
           <TabsTrigger value="promotions">Promotions</TabsTrigger>
           <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          <TabsTrigger value="profile">Profile</TabsTrigger>
+          <TabsTrigger value="profile">My Profile</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="mt-6">

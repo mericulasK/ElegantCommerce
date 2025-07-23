@@ -195,7 +195,7 @@ export default function CustomerDashboard() {
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="orders">My Orders</TabsTrigger>
-          <TabsTrigger value="profile">Profile</TabsTrigger>
+          <TabsTrigger value="profile">My Profile</TabsTrigger>
           <TabsTrigger value="wishlist">Wishlist</TabsTrigger>
         </TabsList>
 

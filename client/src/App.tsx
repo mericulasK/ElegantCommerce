@@ -38,6 +38,8 @@ function Router() {
       <Route path="/customer" component={CustomerDashboard} />
       <Route path="/customer/profile" component={CustomerProfile} />
       <Route path="/customer/orders" component={CustomerOrders} />
+      <Route path="/profile" component={CustomerProfile} />
+      <Route path="/orders" component={CustomerOrders} />
       <Route component={NotFound} />
     </Switch>
   );

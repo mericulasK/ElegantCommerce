@@ -146,16 +146,10 @@ export default function Header() {
                       <Link href="/profile">
                         <Button variant="ghost" size="sm" className="w-full justify-start">
                           <User className="w-4 h-4 mr-2" />
-                          Profile
-                        </Button>
-                      </Link>
-                      <Link href="/customer/profile">
-                        <Button variant="ghost" size="sm" className="w-full justify-start">
-                          <User className="w-4 h-4 mr-2" />
                           My Profile
                         </Button>
                       </Link>
-                      <Link href="/customer/orders">
+                      <Link href="/orders">
                         <Button variant="ghost" size="sm" className="w-full justify-start">
                           <ShoppingCart className="w-4 h-4 mr-2" />
                           My Orders
@@ -165,7 +159,7 @@ export default function Header() {
                         <Link href="/admin">
                           <Button variant="ghost" size="sm" className="w-full justify-start">
                             <User className="w-4 h-4 mr-2" />
-                            Admin Panel
+                            Admin Dashboard
                           </Button>
                         </Link>
                       )}
@@ -181,7 +175,7 @@ export default function Header() {
                         <Link href="/customer">
                           <Button variant="ghost" size="sm" className="w-full justify-start">
                             <User className="w-4 h-4 mr-2" />
-                            My Account
+                            Customer Dashboard
                           </Button>
                         </Link>
                       )}
