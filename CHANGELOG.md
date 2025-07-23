@@ -5,6 +5,20 @@ All notable changes to ElegantCommerce will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2025-07-23 - REPOSITORY CLEANUP & OPTIMIZATION 🧹
+
+### 🧹 Repository Cleanup
+- **Removed**: 130+ .NET build artifacts from git tracking (bin/ and obj/ folders)
+- **Updated**: .gitignore with comprehensive .NET build exclusions
+- **Improved**: Repository size and cleanliness for better performance
+- **Optimized**: Git operations and reduced repository bloat
+
+### 📦 .gitignore Enhancements
+- **Added**: Comprehensive .NET build output patterns
+- **Preserved**: Important config files (appsettings*.json, launchSettings.json)
+- **Excluded**: *.dll, *.pdb, *.exe, *.cache build artifacts
+- **Maintained**: Existing npm and frontend build exclusions
+
 ## [1.1.0] - 2025-07-23 - PROFESSIONAL BUSINESS PAGES RELEASE 📄
 
 ### ✨ New Features
