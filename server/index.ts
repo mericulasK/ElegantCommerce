@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 
   // Serve the app on the specified port
   // this serves both the API and the client.
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3001;
   server.listen(port, () => {
     log(`serving on port ${port}`);
     log(`Local: http://localhost:${port}`);

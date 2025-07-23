@@ -15,6 +15,7 @@ import {
   Truck,
   CreditCard
 } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 import CustomerProfile from "@/components/customer/profile";
 import CustomerOrders from "@/components/customer/orders";
 
@@ -48,6 +49,7 @@ interface ProductRecommendation {
 
 export default function CustomerDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const { user } = useAuth();
 
   // Fetch dashboard stats
   const { data: stats, isLoading: statsLoading } = useQuery<DashboardStats>({
@@ -361,7 +363,7 @@ export default function CustomerDashboard() {
         </TabsContent>
 
         <TabsContent value="profile">
-          <CustomerProfile />
+          {user && <CustomerProfile user={user} />}
         </TabsContent>
 
         <TabsContent value="wishlist">
