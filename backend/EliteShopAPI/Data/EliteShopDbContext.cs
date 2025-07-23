@@ -64,6 +64,7 @@ namespace EliteShopAPI.Data
                 entity.Property(e => e.Price).HasPrecision(18, 2);
                 entity.Property(e => e.OriginalPrice).HasPrecision(18, 2);
                 entity.Property(e => e.Rating).HasPrecision(3, 2);
+                entity.Property(e => e.Weight).HasPrecision(10, 3);
             });
 
             // ProductImage configurations
