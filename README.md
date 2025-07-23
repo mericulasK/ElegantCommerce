@@ -24,10 +24,10 @@ ElegantCommerce is a comprehensive, full-stack e-commerce platform that delivers
 ## 🌐 Live Demo & Access Links
 
 ### 🚀 Application Access
-- **Main Application**: [http://localhost:3000](http://localhost:3000)
-- **Admin Dashboard**: [http://localhost:3000/admin](http://localhost:3000/admin)
-- **Seller Dashboard**: [http://localhost:3000/seller](http://localhost:3000/seller)
-- **API Endpoints**: `http://localhost:3000/api/*`
+- **Main Application**: [http://localhost:3001](http://localhost:3001)
+- **Admin Dashboard**: [http://localhost:3001/admin](http://localhost:3001/admin)
+- **Seller Dashboard**: [http://localhost:3001/seller](http://localhost:3001/seller)
+- **API Endpoints**: `http://localhost:3001/api/*`
 
 ### 🔐 Demo Accounts - All Verified Working ✅
 
