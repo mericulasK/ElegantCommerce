@@ -21,13 +21,39 @@ Authorization: Bearer <your-jwt-token>
 ```
 
 ### Getting a Token
+
+#### 🔑 Demo Login Examples:
+
+**Admin Login:**
 ```http
 POST /api/auth/login
 Content-Type: application/json
 
 {
-  "email": "user@example.com",
-  "password": "password123"
+  "email": "admin@elegantcommerce.com",
+  "password": "Admin123!"
+}
+```
+
+**Seller Login:**
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "seller1@elegantcommerce.com", 
+  "password": "Seller123!"
+}
+```
+
+**Customer Login:**
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "customer1@elegantcommerce.com",
+  "password": "Customer123!"
 }
 ```
 

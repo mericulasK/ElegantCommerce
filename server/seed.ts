@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { categories, products } from "@shared/schema";
+import { categories, products, users } from "@shared/schema";
 import { eq } from "drizzle-orm";
 
 export async function seedDatabase() {
@@ -8,6 +8,92 @@ export async function seedDatabase() {
   // Clear existing data
   await db.delete(products);
   await db.delete(categories);
+  await db.delete(users);
+
+  // Create demo users first
+  const demoUsers = [
+    {
+      username: "admin",
+      email: "admin@elegantcommerce.com",
+      password: "Admin123!",
+      role: "admin" as const,
+      firstName: "System",
+      lastName: "Administrator"
+    },
+    {
+      username: "seller1",
+      email: "seller1@elegantcommerce.com", 
+      password: "Seller123!",
+      role: "seller" as const,
+      firstName: "Elite",
+      lastName: "Designer",
+      companyName: "EliteDesign Store",
+      isApproved: true
+    },
+    {
+      username: "seller2", 
+      email: "seller2@elegantcommerce.com",
+      password: "Seller456!",
+      role: "seller" as const,
+      firstName: "Fashion",
+      lastName: "World",
+      companyName: "Fashion World",
+      isApproved: false
+    },
+    {
+      username: "customer1",
+      email: "customer1@elegantcommerce.com",
+      password: "Customer123!",
+      role: "customer" as const,
+      firstName: "Ali",
+      lastName: "Yılmaz"
+    },
+    {
+      username: "customer2",
+      email: "customer2@elegantcommerce.com", 
+      password: "Customer456!",
+      role: "customer" as const,
+      firstName: "Ayşe",
+      lastName: "Demir"
+    },
+    {
+      username: "vipcustomer",
+      email: "vip@elegantcommerce.com",
+      password: "VipCustomer789!",
+      role: "customer" as const,
+      firstName: "Mehmet",
+      lastName: "Kaya"
+    },
+    {
+      username: "testadmin",
+      email: "testadmin@test.com",
+      password: "Test123!",
+      role: "admin" as const,
+      firstName: "Test",
+      lastName: "Admin"
+    },
+    {
+      username: "testseller",
+      email: "testseller@test.com",
+      password: "Test123!",
+      role: "seller" as const,
+      firstName: "Test",
+      lastName: "Seller",
+      companyName: "Test Company",
+      isApproved: true
+    },
+    {
+      username: "testcustomer",
+      email: "testcustomer@test.com",
+      password: "Test123!",
+      role: "customer" as const,
+      firstName: "Test",
+      lastName: "Customer"
+    }
+  ];
+
+  const insertedUsers = await db.insert(users).values(demoUsers).returning();
+  console.log(`Created ${insertedUsers.length} demo users`);
 
   // Create categories
   const categoryData = [
@@ -642,7 +728,11 @@ export async function seedDatabase() {
   console.log(`Created ${insertedProducts.length} products`);
 
   console.log("Database seeding completed!");
-  return { categories: insertedCategories, products: insertedProducts };
+  return { 
+    users: insertedUsers,
+    categories: insertedCategories, 
+    products: insertedProducts 
+  };
 }
 
 // Run seeding if this file is executed directly

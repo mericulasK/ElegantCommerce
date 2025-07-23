@@ -221,6 +221,19 @@ namespace EliteShopAPI.Data
 
         private void SeedData(ModelBuilder modelBuilder)
         {
+            // Seed Demo Users
+            modelBuilder.Entity<User>().HasData(
+                new User { Id = 1, FirstName = "System", LastName = "Administrator", Email = "admin@elegantcommerce.com", Username = "admin", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin123!"), Role = "Admin", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 2, FirstName = "Elite", LastName = "Designer", Email = "seller1@elegantcommerce.com", Username = "seller1", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Seller123!"), Role = "Seller", CompanyName = "EliteDesign Store", IsSellerApproved = true, IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 3, FirstName = "Fashion", LastName = "World", Email = "seller2@elegantcommerce.com", Username = "seller2", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Seller456!"), Role = "Seller", CompanyName = "Fashion World", IsSellerApproved = false, IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 4, FirstName = "Ali", LastName = "Yılmaz", Email = "customer1@elegantcommerce.com", Username = "customer1", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Customer123!"), Role = "Customer", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 5, FirstName = "Ayşe", LastName = "Demir", Email = "customer2@elegantcommerce.com", Username = "customer2", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Customer456!"), Role = "Customer", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 6, FirstName = "Mehmet", LastName = "Kaya", Email = "vip@elegantcommerce.com", Username = "vipcustomer", PasswordHash = BCrypt.Net.BCrypt.HashPassword("VipCustomer789!"), Role = "Customer", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 7, FirstName = "Test", LastName = "Admin", Email = "testadmin@test.com", Username = "testadmin", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Test123!"), Role = "Admin", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 8, FirstName = "Test", LastName = "Seller", Email = "testseller@test.com", Username = "testseller", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Test123!"), Role = "Seller", CompanyName = "Test Company", IsSellerApproved = true, IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
+                new User { Id = 9, FirstName = "Test", LastName = "Customer", Email = "testcustomer@test.com", Username = "testcustomer", PasswordHash = BCrypt.Net.BCrypt.HashPassword("Test123!"), Role = "Customer", IsEmailVerified = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
+            );
+
             // Seed Categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Clothing", Slug = "clothing", Description = "Trendy and comfortable clothing for all occasions", CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
