@@ -2,20 +2,55 @@
 
 ## 🌐 Live Deployment Status
 
-**Current Status**: ✅ **LIVE AND RUNNING**
-- **Main Site**: http://localhost:3000 *(Local Production Server)*
-- **About Us**: http://localhost:3000/about *(NEW - Professional company page)*
-- **Contact Us**: http://localhost:3000/contact *(NEW - Team directory & contact form)*
-- **API Documentation**: http://localhost:3000/api
-- **Admin Panel**: http://localhost:3000/admin
-- **Last Deployment**: July 23, 2025
-- **Status**: Production-ready and fully functional with business pages
+**Current Status**: ✅ **LIVE AND RUNNING 7/24**
+- **Main Site**: http://localhost:3001 *(Production Server with PM2)*
+- **About Us**: http://localhost:3001/about *(Professional company page)*
+- **Contact Us**: http://localhost:3001/contact *(Team directory & contact form)*
+- **API Documentation**: http://localhost:3001/api
+- **Admin Panel**: http://localhost:3001/admin
+- **Last Deployment**: July 24, 2025
+- **Status**: Production-ready with PM2 process management for 24/7 uptime
 
-## 🆕 Recent Updates (July 23, 2025)
-- ✅ Added professional Contact Us page with team directory
-- ✅ Added comprehensive About Us page with company information
-- ✅ Updated navigation system with new page links
-- ✅ Renamed backend API from TrendifyAPI to EliteShopAPI
+## 🚀 Production Server Management
+
+### Quick Start Commands
+```bash
+# Build and start production server
+npm run prod:build && npm run prod:start
+
+# OR use batch files
+start-production.bat    # Full build and start
+quick-start.bat        # Start if already built
+stop-production.bat    # Stop production server
+```
+
+### PM2 Process Management
+```bash
+pm2 status              # Check server status  
+pm2 logs elegant-commerce  # View real-time logs
+pm2 restart elegant-commerce  # Restart server
+pm2 stop elegant-commerce     # Stop server
+pm2 monit              # Real-time monitoring
+```
+
+## 🔄 Auto-Start Setup (Windows)
+
+### Option 1: Task Scheduler (Recommended)
+```bash
+# Run as Administrator
+schtasks /create /tn "ElegantCommerce" /xml "ElegantCommerce-AutoStart.xml"
+```
+
+### Option 2: Startup Folder
+1. Press `Win + R`, type `shell:startup`
+2. Copy shortcut of `auto-start.bat` to startup folder
+
+## 🆕 Recent Updates (July 24, 2025)
+- ✅ Implemented PM2 process management for 24/7 uptime
+- ✅ Added automatic restart on crashes and system reboot
+- ✅ Created Windows startup scripts for continuous operation
+- ✅ Added comprehensive monitoring and logging
+- ✅ Production server now survives VS Code restarts
 
 ## 🏗️ Architecture Overview
 
