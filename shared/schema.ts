@@ -259,6 +259,7 @@ export type CartItemWithProduct = CartItem & {
 
 export type OrderWithItems = Order & {
   items: (OrderItem & { product: Product })[];
+  user?: User;
 };
 
 export type ProductWithReviews = Product & {

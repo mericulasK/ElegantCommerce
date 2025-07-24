@@ -51,6 +51,7 @@ export interface StorageInterface {
   getOrders(userId?: number): Promise<Order[]>;
   getOrder(id: number): Promise<OrderWithItems | undefined>;
   getOrdersBySeller(sellerId: number): Promise<OrderWithItems[]>;
+  getAllOrdersWithItems(): Promise<OrderWithItems[]>;
   createOrder(order: InsertOrder, items: InsertOrderItem[]): Promise<Order>;
   updateOrderStatus(id: number, status: string): Promise<Order | undefined>;
 
@@ -1108,8 +1109,11 @@ export class MemStorage implements StorageInterface {
         return { ...item, product };
       })
       .filter(item => item.product) as (OrderItem & { product: Product })[];
+
+    // Get user information
+    const user = this.users.get(order.userId);
     
-    return { ...order, items };
+    return { ...order, items, user };
   }
 
   async getOrdersBySeller(sellerId: number): Promise<OrderWithItems[]> {
@@ -1121,6 +1125,14 @@ export class MemStorage implements StorageInterface {
     const orderIds = Array.from(new Set(orderItemsBySeller.map(item => item.orderId)));
     const orders = await Promise.all(orderIds.map(id => this.getOrder(id)));
     return orders.filter(Boolean) as OrderWithItems[];
+  }
+
+  async getAllOrdersWithItems(): Promise<OrderWithItems[]> {
+    const orders = Array.from(this.orders.values());
+    const ordersWithItems = await Promise.all(
+      orders.map(order => this.getOrder(order.id))
+    );
+    return ordersWithItems.filter(Boolean) as OrderWithItems[];
   }
 
   async createOrder(order: InsertOrder, items: InsertOrderItem[]): Promise<Order> {

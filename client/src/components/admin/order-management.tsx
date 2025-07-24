@@ -27,6 +27,13 @@ export default function OrderManagement() {
   // Fetch orders
   const { data: orders = [], isLoading } = useQuery<OrderWithItems[]>({
     queryKey: ["/api/admin/orders"],
+    queryFn: async () => {
+      const response = await fetch("/api/admin/orders");
+      if (!response.ok) {
+        throw new Error("Failed to fetch orders");
+      }
+      return response.json();
+    },
   });
 
   // Update order status mutation

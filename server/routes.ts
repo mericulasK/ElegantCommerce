@@ -165,7 +165,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/orders", async (req, res) => {
     try {
-      const orders = await storage.getOrders();
+      const orders = await storage.getAllOrdersWithItems();
       res.json(orders);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch orders" });
