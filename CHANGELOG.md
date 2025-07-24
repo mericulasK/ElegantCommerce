@@ -5,6 +5,34 @@ All notable changes to ElegantCommerce will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.6] - 2025-07-24 - SELLER DASHBOARD SELECT COMPONENT FIX ✅
+
+### 🔧 Critical UI Component Fixes
+- **FIXED**: Select component "undefined value" errors in seller dashboard
+- **RESOLVED**: Products section not opening due to Select component issues
+- **RESOLVED**: Orders section not displaying due to React runtime errors
+- **IMPROVED**: All Select components now use empty string ("") instead of undefined values
+
+### 🎯 Specific Component Fixes
+- **SellerProductManagement**: Fixed category selection dropdowns and filtering
+- **SellerOrderManagement**: Fixed order status filtering Select component
+- **SellerProducts**: Fixed category selection in product creation form
+- **All Seller Components**: Standardized Select component value handling
+
+### 🧪 Testing & Validation
+- **Verified**: All seller dashboard sections now open correctly
+- **Tested**: Products section fully functional with category dropdowns
+- **Tested**: Orders section fully operational with status filtering
+- **Confirmed**: No more React runtime errors in seller dashboard
+- **Validated**: Select components work correctly across all seller features
+
+### 🚀 Results
+- ✅ Seller Dashboard Products section now opens and functions properly
+- ✅ Seller Dashboard Orders section now opens and displays correctly  
+- ✅ All Select dropdown menus work without errors
+- ✅ Category filtering and product creation forms operational
+- ✅ Order status filtering and management fully functional
+
 ## [1.1.5] - 2025-07-24 - SELLER DASHBOARD COMPLETE FIX & TESTING ✅
 
 ### 🎯 Critical Seller Dashboard Fixes

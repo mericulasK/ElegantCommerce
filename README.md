@@ -6,7 +6,7 @@
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-FULLY%20TESTED%20%26%20PRODUCTION%20READY-brightgreen)
-![Last Updated](https://img.shields.io/badge/Last%20Updated-July%2024%202025%20--%203:46%20AM-blue)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-July%2024%202025%20--%20v1.1.6-blue)
 ![Build](https://img.shields.io/badge/Build-Passing%20All%20Tests-success)
 ![Tests](https://img.shields.io/badge/Tests-10%20Core%20Tests%20Passed-success)
 ![Dashboard](https://img.shields.io/badge/Seller%20Dashboard-FIXED%20%26%20OPERATIONAL-success)

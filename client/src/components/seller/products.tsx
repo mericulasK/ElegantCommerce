@@ -275,7 +275,7 @@ export default function SellerProducts() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Kategori *</label>
                   <Select 
-                    value={formData.categoryId > 0 ? formData.categoryId.toString() : undefined} 
+                    value={formData.categoryId > 0 ? formData.categoryId.toString() : ""} 
                     onValueChange={(value) => setFormData(prev => ({ ...prev, categoryId: parseInt(value) }))}
                   >
                     <SelectTrigger>

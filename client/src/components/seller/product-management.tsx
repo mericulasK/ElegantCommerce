@@ -245,7 +245,7 @@ export default function SellerProductManagement() {
       <div>
         <Label htmlFor="category">Category</Label>
         <Select
-          value={formData.categoryId || undefined}
+          value={formData.categoryId || ""}
           onValueChange={(value) => setFormData(prev => ({ ...prev, categoryId: value }))}
         >
           <SelectTrigger>
@@ -348,7 +348,7 @@ export default function SellerProductManagement() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <Select value={selectedCategory || undefined} onValueChange={setSelectedCategory}>
+        <Select value={selectedCategory || ""} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>

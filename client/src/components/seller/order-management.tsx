@@ -195,7 +195,7 @@ export default function SellerOrderManagement() {
 
       {/* Filters */}
       <div className="flex gap-4">
-        <Select value={selectedStatus || undefined} onValueChange={setSelectedStatus}>
+        <Select value={selectedStatus || ""} onValueChange={setSelectedStatus}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
