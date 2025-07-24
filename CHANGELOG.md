@@ -5,6 +5,25 @@ All notable changes to ElegantCommerce will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2025-01-18 - CHECKOUT FLOW FIXED ✅
+
+### 🔧 CRITICAL CHECKOUT BUG FIXES
+- **FIXED**: "Proceed to Checkout" button redirecting to login page instead of checkout page
+- **IMPLEMENTED**: Guest checkout functionality - users can now checkout without mandatory login
+- **ENHANCED**: Simplified authentication flow for better user experience
+- **OPERATIONAL**: Checkout page now fully accessible for both guest and authenticated users
+
+### 🛠️ Technical Implementation Details
+- **Component Fix**: Modified checkout.tsx authentication logic to support guest checkout
+- **Flow Enhancement**: Removed forced redirect to /auth from checkout page
+- **User Experience**: Added loading state handling during authentication checks
+- **Production Ready**: All changes tested and deployed successfully
+
+### 📋 Affected Components
+- `client/src/pages/checkout.tsx` - Main checkout page component
+- Authentication flow - Simplified for guest checkout support
+- Production deployment - PM2 restart successful
+
 ## [1.2.1] - 2025-07-25 - ADMIN ORDERS SECTION FULLY FIXED ✅
 
 ### 🔧 CRITICAL ADMIN DASHBOARD BUG FIXES

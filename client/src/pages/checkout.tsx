@@ -62,25 +62,25 @@ interface CheckoutFormData {
 
 export default function CheckoutPage() {
   const [, setLocation] = useLocation();
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, loading } = useAuth();
   const { items: cartItems, getCartTotal, clearCart } = useCart();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // Redirect to auth if not authenticated
-  useEffect(() => {
-    if (!isAuthenticated) {
-      setLocation("/auth");
-    }
-  }, [isAuthenticated, setLocation]);
-
-  // Show loading or return early if not authenticated
-  if (!isAuthenticated) {
-    // For testing purposes, let's allow checkout without authentication
-    // but show a warning message
-    console.warn("User not authenticated, proceeding with guest checkout");
+  // Show loading during auth check
+  if (loading) {
+    return (
+      <div className="container mx-auto px-4 py-16">
+        <div className="flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        </div>
+      </div>
+    );
   }
+
+  // Allow checkout regardless of authentication status
+  // Guest users can also checkout
 
   // Redirect if cart is empty (add demo items for testing)
   if (cartItems.length === 0) {
@@ -292,6 +292,20 @@ export default function CheckoutPage() {
           Back to Cart
         </Button>
         <h1 className="text-3xl font-bold">Checkout</h1>
+        
+        {/* Guest Checkout Notice */}
+        {!isAuthenticated && (
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="flex items-center gap-2 text-blue-800">
+              <UserCheck className="w-5 h-5" />
+              <span className="font-medium">Guest Checkout</span>
+            </div>
+            <p className="text-blue-700 text-sm mt-1">
+              You are checking out as a guest. 
+              <Link href="/auth" className="underline ml-1">Sign in</Link> to access your order history and faster checkout.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Progress Steps */}
