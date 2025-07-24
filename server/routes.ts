@@ -249,9 +249,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Seller Routes
-  app.get("/api/seller/stats", async (req, res) => {
+  app.get("/api/seller/stats/:sellerId", async (req, res) => {
     try {
-      const sellerId = 1; // In real app, get from auth token
+      const sellerId = parseInt(req.params.sellerId);
       const products = await storage.getProductsBySeller(sellerId);
       const orders = await storage.getOrdersBySeller(sellerId);
       const reviews = await storage.getReviews(undefined, sellerId);
@@ -267,9 +267,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/seller/products", async (req, res) => {
+  app.get("/api/seller/products/:sellerId", async (req, res) => {
     try {
-      const sellerId = 1; // In real app, get from auth token
+      const sellerId = parseInt(req.params.sellerId);
       const products = await storage.getProductsBySeller(sellerId);
       res.json(products);
     } catch (error) {
@@ -277,9 +277,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/seller/orders", async (req, res) => {
+  app.get("/api/seller/orders/:sellerId", async (req, res) => {
     try {
-      const sellerId = 1; // In real app, get from auth token
+      const sellerId = parseInt(req.params.sellerId);
       const orders = await storage.getOrdersBySeller(sellerId);
       res.json(orders);
     } catch (error) {
@@ -287,13 +287,64 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/seller/reviews", async (req, res) => {
+  app.get("/api/seller/reviews/:sellerId", async (req, res) => {
     try {
-      const sellerId = 1; // In real app, get from auth token
+      const sellerId = parseInt(req.params.sellerId);
       const reviews = await storage.getReviews(undefined, sellerId);
       res.json(reviews);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch seller reviews" });
+    }
+  });
+
+  // Seller product management
+  app.post("/api/seller/products", async (req, res) => {
+    try {
+      const product = await storage.createProduct(req.body);
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create product" });
+    }
+  });
+
+  app.put("/api/seller/products/:productId", async (req, res) => {
+    try {
+      const productId = parseInt(req.params.productId);
+      const product = await storage.updateProduct(productId, req.body);
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update product" });
+    }
+  });
+
+  app.delete("/api/seller/products/:productId", async (req, res) => {
+    try {
+      const productId = parseInt(req.params.productId);
+      const success = await storage.deleteProduct(productId);
+      if (!success) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res.json({ message: "Product deleted successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to delete product" });
+    }
+  });
+
+  // Seller order management
+  app.put("/api/seller/orders/:orderId/status", async (req, res) => {
+    try {
+      const orderId = parseInt(req.params.orderId);
+      const { status } = req.body;
+      const order = await storage.updateOrderStatus(orderId, status);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+      res.json(order);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update order status" });
     }
   });
 

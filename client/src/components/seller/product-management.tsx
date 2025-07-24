@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Edit, Trash2, Plus, Package, Eye, DollarSign } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/auth-context";
 
 interface Product {
   id: number;
@@ -35,6 +36,7 @@ export default function SellerProductManagement() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -49,12 +51,14 @@ export default function SellerProductManagement() {
 
   // Fetch seller products
   const { data: products, isLoading } = useQuery({
-    queryKey: ["seller-products"],
+    queryKey: ["seller-products", user?.id],
     queryFn: async () => {
-      const response = await fetch("/api/seller/products");
+      if (!user?.id) throw new Error("User not logged in");
+      const response = await fetch(`/api/seller/products/${user.id}`);
       if (!response.ok) throw new Error("Failed to fetch products");
       return response.json();
-    }
+    },
+    enabled: !!user?.id
   });
 
   // Fetch categories
@@ -70,16 +74,16 @@ export default function SellerProductManagement() {
   // Create product mutation
   const createProductMutation = useMutation({
     mutationFn: async (productData: any) => {
-      const response = await fetch("/api/products", {
+      const response = await fetch("/api/seller/products", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productData)
+        body: JSON.stringify({ ...productData, sellerId: user?.id })
       });
       if (!response.ok) throw new Error("Failed to create product");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["seller-products"] });
+      queryClient.invalidateQueries({ queryKey: ["seller-products", user?.id] });
       setIsCreateDialogOpen(false);
       resetForm();
       toast({
@@ -99,7 +103,7 @@ export default function SellerProductManagement() {
   // Update product mutation
   const updateProductMutation = useMutation({
     mutationFn: async ({ id, ...productData }: any) => {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`/api/seller/products/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(productData)
@@ -108,7 +112,7 @@ export default function SellerProductManagement() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["seller-products"] });
+      queryClient.invalidateQueries({ queryKey: ["seller-products", user?.id] });
       setIsEditDialogOpen(false);
       resetForm();
       toast({
@@ -121,14 +125,14 @@ export default function SellerProductManagement() {
   // Delete product mutation
   const deleteProductMutation = useMutation({
     mutationFn: async (id: number) => {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`/api/seller/products/${id}`, {
         method: "DELETE"
       });
       if (!response.ok) throw new Error("Failed to delete product");
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["seller-products"] });
+      queryClient.invalidateQueries({ queryKey: ["seller-products", user?.id] });
       toast({
         title: "Success",
         description: "Product deleted successfully"

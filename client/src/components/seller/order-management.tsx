@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Package, Clock, CheckCircle, XCircle, Eye, Truck } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/auth-context";
 import { format } from "date-fns";
 
 interface Order {
@@ -47,21 +48,24 @@ export default function SellerOrderManagement() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const { user } = useAuth();
 
   // Fetch seller orders
   const { data: orders, isLoading } = useQuery({
-    queryKey: ["seller-orders"],
+    queryKey: ["seller-orders", user?.id],
     queryFn: async () => {
-      const response = await fetch("/api/seller/orders");
+      if (!user?.id) throw new Error("User not logged in");
+      const response = await fetch(`/api/seller/orders/${user.id}`);
       if (!response.ok) throw new Error("Failed to fetch orders");
       return response.json();
-    }
+    },
+    enabled: !!user?.id
   });
 
   // Update order status mutation
   const updateOrderStatusMutation = useMutation({
     mutationFn: async ({ orderId, status }: { orderId: number; status: string }) => {
-      const response = await fetch(`/api/orders/${orderId}/status`, {
+      const response = await fetch(`/api/seller/orders/${orderId}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status })
@@ -70,7 +74,7 @@ export default function SellerOrderManagement() {
       return response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["seller-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["seller-orders", user?.id] });
       toast({
         title: "Success",
         description: "Order status updated successfully"

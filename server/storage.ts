@@ -336,7 +336,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Women's Fashion",
         categoryId: womenCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "EliteDesign",
         color: "Black",
         size: "M",
@@ -365,7 +365,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Accessories",
         categoryId: accessoriesCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "LuxuryBrand",
         color: "Brown",
         size: "Medium",
@@ -394,7 +394,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Men's Fashion",
         categoryId: menCategory.id,
-        sellerId: null,
+        sellerId: 5, // testseller
         brand: "SportStyle",
         color: "Navy Blue",
         size: "L",
@@ -423,7 +423,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Accessories",
         categoryId: accessoriesCategory.id,
-        sellerId: null,
+        sellerId: 5, // testseller
         brand: "StreetStyle",
         color: "White",
         size: "42",
@@ -452,7 +452,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Women's Fashion",
         categoryId: womenCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "Classic",
         color: "White", 
         size: "M",
@@ -481,7 +481,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Accessories",
         categoryId: accessoriesCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "SwissMade",
         color: "Silver",
         size: null,
@@ -511,7 +511,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Elektronik",
         categoryId: electronicsCategory.id,
-        sellerId: null,
+        sellerId: 5, // testseller
         brand: "TechSound",
         color: "Siyah",
         size: null,
@@ -540,7 +540,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Elektronik",
         categoryId: electronicsCategory.id,
-        sellerId: null,
+        sellerId: null, // No seller (admin product)
         brand: "SmartTech",
         color: "Mavi",
         size: "6.1 inch",
@@ -570,7 +570,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Spor",
         categoryId: sportsCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "RunMax",
         color: "Beyaz",
         size: "42",
@@ -599,7 +599,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Spor",
         categoryId: sportsCategory.id,
-        sellerId: null,
+        sellerId: 5, // testseller
         brand: "YogaLife",
         color: "Mor",
         size: "180x60 cm",
@@ -629,7 +629,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Kitap & Hobi",
         categoryId: booksHobbyCategory.id,
-        sellerId: null,
+        sellerId: null, // No seller (admin product)
         brand: "YayınEvi",
         color: null,
         size: "14x21 cm",
@@ -658,7 +658,7 @@ export class MemStorage implements StorageInterface {
         images: ["https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=500"],
         category: "Kitap & Hobi",
         categoryId: booksHobbyCategory.id,
-        sellerId: null,
+        sellerId: 2, // seller1
         brand: "PuzzleMaster",
         color: "Renkli",
         size: "70x50 cm",
@@ -683,6 +683,115 @@ export class MemStorage implements StorageInterface {
     products.forEach(product => {
       const id = this.currentProductId++;
       this.products.set(id, { ...product, id });
+    });
+
+    // Add demo orders for sellers
+    this.addDemoOrders();
+  }
+
+  // Add demo orders method
+  private addDemoOrders() {
+    const demoOrders: Omit<Order, 'id'>[] = [
+      {
+        userId: 3, // customer1
+        totalAmount: "189.00",
+        status: "pending",
+        shippingAddress: JSON.stringify({
+          fullName: "Ali Yılmaz",
+          street: "Test Sokak No:1",
+          city: "İstanbul",
+          postalCode: "34000",
+          country: "Türkiye"
+        }),
+        paymentMethod: "credit_card",
+        paymentStatus: "pending",
+        notes: null,
+        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+        updatedAt: new Date()
+      },
+      {
+        userId: 6, // testcustomer
+        totalAmount: "299.00",
+        status: "confirmed",
+        shippingAddress: JSON.stringify({
+          fullName: "Test Customer",
+          street: "Test Street 123",
+          city: "Ankara",
+          postalCode: "06000",
+          country: "Türkiye"
+        }),
+        paymentMethod: "paypal",
+        paymentStatus: "completed",
+        notes: null,
+        createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000), // 1 day ago
+        updatedAt: new Date()
+      },
+      {
+        userId: 7, // customer2
+        totalAmount: "149.00",
+        status: "shipped",
+        shippingAddress: JSON.stringify({
+          fullName: "Ayşe Demir",
+          street: "Deneme Caddesi 45",
+          city: "İzmir",
+          postalCode: "35000",
+          country: "Türkiye"
+        }),
+        paymentMethod: "credit_card",
+        paymentStatus: "completed",
+        notes: null,
+        createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000), // 3 days ago
+        updatedAt: new Date()
+      }
+    ];
+
+    // Add orders to storage
+    demoOrders.forEach(order => {
+      const id = this.currentOrderId++;
+      this.orders.set(id, { ...order, id });
+    });
+
+    // Add order items
+    const demoOrderItems: Omit<OrderItem, 'id'>[] = [
+      {
+        orderId: 1,
+        productId: 1, // Designer Evening Dress (seller1)
+        sellerId: 2, // seller1
+        quantity: 1,
+        unitPrice: "189.00",
+        totalPrice: "189.00",
+        size: "M",
+        color: "Black",
+        status: "pending"
+      },
+      {
+        orderId: 2,
+        productId: 7, // Kablosuz Bluetooth Kulaklık (testseller)
+        sellerId: 5, // testseller
+        quantity: 1,
+        unitPrice: "299.00",
+        totalPrice: "299.00",
+        size: null,
+        color: "Siyah",
+        status: "confirmed"
+      },
+      {
+        orderId: 3,
+        productId: 3, // Casual Sport Jacket (testseller)
+        sellerId: 5, // testseller
+        quantity: 1,
+        unitPrice: "149.00",
+        totalPrice: "149.00",
+        size: "L",
+        color: "Navy Blue",
+        status: "shipped"
+      }
+    ];
+
+    // Add order items to storage
+    demoOrderItems.forEach(item => {
+      const id = this.currentOrderItemId++;
+      this.orderItems.set(id, { ...item, id });
     });
   }
 
