@@ -18,10 +18,11 @@ interface Product {
   name: string;
   description: string;
   price: string;
-  stock: number;
+  stockQuantity: number;
   category: string;
+  categoryId: number;
   images: string[];
-  isActive: boolean;
+  inStock: boolean;
   featured: boolean;
   tags: string[];
   sellerId: number;
@@ -162,7 +163,7 @@ export default function SellerProductManagement() {
       stock: formData.stock,
       images: formData.images.filter(img => img.trim()),
       tags: formData.tags ? formData.tags.split(",").map(t => t.trim()) : [],
-      sellerId: 1 // In real app, get from auth
+      sellerId: user?.id
     };
     createProductMutation.mutate(productData);
   };
@@ -173,8 +174,8 @@ export default function SellerProductManagement() {
       name: product.name,
       description: product.description,
       price: product.price,
-      stock: product.stock,
-      categoryId: product.category,
+      stock: product.stockQuantity,
+      categoryId: product.categoryId?.toString() || "",
       images: product.images.length ? product.images : [""],
       featured: product.featured,
       tags: product.tags?.join(", ") || ""
@@ -377,8 +378,8 @@ export default function SellerProductManagement() {
                     {product.featured && (
                       <Badge variant="secondary">Featured</Badge>
                     )}
-                    <Badge variant={product.isActive ? "default" : "secondary"}>
-                      {product.isActive ? "Active" : "Inactive"}
+                    <Badge variant={product.inStock ? "default" : "secondary"}>
+                      {product.inStock ? "In Stock" : "Out of Stock"}
                     </Badge>
                   </div>
                 </div>
@@ -394,7 +395,7 @@ export default function SellerProductManagement() {
                     </span>
                     <div className="flex items-center gap-2">
                       <Package className="w-4 h-4" />
-                      <span className="text-sm">{product.stock} in stock</span>
+                      <span className="text-sm">{product.stockQuantity} in stock</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center pt-2">
