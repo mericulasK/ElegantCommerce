@@ -425,9 +425,9 @@ ElegantCommerce/
    ```
 
 4. **Access the application**
-   - Main Application: http://localhost:3000
-   - Admin Dashboard: http://localhost:3000/admin  
-   - Seller Dashboard: http://localhost:3000/seller
+   - Main Application: http://localhost:3001
+   - Admin Dashboard: http://localhost:3001/admin  
+   - Seller Dashboard: http://localhost:3001/seller
 
 ### Available Scripts
 
@@ -742,7 +742,7 @@ ElegantCommerce is developed and maintained by a team of experienced professiona
 ## �📞 Support & Links
 
 ### Quick Links
-- 🌐 **Local Development**: http://localhost:3000
+- 🌐 **Local Development**: http://localhost:3001
 - 📚 **GitHub Repository**: https://github.com/mericulasK/ElegantCommerce
 - 🐛 **Report Issues**: https://github.com/mericulasK/ElegantCommerce/issues
 - 💬 **Discussions**: https://github.com/mericulasK/ElegantCommerce/discussions
