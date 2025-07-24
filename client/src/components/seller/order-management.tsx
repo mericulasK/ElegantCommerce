@@ -195,12 +195,12 @@ export default function SellerOrderManagement() {
 
       {/* Filters */}
       <div className="flex gap-4">
-        <Select value={selectedStatus || ""} onValueChange={setSelectedStatus}>
+        <Select value={selectedStatus || "all"} onValueChange={(value) => setSelectedStatus(value === "all" ? "" : value)}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Orders</SelectItem>
+            <SelectItem value="all">All Orders</SelectItem>
             {Object.entries(statusConfig).map(([status, config]) => (
               <SelectItem key={status} value={status}>
                 {config.label}

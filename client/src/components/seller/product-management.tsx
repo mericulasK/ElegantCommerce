@@ -349,12 +349,12 @@ export default function SellerProductManagement() {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <Select value={selectedCategory || ""} onValueChange={setSelectedCategory}>
+        <Select value={selectedCategory || "all"} onValueChange={(value) => setSelectedCategory(value === "all" ? "" : value)}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Categories</SelectItem>
+            <SelectItem value="all">All Categories</SelectItem>
             {categories?.map((category: any) => (
               <SelectItem key={category.id} value={category.name}>
                 {category.name}
