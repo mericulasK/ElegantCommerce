@@ -5,6 +5,14 @@ import { seedDatabase } from "./seed";
 import { insertProductSchema, insertCategorySchema, insertCartItemSchema, insertUserSchema } from "@shared/schema";
 import { z } from "zod";
 
+// Authentication middleware
+function requireAuth(req: any, res: any, next: any) {
+  if (!req.session?.user) {
+    return res.status(401).json({ message: "Authentication required" });
+  }
+  next();
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Seed Database
   app.post("/api/seed", async (req, res) => {
@@ -492,12 +500,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/orders", async (req, res) => {
+  app.post("/api/orders", async (req: any, res) => {
     try {
       const orderData = req.body;
-      const order = await storage.createOrder(orderData, []);
-      res.json(order);
+      
+      // Extract items from order data
+      const items = orderData.items || [];
+      
+      // Get user ID from session or use default
+      const userId = req.session?.user?.id || orderData.userId || 1;
+      
+      // Create order object with required fields
+      const order = {
+        userId: userId,
+        totalAmount: orderData.total.toString(),
+        status: "pending" as const,
+        shippingAddress: JSON.stringify(orderData.shippingAddress),
+        paymentMethod: orderData.paymentMethod,
+        paymentStatus: "pending" as const,
+        notes: orderData.orderNotes || null
+      };
+      
+      const createdOrder = await storage.createOrder(order, items);
+      res.json(createdOrder);
     } catch (error) {
+      console.error("Order creation error:", error);
       res.status(500).json({ message: "Failed to create order" });
     }
   });
