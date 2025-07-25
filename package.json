@@ -11,13 +11,16 @@
     "check": "tsc",
     "db:push": "drizzle-kit push",
     "prod:build": "npm run build",
-    "prod:start": "pm2 start ecosystem.config.cjs --env production",
+    "prod:start": "pm2 start ecosystem.config.js --env production",
     "prod:stop": "pm2 stop elegant-commerce",
     "prod:restart": "pm2 restart elegant-commerce",
     "prod:logs": "pm2 logs elegant-commerce",
     "prod:status": "pm2 status",
     "prod:delete": "pm2 delete elegant-commerce",
-    "prod:reload": "pm2 reload elegant-commerce"
+    "prod:reload": "pm2 reload elegant-commerce",
+    "prod:auto": "start-production-auto.bat",
+    "prod:save": "pm2 save",
+    "prod:resurrect": "pm2 resurrect"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
