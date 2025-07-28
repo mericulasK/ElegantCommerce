@@ -1,40 +1,204 @@
-# Windows Service için PM2 Kurulumu
+# ElegantCommerce Windows Auto-Start Service Setup
 
-## Adım 1: PM2-Windows-Service kurulumu
-npm install -g pm2-windows-service
+## 🚀 Quick Setup (Recommended)
 
-## Adım 2: PM2 Servis kurulumu
-pm2-service-install -n "ElegantCommerce"
+### 1. **Automated Setup (Run as Administrator)**
+```bash
+# Run this command as Administrator
+npm run windows:setup
+```
 
-## Adım 3: PM2 Startup ayarları
-pm2 startup windows
-pm2 save
+This will automatically create a Windows Task Scheduler entry that:
+- Starts ElegantCommerce when Windows boots
+- Waits 2 minutes for system initialization
+- Runs with SYSTEM privileges for maximum reliability
+- Automatically restarts on failure (up to 3 times)
 
-## Adım 4: Servis yönetimi komutları
+### 2. **Manual Verification**
+```bash
+# Check if the task was created
+npm run windows:status
 
-### Servisi başlat
-net start ElegantCommerce
+# Test manual startup
+npm run windows:start
 
-### Servisi durdur  
-net stop ElegantCommerce
+# Check PM2 status
+npm run prod:status
+```
 
-### Servis durumunu kontrol et
-sc query ElegantCommerce
+---
 
-## Otomatik Başlatma Scripti (Windows Startup)
+## 🔧 Manual Setup (Advanced Users)
 
-### 1. Task Scheduler ile otomatik başlatma
-1. Win + R tuşlarına basın, "taskschd.msc" yazın
-2. "Create Basic Task" seçin
-3. Name: "ElegantCommerce Auto Start"
-4. Trigger: "When the computer starts"
-5. Action: "Start a program"
-6. Program: "d:\Visual Studio_Projects\ElegantCommerce\start-production.bat"
+### **Method 1: Task Scheduler (Recommended)**
 
-### 2. Startup folder ile otomatik başlatma
-1. Win + R tuşlarına basın, "shell:startup" yazın
-2. Bu klasöre "start-production.bat" dosyasının shortcut'unu kopyalayın
+#### Create Task via Command Line:
+```cmd
+schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
+```
 
-## PM2 Ecosystem Konfigürasyon Doğrulama
-cd "d:\Visual Studio_Projects\ElegantCommerce"
-pm2 ecosystem
+#### Create Task via GUI:
+1. Open Task Scheduler (`Win + R` → `taskschd.msc`)
+2. Click "Create Basic Task"
+3. **Name**: `ElegantCommerce Auto-Start`
+4. **Trigger**: `When the computer starts`
+5. **Delay**: `2 minutes`
+6. **Action**: `Start a program`
+7. **Program**: `powershell.exe`
+8. **Arguments**: `-ExecutionPolicy Bypass -File "D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1"`
+9. **Start in**: `D:\Visual Studio_Projects\ElegantCommerce`
+10. **Run with highest privileges**: ✅ Checked
+
+### **Method 2: Windows Startup Folder**
+```bash
+# 1. Open startup folder
+Win + R → shell:startup
+
+# 2. Copy the startup script
+copy "D:\Visual Studio_Projects\ElegantCommerce\startup-windows.bat" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\"
+```
+
+---
+
+## 📋 Management Commands
+
+### **Task Management**
+```bash
+# Create auto-start task (Administrator required)
+npm run windows:setup
+
+# Check task status
+npm run windows:status
+
+# Remove auto-start task
+npm run windows:remove
+
+# Manual start
+npm run windows:start
+```
+
+### **Service Management**
+```bash
+# Start production server
+npm run prod:start
+
+# Check status
+npm run prod:status
+
+# View logs
+npm run prod:logs
+
+# Stop service
+npm run prod:stop
+
+# Restart service
+npm run prod:restart
+```
+
+---
+
+## 🔍 Troubleshooting
+
+### **Common Issues:**
+
+#### 1. **Task Not Running**
+```bash
+# Check if task exists
+schtasks /query /tn "ElegantCommerce Auto-Start"
+
+# Check task history in Task Scheduler GUI
+# Task Scheduler → Task Scheduler Library → ElegantCommerce Auto-Start → History tab
+```
+
+#### 2. **Permission Issues**
+- Ensure script is run as Administrator
+- Check if PowerShell execution policy allows scripts:
+```powershell
+Get-ExecutionPolicy
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+```
+
+#### 3. **Port Already in Use**
+```bash
+# Check what's using port 3001
+netstat -ano | findstr :3001
+
+# Kill process if needed
+taskkill /f /pid [PID_NUMBER]
+```
+
+#### 4. **PM2 Not Starting**
+```bash
+# Reinstall PM2 globally
+npm install -g pm2
+
+# Reset PM2
+pm2 kill
+pm2 resurrect
+```
+
+---
+
+## 📊 Verification & Testing
+
+### **Post-Setup Verification:**
+1. **Reboot Test**: Restart your computer
+2. **Wait 3-4 minutes** for full system startup
+3. **Check Site**: Open http://localhost:3001
+4. **Verify PM2**: Run `pm2 status`
+5. **Check Logs**: Look at `logs/startup.log`
+
+### **Expected Results:**
+- ✅ Site accessible at http://localhost:3001
+- ✅ PM2 shows "elegant-commerce" as "online"
+- ✅ No error messages in startup logs
+- ✅ Auto-restart works if process crashes
+
+---
+
+## 🗑️ Uninstall Auto-Start
+
+### **Remove Task Scheduler Entry:**
+```bash
+# Using npm script
+npm run windows:remove
+
+# Manual removal
+schtasks /delete /tn "ElegantCommerce Auto-Start" /f
+```
+
+### **Clean Up Startup Folder:**
+```bash
+# Remove from startup folder (if using Method 2)
+del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\startup-windows.bat"
+```
+
+---
+
+## ⚙️ Configuration Files
+
+### **Key Files:**
+- `startup-windows.ps1` - Main PowerShell startup script
+- `startup-windows.bat` - Batch wrapper script
+- `setup-windows-service.bat` - Automated setup script
+- `ecosystem.config.cjs` - PM2 configuration
+- `logs/startup.log` - Startup process logs
+
+### **Important Paths:**
+- **Application**: `D:\Visual Studio_Projects\ElegantCommerce`
+- **PM2 Config**: `C:\Users\[username]\.pm2\`
+- **Task Scheduler**: Windows Task Scheduler Library
+- **Logs**: `D:\Visual Studio_Projects\ElegantCommerce\logs\`
+
+---
+
+## 🎯 Success Indicators
+
+After successful setup, you should see:
+- 🟢 **Green PM2 Status**: `pm2 status` shows online
+- 🌐 **Site Accessible**: http://localhost:3001 loads properly
+- 📝 **Clean Logs**: No errors in startup.log
+- 🔄 **Auto-Recovery**: Process restarts automatically if killed
+- 🖥️ **Boot Persistence**: Survives computer restarts
+
+**Your ElegantCommerce platform is now configured for 24/7 operation!**

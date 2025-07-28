@@ -107,7 +107,12 @@ npm run prod:start
 
 # Auto-startup script (Windows)
 npm run prod:auto
-start-production-auto.bat
+npm run windows:start
+
+# Windows Service Setup (Run as Administrator)
+npm run windows:setup     # Setup auto-start on Windows boot
+npm run windows:status    # Check Windows Task status
+npm run windows:remove    # Remove auto-start task
 
 # Monitoring & Control
 npm run prod:status    # Check PM2 status
@@ -120,11 +125,27 @@ npm run prod:save      # Save current PM2 processes
 npm run prod:resurrect # Restore saved processes
 ```
 
-### **📊 Health & Monitoring**
+### **�️ Windows Auto-Start Setup**
+```bash
+# 1. Setup Windows Task Scheduler (Run as Administrator)
+npm run windows:setup
+
+# 2. Manual task creation
+schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
+
+# 3. Test auto-start manually
+npm run windows:start
+
+# 4. Check task status
+npm run windows:status
+```
+
+### **�📊 Health & Monitoring**
 - **Health Check**: `GET /health` - Returns system status and uptime
-- **Log Files**: `./logs/combined.log`, `./logs/err.log`, `./logs/out.log`
+- **Log Files**: `./logs/combined.log`, `./logs/err.log`, `./logs/out.log`, `./logs/startup.log`
 - **Process Monitoring**: PM2 dashboard with CPU and memory usage
 - **Auto-restart**: Up to 50 restarts with intelligent delay
+- **Windows Task Scheduler**: Automatic startup on system boot
 
 ---
 
