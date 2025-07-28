@@ -43,10 +43,10 @@ try {
     
     # Start PM2 daemon if not running
     Write-Log "Initializing PM2..."
-    & pm2 ping 2>&1 | Out-Null
+    $null = & pm2 ping 2>&1
     if ($LASTEXITCODE -ne 0) {
         Write-Log "PM2 daemon not running, starting..."
-        & pm2 ping
+        $null = & pm2 ping
     }
     
     # Build application if needed
@@ -61,14 +61,14 @@ try {
     
     # Restore any saved PM2 processes
     Write-Log "Restoring PM2 processes..."
-    & pm2 resurrect 2>&1 | Out-Null
+    $null = & pm2 resurrect 2>&1
     
     # Start ElegantCommerce application
     Write-Log "Starting ElegantCommerce..."
-    & pm2 start ecosystem.config.cjs --env production 2>&1 | Out-Null
+    $null = & pm2 start ecosystem.config.cjs --env production 2>&1
     
     # Save PM2 configuration
-    & pm2 save 2>&1 | Out-Null
+    $null = & pm2 save 2>&1
     
     # Verify the application is running
     Start-Sleep -Seconds 10
