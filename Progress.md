@@ -7,11 +7,11 @@
 **Status**: 100% Complete and Fully Functional
 
 ### 🌐 Application Access
-- **Local Development**: http://localhost:3000
-- **About Us**: http://localhost:3000/about *(NEW - Professional company page)*
-- **Contact Us**: http://localhost:3000/contact *(NEW - Team directory & contact form)*
-- **Admin Dashboard**: http://localhost:3000/admin
-- **Seller Dashboard**: http://localhost:3000/seller
+- **Local Development**: http://localhost:3001
+- **About Us**: http://localhost:3001/about *(NEW - Professional company page)*
+- **Contact Us**: http://localhost:3001/contact *(NEW - Team directory & contact form)*
+- **Admin Dashboard**: http://localhost:3001/admin
+- **Seller Dashboard**: http://localhost:3001/seller
 - **GitHub Repository**: https://github.com/mericulasK/ElegantCommerce
 
 ## 🧹 Latest Updates (July 23, 2025)

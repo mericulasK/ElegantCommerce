@@ -8,7 +8,7 @@
 - **Documentation**: `https://elite-shop-api.azurewebsites.net/swagger`
 
 ### Development
-- **Local API**: `http://localhost:5000/api`
+- **Local API**: `http://localhost:3001/api`
 - **.NET API**: `https://localhost:7176/api`
 
 ## 🔐 Authentication
