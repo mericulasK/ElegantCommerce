@@ -16,6 +16,7 @@
     "moduleResolution": "bundler",
     "downlevelIteration": true,
     "baseUrl": ".",
+    "ignoreDeprecations": "5.0",
     "types": ["node", "vite/client"],
     "paths": {
       "@/*": ["./client/src/*"],
