@@ -1,15 +1,15 @@
-# ElegantCommerce - Modern E-commerce Platform
+# EliteShop - Modern E-commerce Platform
 
 ## 🌐 Live Application
 
 **Status**: ✅ **LIVE IN PRODUCTION**
-- **Main Application**: https://elegantcommerce.replit.app
+- **Main Application**: https://EliteShop.replit.app
 - **API Documentation**: https://elite-shop-api.azurewebsites.net/swagger
-- **Admin Dashboard**: https://elegantcommerce.replit.app/admin
+- **Admin Dashboard**: https://EliteShop.replit.app/admin
 
 ## 📋 Overview
 
-ElegantCommerce is a modern, full-stack e-commerce platform built with cutting-edge technologies. The application features a premium fashion-focused design with comprehensive product management, shopping cart functionality, and a responsive user interface built with React, TypeScript, and modern UI components.
+EliteShop is a modern, full-stack e-commerce platform built with cutting-edge technologies. The application features a premium fashion-focused design with comprehensive product management, shopping cart functionality, and a responsive user interface built with React, TypeScript, and modern UI components.
 
 ### 🎯 Key Highlights
 - **Dual Backend Architecture**: Node.js + .NET Web API
@@ -165,3 +165,4 @@ Changelog:
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+

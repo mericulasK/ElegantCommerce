@@ -1,4 +1,4 @@
-# ElegantCommerce Windows Auto-Start Service Setup
+# EliteShop Windows Auto-Start Service Setup
 
 ## 🚀 Quick Setup (Recommended)
 
@@ -9,7 +9,7 @@ npm run windows:setup
 ```
 
 This will automatically create a Windows Task Scheduler entry that:
-- Starts ElegantCommerce when Windows boots
+- Starts EliteShop when Windows boots
 - Waits 2 minutes for system initialization
 - Runs with SYSTEM privileges for maximum reliability
 - Automatically restarts on failure (up to 3 times)
@@ -34,19 +34,19 @@ npm run prod:status
 
 #### Create Task via Command Line:
 ```cmd
-schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
+schtasks /create /tn "EliteShop Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\EliteShop\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
 ```
 
 #### Create Task via GUI:
 1. Open Task Scheduler (`Win + R` → `taskschd.msc`)
 2. Click "Create Basic Task"
-3. **Name**: `ElegantCommerce Auto-Start`
+3. **Name**: `EliteShop Auto-Start`
 4. **Trigger**: `When the computer starts`
 5. **Delay**: `2 minutes`
 6. **Action**: `Start a program`
 7. **Program**: `powershell.exe`
-8. **Arguments**: `-ExecutionPolicy Bypass -File "D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1"`
-9. **Start in**: `D:\Visual Studio_Projects\ElegantCommerce`
+8. **Arguments**: `-ExecutionPolicy Bypass -File "D:\Visual Studio_Projects\EliteShop\startup-windows.ps1"`
+9. **Start in**: `D:\Visual Studio_Projects\EliteShop`
 10. **Run with highest privileges**: ✅ Checked
 
 ### **Method 2: Windows Startup Folder**
@@ -55,7 +55,7 @@ schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -Execution
 Win + R → shell:startup
 
 # 2. Copy the startup script
-copy "D:\Visual Studio_Projects\ElegantCommerce\startup-windows.bat" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\"
+copy "D:\Visual Studio_Projects\EliteShop\startup-windows.bat" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\"
 ```
 
 ---
@@ -104,10 +104,10 @@ npm run prod:restart
 #### 1. **Task Not Running**
 ```bash
 # Check if task exists
-schtasks /query /tn "ElegantCommerce Auto-Start"
+schtasks /query /tn "EliteShop Auto-Start"
 
 # Check task history in Task Scheduler GUI
-# Task Scheduler → Task Scheduler Library → ElegantCommerce Auto-Start → History tab
+# Task Scheduler → Task Scheduler Library → EliteShop Auto-Start → History tab
 ```
 
 #### 2. **Permission Issues**
@@ -150,7 +150,7 @@ pm2 resurrect
 
 ### **Expected Results:**
 - ✅ Site accessible at http://localhost:3001
-- ✅ PM2 shows "elegant-commerce" as "online"
+- ✅ PM2 shows "elite-shop" as "online"
 - ✅ No error messages in startup logs
 - ✅ Auto-restart works if process crashes
 
@@ -164,7 +164,7 @@ pm2 resurrect
 npm run windows:remove
 
 # Manual removal
-schtasks /delete /tn "ElegantCommerce Auto-Start" /f
+schtasks /delete /tn "EliteShop Auto-Start" /f
 ```
 
 ### **Clean Up Startup Folder:**
@@ -185,10 +185,10 @@ del "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\startup-windows.bat
 - `logs/startup.log` - Startup process logs
 
 ### **Important Paths:**
-- **Application**: `D:\Visual Studio_Projects\ElegantCommerce`
+- **Application**: `D:\Visual Studio_Projects\EliteShop`
 - **PM2 Config**: `C:\Users\[username]\.pm2\`
 - **Task Scheduler**: Windows Task Scheduler Library
-- **Logs**: `D:\Visual Studio_Projects\ElegantCommerce\logs\`
+- **Logs**: `D:\Visual Studio_Projects\EliteShop\logs\`
 
 ---
 
@@ -201,4 +201,5 @@ After successful setup, you should see:
 - 🔄 **Auto-Recovery**: Process restarts automatically if killed
 - 🖥️ **Boot Persistence**: Survives computer restarts
 
-**Your ElegantCommerce platform is now configured for 24/7 operation!**
+**Your EliteShop platform is now configured for 24/7 operation!**
+

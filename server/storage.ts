@@ -134,7 +134,7 @@ export class MemStorage implements StorageInterface {
     const demoUsers: Omit<User, 'id'>[] = [
       {
         username: "admin",
-        email: "admin@elegantcommerce.com",
+        email: "admin@eliteshop.com",
         password: "Admin123!",
         role: "admin",
         firstName: "System",
@@ -150,7 +150,7 @@ export class MemStorage implements StorageInterface {
       },
       {
         username: "seller1",
-        email: "seller1@elegantcommerce.com", 
+        email: "seller1@eliteshop.com", 
         password: "Seller123!",
         role: "seller",
         firstName: "Elite",
@@ -166,7 +166,7 @@ export class MemStorage implements StorageInterface {
       },
       {
         username: "customer1",
-        email: "customer1@elegantcommerce.com",
+        email: "customer1@eliteshop.com",
         password: "Customer123!",
         role: "customer",
         firstName: "Ali",
@@ -230,7 +230,7 @@ export class MemStorage implements StorageInterface {
       },
       {
         username: "customer2",
-        email: "customer2@elegantcommerce.com",
+        email: "customer2@eliteshop.com",
         password: "Customer456!",
         role: "customer",
         firstName: "Ayşe",
@@ -246,7 +246,7 @@ export class MemStorage implements StorageInterface {
       },
       {
         username: "vipcustomer",
-        email: "vip@elegantcommerce.com",
+        email: "vip@eliteshop.com",
         password: "VipCustomer789!",
         role: "customer",
         firstName: "Mehmet",

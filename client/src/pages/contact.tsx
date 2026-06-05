@@ -152,7 +152,7 @@ export default function ContactPage() {
       case 'support':
         return 'kuzun5675@gmail.com'; // Müşteri ilişkileri
       default:
-        return 'info@elegantcommerce.com';
+        return 'info@eliteshop.com';
     }
   };
 
@@ -166,7 +166,7 @@ export default function ContactPage() {
               Bizimle İletişime Geçin
             </h1>
             <p className="text-xl text-primary-100 leading-relaxed">
-              ElegantCommerce ekibi olarak sorularınızı yanıtlamak ve size yardımcı olmak için buradayız. 
+              EliteShop ekibi olarak sorularınızı yanıtlamak ve size yardımcı olmak için buradayız. 
               Projeleriniz için en iyi çözümleri birlikte bulalım.
             </p>
           </div>
@@ -314,7 +314,7 @@ export default function ContactPage() {
                   <Mail className="w-5 h-5 text-primary-600 mt-1" />
                   <div>
                     <h3 className="font-semibold text-gray-900">Genel İletişim</h3>
-                    <p className="text-gray-600">info@elegantcommerce.com</p>
+                    <p className="text-gray-600">info@eliteshop.com</p>
                   </div>
                 </div>
               </CardContent>
@@ -352,7 +352,7 @@ export default function ContactPage() {
               Ekibimiz
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ElegantCommerce'i hayata geçiren uzman kurucu ortaklarımız ve geliştiricilerimizle tanışın.
+              EliteShop'i hayata geçiren uzman kurucu ortaklarımız ve geliştiricilerimizle tanışın.
             </p>
           </div>
 

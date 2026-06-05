@@ -106,7 +106,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">✉️</div>
-                <span className="text-gray-400">info@elegantcommerce.com</span>
+                <span className="text-gray-400">info@eliteshop.com</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-5 h-5 text-primary-500">🕒</div>

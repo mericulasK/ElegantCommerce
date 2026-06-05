@@ -1,4 +1,4 @@
-# 🔐 ElegantCommerce - Demo Test Hesapları
+# 🔐 EliteShop - Demo Test Hesapları
 
 Bu dokümanda sitenizin test edilmesi için kullanılabilecek demo hesap bilgileri bulunmaktadır.
 
@@ -11,19 +11,19 @@ Bu dokümanda sitenizin test edilmesi için kullanılabilecek demo hesap bilgile
 ### API Test Komutları:
 ```bash
 # Admin giriş testi
-curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@elegantcommerce.com","password":"Admin123!"}'
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"admin@EliteShop.com","password":"Admin123!"}'
 
 # Seller giriş testi  
-curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"seller1@elegantcommerce.com","password":"Seller123!"}'
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"seller1@EliteShop.com","password":"Seller123!"}'
 
 # Customer giriş testi
-curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"customer1@elegantcommerce.com","password":"Customer123!"}'
+curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/json" -d '{"email":"customer1@EliteShop.com","password":"Customer123!"}'
 ```
 
 ## 👑 Admin Hesabı
 
 ### **Admin - Sistem Yöneticisi**
-- **Email**: `admin@elegantcommerce.com`
+- **Email**: `admin@EliteShop.com`
 - **Şifre**: `Admin123!`
 - **Rol**: Admin
 - **✅ Durum**: Aktif ve Çalışıyor
@@ -40,7 +40,7 @@ curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/
 ## 👨‍💼 Seller (Satıcı) Hesapları
 
 ### **Seller 1 - Onaylanmış Satıcı**
-- **Email**: `seller1@elegantcommerce.com`
+- **Email**: `seller1@EliteShop.com`
 - **Şifre**: `Seller123!`
 - **Ad Soyad**: `Elite Designer`
 - **Firma**: `EliteDesign Store`
@@ -58,7 +58,7 @@ curl -X POST http://localhost:3001/api/auth/login -H "Content-Type: application/
 ## 👨‍👩‍👧‍👦 Customer (Müşteri) Hesapları
 
 ### **Customer 1 - Aktif Müşteri**
-- **Email**: `customer1@elegantcommerce.com`
+- **Email**: `customer1@EliteShop.com`
 - **Şifre**: `Customer123!`
 - **Ad Soyad**: `Ali Yılmaz`
 - **Rol**: Customer
@@ -161,14 +161,14 @@ npm run dev  # Projeyi çalıştırın
 - **Özellikler**: Geçmiş siparişleri olan aktif müşteri
 
 ### **Customer 2 - Yeni Müşteri**
-- **Email**: `customer2@elegantcommerce.com`
+- **Email**: `customer2@EliteShop.com`
 - **Şifre**: `Customer456!`
 - **Ad Soyad**: `Ayşe Demir`
 - **Rol**: Customer
 - **Özellikler**: Yeni kayıt olan müşteri
 
 ### **Customer 3 - VIP Müşteri**
-- **Email**: `vip@elegantcommerce.com`
+- **Email**: `vip@EliteShop.com`
 - **Şifre**: `VipCustomer789!`
 - **Ad Soyad**: `Mehmet Kaya`
 - **Rol**: Customer
@@ -270,9 +270,10 @@ Bu hesaplar aşağıdaki şekilde database'e eklenmelidir:
 
 Demo hesaplarla ilgili sorunlar için:
 - **Email**: mericulas1@gmail.com
-- **GitHub**: [ElegantCommerce Repository](https://github.com/mericulasK/ElegantCommerce)
+- **GitHub**: [EliteShop Repository](https://github.com/mericulasK/EliteShop)
 
 ---
 
 **Son Güncelleme**: 23 Temmuz 2025
 **Versiyon**: 1.2.0
+

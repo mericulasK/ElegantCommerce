@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ElegantCommerce will be documented in this file.
+All notable changes to EliteShop will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -132,9 +132,9 @@ npm run prod:status    # Check server status
 - ✅ **Site Access**: http://localhost:3001 - OPERATIONAL
 - ✅ **API Endpoints**: All endpoints responding correctly
 - ✅ **Authentication**: Login/logout functioning perfectly
-  - Admin: `admin@elegantcommerce.com` / `Admin123!` ✓
-  - Seller: `seller1@elegantcommerce.com` / `Seller123!` ✓  
-  - Customer: `customer1@elegantcommerce.com` / `Customer123!` ✓
+  - Admin: `admin@EliteShop.com` / `Admin123!` ✓
+  - Seller: `seller1@EliteShop.com` / `Seller123!` ✓  
+  - Customer: `customer1@EliteShop.com` / `Customer123!` ✓
 - ✅ **Product Catalog**: 12 products loading with full details
 - ✅ **Categories**: 6 categories functional and responsive
 - ✅ **Admin Dashboard**: Full access and management capabilities
@@ -150,7 +150,7 @@ npm run prod:status    # Check server status
 
 ### 📊 Production Monitoring
 - **Real-time Status**: `pm2 status` - instant process overview
-- **Live Logs**: `pm2 logs elegant-commerce` - real-time log streaming
+- **Live Logs**: `pm2 logs elite-shop` - real-time log streaming
 - **Resource Monitoring**: `pm2 monit` - CPU and memory usage
 - **Process Management**: Start, stop, restart commands available
 - **Log Files**: Persistent logging in `./logs/` directory
@@ -330,9 +330,9 @@ API Response Structure:
 
 ### 🎯 Demo Accounts System
 - **Added**: 4 functional demo accounts for testing:
-  - Admin: `admin@elegantcommerce.com` / `Admin123!`
-  - Seller: `seller1@elegantcommerce.com` / `Seller123!`
-  - Customer: `customer1@elegantcommerce.com` / `Customer123!`
+  - Admin: `admin@EliteShop.com` / `Admin123!`
+  - Seller: `seller1@EliteShop.com` / `Seller123!`
+  - Customer: `customer1@EliteShop.com` / `Customer123!`
   - Test Admin: `testadmin@test.com` / `TestAdmin123!`
 - **Verified**: All demo accounts tested via API and frontend
 - **Enabled**: New user registration from frontend interface
@@ -487,7 +487,7 @@ API Response Structure:
 - **COMPLETED**: Full-stack e-commerce platform with dual backend architecture
 - **STATUS**: All major components implemented and fully functional
 - **BUILD**: Production builds successful (3190 modules, 297KB gzipped)
-- **TESTING**: Zero TypeScript errors, all components tested and verifiedll notable changes to ElegantCommerce will be documented in this file.
+- **TESTING**: Zero TypeScript errors, all components tested and verifiedll notable changes to EliteShop will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -633,10 +633,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 📞 Support
 
 For questions about releases or to report issues:
-- 🐛 [Report Issues](https://github.com/mericulasK/ElegantCommerce/issues)
-- 💬 [Discussions](https://github.com/mericulasK/ElegantCommerce/discussions)
+- 🐛 [Report Issues](https://github.com/mericulasK/EliteShop/issues)
+- 💬 [Discussions](https://github.com/mericulasK/EliteShop/discussions)
 - 📧 [Contact](mailto:mericulas1@gmail.com)
 
 ---
 
-**ElegantCommerce** - Building the future of e-commerce, one release at a time. 🛍️
+**EliteShop** - Building the future of e-commerce, one release at a time. 🛍️
+

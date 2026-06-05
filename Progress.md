@@ -1,4 +1,4 @@
-# ElegantCommerce - Development Progress
+# EliteShop - Development Progress
 
 ## 🎯 Project Status: PRODUCTION READY WITH BUSINESS PAGES ✅
 
@@ -12,7 +12,7 @@
 - **Contact Us**: http://localhost:3001/contact *(NEW - Team directory & contact form)*
 - **Admin Dashboard**: http://localhost:3001/admin
 - **Seller Dashboard**: http://localhost:3001/seller
-- **GitHub Repository**: https://github.com/mericulasK/ElegantCommerce
+- **GitHub Repository**: https://github.com/mericulasK/EliteShop
 
 ## 🧹 Latest Updates (July 23, 2025)
 - 🧹 **CLEANUP**: Removed 130+ build artifacts from git tracking
@@ -325,7 +325,7 @@
 
 ### Production Environment ✅
 - **Status**: Live and Operational
-- **URL**: https://elegantcommerce.replit.app
+- **URL**: https://EliteShop.replit.app
 - **Uptime**: 99.9%
 - **Performance**: Optimized for speed and reliability
 
@@ -363,6 +363,7 @@
 **Status**: ✅ **LIVE IN PRODUCTION**
 
 ### 🚀 Quick Access
-- **Live Site**: [https://elegantcommerce.replit.app](https://elegantcommerce.replit.app)
+- **Live Site**: [https://EliteShop.replit.app](https://EliteShop.replit.app)
 - **API Docs**: [https://elite-shop-api.azurewebsites.net/swagger](https://elite-shop-api.azurewebsites.net/swagger)
-- **GitHub**: [https://github.com/mericulasK/ElegantCommerce](https://github.com/mericulasK/ElegantCommerce)
+- **GitHub**: [https://github.com/mericulasK/EliteShop](https://github.com/mericulasK/EliteShop)
+

@@ -1,5 +1,5 @@
 @echo off
-echo Starting ElegantCommerce Production Server...
+echo Starting EliteShop Production Server...
 cd /d "d:\Visual Studio_Projects\ElegantCommerce"
 
 REM Kill any existing processes on port 3001
@@ -24,7 +24,7 @@ echo Restoring PM2 processes...
 pm2 resurrect
 
 REM Start the application if not already running
-echo Starting ElegantCommerce...
+echo Starting EliteShop...
 pm2 start ecosystem.config.js --env production
 
 REM Show status
@@ -32,7 +32,7 @@ echo.
 echo Production server status:
 pm2 status
 echo.
-echo ElegantCommerce is now running at http://localhost:3001
+echo EliteShop is now running at http://localhost:3001
 echo Logs location: ./logs/
 echo.
 echo To stop: npm run prod:stop

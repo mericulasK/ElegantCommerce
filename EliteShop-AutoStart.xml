@@ -2,8 +2,8 @@
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
     <Date>2025-07-24T05:37:00</Date>
-    <Author>ElegantCommerce</Author>
-    <Description>ElegantCommerce e-ticaret platformunun Windows başlangıcında otomatik olarak başlatılması</Description>
+    <Author>EliteShop</Author>
+    <Description>EliteShop e-ticaret platformunun Windows başlangıcında otomatik olarak başlatılması</Description>
   </RegistrationInfo>
   <Triggers>
     <BootTrigger>

@@ -1,5 +1,5 @@
 {
-  "name": "elegant-commerce",
+  "name": "elite-shop",
   "version": "1.2.2",
   "type": "module",
   "license": "MIT",
@@ -12,19 +12,19 @@
     "db:push": "drizzle-kit push",
     "prod:build": "npm run build",
     "prod:start": "pm2 start ecosystem.config.cjs --env production",
-    "prod:stop": "pm2 stop elegant-commerce",
-    "prod:restart": "pm2 restart elegant-commerce",
-    "prod:logs": "pm2 logs elegant-commerce",
+    "prod:stop": "pm2 stop elite-shop",
+    "prod:restart": "pm2 restart elite-shop",
+    "prod:logs": "pm2 logs elite-shop",
     "prod:status": "pm2 status",
-    "prod:delete": "pm2 delete elegant-commerce",
-    "prod:reload": "pm2 reload elegant-commerce",
+    "prod:delete": "pm2 delete elite-shop",
+    "prod:reload": "pm2 reload elite-shop",
     "prod:auto": "startup-windows.bat",
     "prod:save": "pm2 save",
     "prod:resurrect": "pm2 resurrect",
     "windows:setup": "setup-windows-service.bat",
     "windows:start": "startup-windows.bat",
-    "windows:status": "schtasks /query /tn \"ElegantCommerce Auto-Start\"",
-    "windows:remove": "schtasks /delete /tn \"ElegantCommerce Auto-Start\" /f"
+    "windows:status": "schtasks /query /tn \"EliteShop Auto-Start\"",
+    "windows:remove": "schtasks /delete /tn \"EliteShop Auto-Start\" /f"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

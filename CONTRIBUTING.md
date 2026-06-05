@@ -1,6 +1,6 @@
-# Contributing to ElegantCommerce
+# Contributing to EliteShop
 
-Thank you for your interest in contributing to ElegantCommerce! We welcome contributions from the community and are pleased to have you join us.
+Thank you for your interest in contributing to EliteShop! We welcome contributions from the community and are pleased to have you join us.
 
 **Team Contact**: For major contributions or questions, please contact our co-founders:
 - **Technical**: Ömer Sadık Uysal (CTO) - omersadikuysal09@gmail.com
@@ -28,12 +28,12 @@ This project and everyone participating in it is governed by our Code of Conduct
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/ElegantCommerce.git
-   cd ElegantCommerce
+   git clone https://github.com/YOUR_USERNAME/EliteShop.git
+   cd EliteShop
    ```
 3. **Add the upstream repository**:
    ```bash
-   git remote add upstream https://github.com/mericulasK/ElegantCommerce.git
+   git remote add upstream https://github.com/mericulasK/EliteShop.git
    ```
 
 ## 🛠️ Development Setup
@@ -263,4 +263,5 @@ Contributors will be recognized in:
 - Release notes for significant contributions
 - Project documentation
 
-Thank you for contributing to ElegantCommerce! 🛍️
+Thank you for contributing to EliteShop! 🛍️
+

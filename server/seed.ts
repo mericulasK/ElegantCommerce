@@ -14,7 +14,7 @@ export async function seedDatabase() {
   const demoUsers = [
     {
       username: "admin",
-      email: "admin@elegantcommerce.com",
+      email: "admin@eliteshop.com",
       password: "Admin123!",
       role: "admin" as const,
       firstName: "System",
@@ -22,7 +22,7 @@ export async function seedDatabase() {
     },
     {
       username: "seller1",
-      email: "seller1@elegantcommerce.com", 
+      email: "seller1@eliteshop.com", 
       password: "Seller123!",
       role: "seller" as const,
       firstName: "Elite",
@@ -32,7 +32,7 @@ export async function seedDatabase() {
     },
     {
       username: "seller2", 
-      email: "seller2@elegantcommerce.com",
+      email: "seller2@eliteshop.com",
       password: "Seller456!",
       role: "seller" as const,
       firstName: "Fashion",
@@ -42,7 +42,7 @@ export async function seedDatabase() {
     },
     {
       username: "customer1",
-      email: "customer1@elegantcommerce.com",
+      email: "customer1@eliteshop.com",
       password: "Customer123!",
       role: "customer" as const,
       firstName: "Ali",
@@ -50,7 +50,7 @@ export async function seedDatabase() {
     },
     {
       username: "customer2",
-      email: "customer2@elegantcommerce.com", 
+      email: "customer2@eliteshop.com", 
       password: "Customer456!",
       role: "customer" as const,
       firstName: "Ayşe",
@@ -58,7 +58,7 @@ export async function seedDatabase() {
     },
     {
       username: "vipcustomer",
-      email: "vip@elegantcommerce.com",
+      email: "vip@eliteshop.com",
       password: "VipCustomer789!",
       role: "customer" as const,
       firstName: "Mehmet",

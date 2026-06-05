@@ -1,8 +1,8 @@
-# ElegantCommerce - AI Agent Instructions
+# EliteShop - AI Agent Instructions
 
 ## Architecture Overview
 
-**ElegantCommerce** is a full-stack e-commerce platform with **unified backend architecture**:
+**EliteShop** is a full-stack e-commerce platform with **unified backend architecture**:
 - **Frontend**: React 18 + TypeScript with Vite, using Wouter routing and TanStack Query
 - **Node.js Backend**: Express + Drizzle ORM + PostgreSQL for rapid development
 - **C# Backend**: .NET 8 Web API (EliteShopAPI) + Entity Framework Core + SQL Server for enterprise features
@@ -11,7 +11,7 @@
 
 ### Project Structure
 ```
-ElegantCommerce/
+EliteShop/
 ├── client/src/               # React frontend
 │   ├── components/ui/        # shadcn/ui components (DON'T modify directly)  
 │   ├── pages/               # Route components
@@ -146,3 +146,4 @@ const { addToCart, items, getCartTotal } = useCart();
 - **API Logs**: Check terminal output for request/response logging
 - **Database**: Use Drizzle Studio or Azure Data Studio
 - **Authentication**: Verify JWT tokens in browser DevTools → Application → Local Storage
+

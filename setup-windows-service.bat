@@ -1,9 +1,9 @@
 @echo off
-REM ElegantCommerce Windows Service Setup Script
+REM EliteShop Windows Service Setup Script
 REM Run this script as Administrator to setup auto-startup
 
 echo ================================================================
-echo ElegantCommerce Windows Auto-Start Setup
+echo EliteShop Windows Auto-Start Setup
 echo ================================================================
 echo.
 
@@ -16,20 +16,20 @@ if %errorLevel% neq 0 (
     exit /b 1
 )
 
-echo Setting up auto-start for ElegantCommerce...
+echo Setting up auto-start for EliteShop...
 echo.
 
 REM Create the task using schtasks command
-schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
+schtasks /create /tn "EliteShop Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
 
 if %errorlevel% equ 0 (
     echo ✅ Auto-start task created successfully!
     echo.
-    echo ElegantCommerce will now automatically start when Windows boots.
+    echo EliteShop will now automatically start when Windows boots.
     echo The application will be available at http://localhost:3001
     echo.
-    echo To disable auto-start: schtasks /delete /tn "ElegantCommerce Auto-Start" /f
-    echo To view task status: schtasks /query /tn "ElegantCommerce Auto-Start"
+    echo To disable auto-start: schtasks /delete /tn "EliteShop Auto-Start" /f
+    echo To view task status: schtasks /query /tn "EliteShop Auto-Start"
 ) else (
     echo ❌ Failed to create auto-start task!
     echo Please check the error message above and try again.

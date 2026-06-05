@@ -1,4 +1,4 @@
-# ElegantCommerce - Production Deployment Guide
+# EliteShop - Production Deployment Guide
 
 ## 🌐 Live Deployment Status
 
@@ -27,9 +27,9 @@ stop-production.bat    # Stop production server
 ### PM2 Process Management
 ```bash
 pm2 status              # Check server status  
-pm2 logs elegant-commerce  # View real-time logs
-pm2 restart elegant-commerce  # Restart server
-pm2 stop elegant-commerce     # Stop server
+pm2 logs elite-shop  # View real-time logs
+pm2 restart elite-shop  # Restart server
+pm2 stop elite-shop     # Stop server
 pm2 monit              # Real-time monitoring
 ```
 
@@ -38,7 +38,7 @@ pm2 monit              # Real-time monitoring
 ### Option 1: Task Scheduler (Recommended)
 ```bash
 # Run as Administrator
-schtasks /create /tn "ElegantCommerce" /xml "ElegantCommerce-AutoStart.xml"
+schtasks /create /tn "EliteShop" /xml "EliteShop-AutoStart.xml"
 ```
 
 ### Option 2: Startup Folder
@@ -257,7 +257,7 @@ VITE_ENABLE_ANIMATIONS=true
 
 ## 🎉 Production Status Summary
 
-**ElegantCommerce** şu anda %100 production-ready durumda ve canlı olarak hizmet vermektedir!
+**EliteShop** şu anda %100 production-ready durumda ve canlı olarak hizmet vermektedir!
 
 ### ✅ Completed Features
 - Full-stack e-commerce platform
@@ -271,8 +271,8 @@ VITE_ENABLE_ANIMATIONS=true
 - Performance optimized
 
 ### 🌐 Live Access
-- **Main Site**: https://elegantcommerce.replit.app
+- **Main Site**: https://EliteShop.replit.app
 - **API Documentation**: https://elite-shop-api.azurewebsites.net/swagger
-- **Admin Panel**: https://elegantcommerce.replit.app/admin
+- **Admin Panel**: https://EliteShop.replit.app/admin
 
 **Status**: ✅ **LIVE AND OPERATIONAL** 🚀

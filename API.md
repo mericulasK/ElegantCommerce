@@ -1,9 +1,9 @@
-# ElegantCommerce API Documentation
+# EliteShop API Documentation
 
 ## 🌐 Base URLs
 
 ### Production
-- **Main API**: `https://elegantcommerce.replit.app/api`
+- **Main API**: `https://EliteShop.replit.app/api`
 - **.NET API**: `https://elite-shop-api.azurewebsites.net/api`
 - **Documentation**: `https://elite-shop-api.azurewebsites.net/swagger`
 
@@ -30,7 +30,7 @@ POST /api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@elegantcommerce.com",
+  "email": "admin@EliteShop.com",
   "password": "Admin123!"
 }
 ```
@@ -41,7 +41,7 @@ POST /api/auth/login
 Content-Type: application/json
 
 {
-  "email": "seller1@elegantcommerce.com", 
+  "email": "seller1@EliteShop.com", 
   "password": "Seller123!"
 }
 ```
@@ -52,7 +52,7 @@ POST /api/auth/login
 Content-Type: application/json
 
 {
-  "email": "customer1@elegantcommerce.com",
+  "email": "customer1@EliteShop.com",
   "password": "Customer123!"
 }
 ```
@@ -357,10 +357,10 @@ GET /api/products?search=wireless%20headphones
 
 ### JavaScript/TypeScript SDK
 ```javascript
-import { ElegantCommerceAPI } from '@elegantcommerce/sdk';
+import { EliteShopAPI } from '@EliteShop/sdk';
 
-const api = new ElegantCommerceAPI({
-  baseURL: 'https://elegantcommerce.replit.app/api',
+const api = new EliteShopAPI({
+  baseURL: 'https://EliteShop.replit.app/api',
   apiKey: 'your-api-key'
 });
 
@@ -374,7 +374,7 @@ const products = await api.products.getAll({
 
 ### Postman Collection
 Import our Postman collection for easy API testing:
-- [Download Collection](https://github.com/mericulasK/ElegantCommerce/blob/main/postman-collection.json)
+- [Download Collection](https://github.com/mericulasK/EliteShop/blob/main/postman-collection.json)
 
 ---
 
@@ -382,9 +382,10 @@ Import our Postman collection for easy API testing:
 
 For API support and questions:
 - 📚 [Full Documentation](https://elite-shop-api.azurewebsites.net/swagger)
-- 🐛 [Report Issues](https://github.com/mericulasK/ElegantCommerce/issues)
-- 💬 [API Discussions](https://github.com/mericulasK/ElegantCommerce/discussions)
+- 🐛 [Report Issues](https://github.com/mericulasK/EliteShop/issues)
+- 💬 [API Discussions](https://github.com/mericulasK/EliteShop/discussions)
 
 ---
 
-**ElegantCommerce API** - Powering modern e-commerce experiences. 🚀
+**EliteShop API** - Powering modern e-commerce experiences. 🚀
+

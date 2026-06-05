@@ -1,11 +1,11 @@
-# ElegantCommerce Production Startup Scripts
+# EliteShop Production Startup Scripts
 
 ## Windows Batch Scripts for Automatic Startup
 
 ### 1. Build and Start Production Server
 @echo off
-echo Building ElegantCommerce for production...
-cd /d "d:\Visual Studio_Projects\ElegantCommerce"
+echo Building EliteShop for production...
+cd /d "d:\Visual Studio_Projects\EliteShop"
 call npm run build
 if %errorlevel% neq 0 (
     echo Build failed!
@@ -21,41 +21,42 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-echo ElegantCommerce is now running on http://localhost:3001
+echo EliteShop is now running on http://localhost:3001
 echo Use 'pm2 status' to check status
-echo Use 'pm2 logs elegant-commerce' to view logs
-echo Use 'pm2 stop elegant-commerce' to stop
+echo Use 'pm2 logs elite-shop' to view logs
+echo Use 'pm2 stop elite-shop' to stop
 pause
 
 ### 2. Quick Start (if already built)
 @echo off
-echo Starting ElegantCommerce with PM2...
-cd /d "d:\Visual Studio_Projects\ElegantCommerce"
+echo Starting EliteShop with PM2...
+cd /d "d:\Visual Studio_Projects\EliteShop"
 call pm2 start ecosystem.config.js --env production
-echo ElegantCommerce is running on http://localhost:3001
+echo EliteShop is running on http://localhost:3001
 pause
 
 ### 3. Stop Production Server
 @echo off
-echo Stopping ElegantCommerce...
-call pm2 stop elegant-commerce
+echo Stopping EliteShop...
+call pm2 stop elite-shop
 echo Server stopped.
 pause
 
 ### 4. Restart Production Server
 @echo off
-echo Restarting ElegantCommerce...
-call pm2 restart elegant-commerce
+echo Restarting EliteShop...
+call pm2 restart elite-shop
 echo Server restarted.
 pause
 
 ### 5. View Logs
 @echo off
-echo Viewing ElegantCommerce logs...
-call pm2 logs elegant-commerce
+echo Viewing EliteShop logs...
+call pm2 logs elite-shop
 
 ### 6. Status Check
 @echo off
-echo Checking ElegantCommerce status...
+echo Checking EliteShop status...
 call pm2 status
 pause
+

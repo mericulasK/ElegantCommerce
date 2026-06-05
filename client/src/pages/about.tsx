@@ -46,7 +46,7 @@ export default function AboutPage() {
       name: "Meriç Ulaş Kıray",
       position: "Kurucu Ortak & Satış ve Pazarlama Direktörü",
       expertise: ["Satış Stratejisi", "Pazarlama", "Yazılım Geliştirme", "İş Geliştirme"],
-      description: "Satış ve pazarlama alanındaki köklü deneyimi ile ElegantCommerce'in büyüme stratejilerini yönlendiriyor.",
+      description: "Satış ve pazarlama alanındaki köklü deneyimi ile EliteShop'in büyüme stratejilerini yönlendiriyor.",
       avatar: "/team/meric-ulas-kiray.jpg"
     },
     {
@@ -60,7 +60,7 @@ export default function AboutPage() {
       name: "Ali Bulut",
       position: "Kurucu Ortak & Pazarlama Direktörü",
       expertise: ["Digital Marketing", "Brand Strategy", "Frontend Development", "SEO/SEM"],
-      description: "Dijital pazarlama uzmanlığı ve marka stratejileri ile ElegantCommerce'in online varlığını güçlendiriyor.",
+      description: "Dijital pazarlama uzmanlığı ve marka stratejileri ile EliteShop'in online varlığını güçlendiriyor.",
       avatar: "/team/ali-bulut.jpg"
     },
     {
@@ -125,7 +125,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold font-serif mb-6">
-              ElegantCommerce Hakkında
+              EliteShop Hakkında
             </h1>
             <p className="text-xl text-primary-100 leading-relaxed mb-8">
               E-ticaretin geleceğini şekillendiren, teknoloji ve inovasyonu bir araya getiren 
@@ -160,7 +160,7 @@ export default function AboutPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                  ElegantCommerce olarak, işletmelerin dijital dönüşüm yolculuğunda en güvenilir 
+                  EliteShop olarak, işletmelerin dijital dönüşüm yolculuğunda en güvenilir 
                   ortağı olmayı hedefliyoruz. Modern teknolojiler ve kullanıcı odaklı tasarım 
                   anlayışı ile e-ticaret platformlarının potansiyelini en üst seviyeye çıkarıyoruz.
                 </p>
@@ -220,7 +220,7 @@ export default function AboutPage() {
               Değerlerimiz
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ElegantCommerce'i ayakta tutan temel değerler ve ilkelerimiz
+              EliteShop'i ayakta tutan temel değerler ve ilkelerimiz
             </p>
           </div>
 
@@ -246,7 +246,7 @@ export default function AboutPage() {
               Kurucu Ortaklarımız
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ElegantCommerce'i hayata geçiren uzman kurucu ortaklarımız ve liderlik ekibimiz
+              EliteShop'i hayata geçiren uzman kurucu ortaklarımız ve liderlik ekibimiz
             </p>
           </div>
 

@@ -1,7 +1,7 @@
 export default {
   apps: [
     {
-      name: 'elegant-commerce',
+      name: 'elite-shop',
       script: 'dist/index.js',
       cwd: process.cwd(),
       instances: 1,
@@ -54,7 +54,7 @@ export default {
       user: 'node',
       host: 'localhost',
       ref: 'origin/main',
-      repo: 'git@github.com:mericulasK/ElegantCommerce.git',
+      repo: 'git@github.com:mericulasK/EliteShop.git',
       path: '/var/www/production',
       'pre-deploy-local': '',
       'post-deploy': 'npm install && npm run build && pm2 reload ecosystem.config.js --env production',

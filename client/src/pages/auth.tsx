@@ -109,7 +109,7 @@ export default function AuthPage() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Welcome to ElegantCommerce
+            Welcome to EliteShop
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Your premium shopping destination
@@ -173,7 +173,7 @@ export default function AuthPage() {
               <CardHeader>
                 <CardTitle>Create your account</CardTitle>
                 <CardDescription>
-                  Join ElegantCommerce as a customer or seller
+                  Join EliteShop as a customer or seller
                 </CardDescription>
               </CardHeader>
               <CardContent>

@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'elegant-commerce',
+      name: 'elite-shop',
       script: 'dist/index.js',
       cwd: __dirname,
       instances: 1,

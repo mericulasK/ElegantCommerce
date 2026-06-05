@@ -1,4 +1,4 @@
-# ElegantCommerce Auto-Start PowerShell Script
+# EliteShop Auto-Start PowerShell Script
 # This script automatically starts the application when Windows boots
 
 param(
@@ -14,7 +14,7 @@ function Write-Log {
 }
 
 try {
-    Write-Log "Starting ElegantCommerce Auto-Startup..."
+    Write-Log "Starting EliteShop Auto-Startup..."
     
     # Set working directory
     Set-Location "D:\Visual Studio_Projects\ElegantCommerce"
@@ -63,8 +63,8 @@ try {
     Write-Log "Restoring PM2 processes..."
     $null = & pm2 resurrect 2>&1
     
-    # Start ElegantCommerce application
-    Write-Log "Starting ElegantCommerce..."
+    # Start EliteShop application
+    Write-Log "Starting EliteShop..."
     $null = & pm2 start ecosystem.config.cjs --env production 2>&1
     
     # Save PM2 configuration
@@ -75,7 +75,7 @@ try {
     try {
         $response = Invoke-WebRequest -Uri "http://localhost:3001" -UseBasicParsing -TimeoutSec 30
         if ($response.StatusCode -eq 200) {
-            Write-Log "ElegantCommerce successfully started!"
+            Write-Log "EliteShop successfully started!"
             Write-Log "Application is accessible at http://localhost:3001"
         } else {
             Write-Log "Warning: Application responded with status code $($response.StatusCode)"

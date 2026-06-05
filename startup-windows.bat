@@ -1,8 +1,8 @@
 @echo off
-REM ElegantCommerce Auto-Start Script for Windows Startup
+REM EliteShop Auto-Start Script for Windows Startup
 REM This script automatically starts the application when Windows boots
 
-echo [%date% %time%] Starting ElegantCommerce Auto-Startup...
+echo [%date% %time%] Starting EliteShop Auto-Startup...
 
 REM Set working directory
 cd /d "D:\Visual Studio_Projects\ElegantCommerce"
@@ -41,8 +41,8 @@ REM Restore any saved PM2 processes
 echo Restoring PM2 processes...
 pm2 resurrect >nul 2>&1
 
-REM Start ElegantCommerce application
-echo Starting ElegantCommerce...
+REM Start EliteShop application
+echo Starting EliteShop...
 pm2 start ecosystem.config.cjs --env production >nul 2>&1
 
 REM Save PM2 configuration
@@ -55,7 +55,7 @@ set /p response_code=<response_code.tmp
 del response_code.tmp
 
 if "%response_code%"=="200" (
-    echo [%date% %time%] ElegantCommerce successfully started!
+    echo [%date% %time%] EliteShop successfully started!
     echo Application is accessible at http://localhost:3001
 ) else (
     echo [%date% %time%] Warning: Application may not be responding correctly

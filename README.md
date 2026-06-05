@@ -1,6 +1,6 @@
-# 🛍️ ElegantCommerce - Complete E-Commerce Platform
+# 🛍️ EliteShop - Complete E-Commerce Platform
 
-![ElegantCommerce](https://img.shields.io/badge/ElegantCommerce-E--commerce%20Platform-blue)
+![EliteShop](https://img.shields.io/badge/EliteShop-E--commerce%20Platform-blue)
 ![React](https://img.shields.io/badge/React-18.3.1-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.6.3-blue)
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green)
@@ -28,7 +28,7 @@
 **⚡ HEALTH MONITORING**: Real-time health checks and performance monitoring  
 **🔧 ROBUST BACKEND**: RESTful API with enhanced proxy handling and CORS support
 
-ElegantCommerce is a comprehensive, full-stack e-commerce platform that delivers complete marketplace functionality with seller management, admin oversight, customer shopping experience, and **24/7 uptime guarantee**. Built with modern technologies and designed for scalability with enhanced reliability features.
+EliteShop is a comprehensive, full-stack e-commerce platform that delivers complete marketplace functionality with seller management, admin oversight, customer shopping experience, and **24/7 uptime guarantee**. Built with modern technologies and designed for scalability with enhanced reliability features.
 
 ---
 
@@ -44,21 +44,21 @@ ElegantCommerce is a comprehensive, full-stack e-commerce platform that delivers
 
 #### � **ADMIN ACCESS**
 ```
-Email: admin@elegantcommerce.com
+Email: admin@EliteShop.com
 Password: Admin123!
 Features: System management, user oversight, analytics
 ```
 
 #### 🏪 **SELLER ACCESS**  
 ```
-Email: seller1@elegantcommerce.com
+Email: seller1@EliteShop.com
 Password: Seller123!
 Features: Product management, order processing, business analytics
 ```
 
 #### 🛍️ **CUSTOMER ACCESS**
 ```
-Email: customer1@elegantcommerce.com  
+Email: customer1@EliteShop.com  
 Password: Customer123!
 Features: Shopping, ordering, reviews, order tracking
 ```
@@ -131,7 +131,7 @@ npm run prod:resurrect # Restore saved processes
 npm run windows:setup
 
 # 2. Manual task creation
-schtasks /create /tn "ElegantCommerce Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\ElegantCommerce\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
+schtasks /create /tn "EliteShop Auto-Start" /tr "powershell.exe -ExecutionPolicy Bypass -File \"D:\Visual Studio_Projects\EliteShop\startup-windows.ps1\"" /sc onstart /ru SYSTEM /rl HIGHEST /delay 0002:00
 
 # 3. Test auto-start manually
 npm run windows:start
@@ -242,8 +242,8 @@ npm run windows:status
 
 1. **Clone and install**
    ```bash
-   git clone https://github.com/mericulasK/ElegantCommerce.git
-   cd ElegantCommerce
+   git clone https://github.com/mericulasK/EliteShop.git
+   cd EliteShop
    npm install
    ```
 
@@ -353,9 +353,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **🌟 Project Completed Successfully! 🌟**
 
-**ElegantCommerce - A comprehensive e-commerce solution ready for production use**
+**EliteShop - A comprehensive e-commerce solution ready for production use**
 
-[![GitHub](https://img.shields.io/badge/GitHub-mericulasK%2FElegantCommerce-blue?logo=github)](https://github.com/mericulasK/ElegantCommerce)
+[![GitHub](https://img.shields.io/badge/GitHub-mericulasK%2FEliteShop-blue?logo=github)](https://github.com/mericulasK/EliteShop)
 
 </div>
 
@@ -448,7 +448,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📁 Project Structure
 
 ```
-ElegantCommerce/
+EliteShop/
 ├── client/                 # Frontend React application
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
@@ -464,7 +464,7 @@ ElegantCommerce/
 ## 📁 Project Structure
 
 ```
-ElegantCommerce/
+EliteShop/
 ├── client/                 # Frontend React application
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
@@ -498,8 +498,8 @@ ElegantCommerce/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mericulasK/ElegantCommerce.git
-   cd ElegantCommerce
+   git clone https://github.com/mericulasK/EliteShop.git
+   cd EliteShop
    ```
 
 2. **Install dependencies**
@@ -536,8 +536,8 @@ npm run db:push      # Push database schema changes
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mericulasK/ElegantCommerce.git
-   cd ElegantCommerce
+   git clone https://github.com/mericulasK/EliteShop.git
+   cd EliteShop
    ```
 
 2. **Install dependencies**
@@ -704,7 +704,7 @@ The application provides comprehensive REST API endpoints:
 
 ## 🚀 Live Application
 
-The ElegantCommerce platform is fully functional and ready for use:
+The EliteShop platform is fully functional and ready for use:
 
 - **Homepage**: Modern product catalog with filtering
 - **Admin Panel** (`/admin`): Complete administrative interface
@@ -716,8 +716,8 @@ The ElegantCommerce platform is fully functional and ready for use:
 ### Local Development
 ```bash
 # Clone and install
-git clone https://github.com/mericulasK/ElegantCommerce.git
-cd ElegantCommerce
+git clone https://github.com/mericulasK/EliteShop.git
+cd EliteShop
 npm install
 
 # Start development server
@@ -768,7 +768,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🤝 Contributing
 
-We welcome contributions to ElegantCommerce! Here's how you can help:
+We welcome contributions to EliteShop! Here's how you can help:
 
 ### Development Setup
 1. Fork the repository
@@ -789,7 +789,7 @@ We welcome contributions to ElegantCommerce! Here's how you can help:
 
 ## � Team
 
-ElegantCommerce is developed and maintained by a team of experienced professionals:
+EliteShop is developed and maintained by a team of experienced professionals:
 
 ### 🚀 Co-Founders & Development Team
 
@@ -822,7 +822,7 @@ ElegantCommerce is developed and maintained by a team of experienced professiona
 - **Role**: Manages sales operations and customer relations while contributing to backend development.
 
 ### 📧 Contact Information
-- **General Inquiries**: info@elegantcommerce.com
+- **General Inquiries**: info@EliteShop.com
 - **Technical Support**: Contact CTO Ömer Sadık Uysal
 - **Sales Inquiries**: Contact Sales Directors Meriç Ulaş Kıray or Kadir Görkem Uzun
 - **Marketing**: Contact Marketing Director Ali Bulut
@@ -831,9 +831,9 @@ ElegantCommerce is developed and maintained by a team of experienced professiona
 
 ### Quick Links
 - 🌐 **Local Development**: http://localhost:3001
-- 📚 **GitHub Repository**: https://github.com/mericulasK/ElegantCommerce
-- 🐛 **Report Issues**: https://github.com/mericulasK/ElegantCommerce/issues
-- 💬 **Discussions**: https://github.com/mericulasK/ElegantCommerce/discussions
+- 📚 **GitHub Repository**: https://github.com/mericulasK/EliteShop
+- 🐛 **Report Issues**: https://github.com/mericulasK/EliteShop/issues
+- 💬 **Discussions**: https://github.com/mericulasK/EliteShop/discussions
 
 ## 📄 License
 
@@ -841,8 +841,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**ElegantCommerce** - Building the future of e-commerce, one component at a time. 🛍️
+**EliteShop** - Building the future of e-commerce, one component at a time. 🛍️
 
 **🚀 Status: Production Ready** | **� Current Version: 1.0.0** | **🗓️ Last Updated: July 2025**
 
-⭐ **[Star on GitHub](https://github.com/mericulasK/ElegantCommerce)** if you find this project useful!
+⭐ **[Star on GitHub](https://github.com/mericulasK/EliteShop)** if you find this project useful!
+
