@@ -1,10 +1,10 @@
-// Comprehensive functionality test for ElegantCommerce
+// Comprehensive functionality test for EliteShop
 import axios from 'axios';
 
 const baseURL = 'http://localhost:3001';
 
 async function testAPI() {
-  console.log('🚀 Starting ElegantCommerce functionality tests...\n');
+  console.log('🚀 Starting EliteShop functionality tests...\n');
 
   try {
     // Test 1: Basic API health
@@ -20,7 +20,7 @@ async function testAPI() {
     // Test 3: Authentication endpoints
     console.log('3. Testing authentication...');
     const authData = {
-      email: 'seller1@elegantcommerce.com',
+      email: 'seller1@eliteshop.com',
       password: 'Seller123!'
     };
     const authResponse = await axios.post(`${baseURL}/api/auth/login`, authData);
@@ -61,7 +61,7 @@ async function testAPI() {
     // Test 8: Admin functionality
     console.log('8. Testing admin functionality...');
     const adminAuth = {
-      email: 'admin@elegantcommerce.com',
+      email: 'admin@eliteshop.com',
       password: 'Admin123!'
     };
     const adminResponse = await axios.post(`${baseURL}/api/auth/login`, adminAuth);
@@ -70,7 +70,7 @@ async function testAPI() {
     // Test 9: Customer functionality
     console.log('9. Testing customer functionality...');
     const customerAuth = {
-      email: 'customer1@elegantcommerce.com',
+      email: 'customer1@eliteshop.com',
       password: 'Customer123!'
     };
     const customerResponse = await axios.post(`${baseURL}/api/auth/login`, customerAuth);
@@ -122,7 +122,7 @@ async function testAPI() {
     console.log('   ✅ Seller Statistics');
     console.log('   ✅ Multiple Seller Accounts');
     console.log('   ✅ Product CRUD Operations');
-    console.log('\n🚀 ElegantCommerce is ready for production!');
+    console.log('\n🚀 EliteShop is ready for production!');
 
   } catch (error) {
     console.error('❌ Test failed:', error.response?.data || error.message);

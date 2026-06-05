@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# ElegantCommerce Deployment Script
-echo "🚀 Starting ElegantCommerce deployment..."
+# EliteShop Deployment Script
+echo "🚀 Starting EliteShop deployment..."
 
 # Install dependencies
 echo "📦 Installing dependencies..."
